@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dosen;
-use App\Models\User;
-use App\Models\Matakuliah;
+use App\Models\SuperAdmin;
+use App\Models\Ruangan;
+use App\Models\Transaksi;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $total_dosen = Dosen::count();
-
-        return view('dashboard.index', compact('total_dosen'));
+        return view('dashboard.index', [
+            'total_super_admin' => SuperAdmin::count(),
+        ]);
     }
 }

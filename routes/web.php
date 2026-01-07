@@ -2,36 +2,41 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DosenController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SuperAdminController;
 
-
-// login routes
+// =====================
+// LOGIN
+// =====================
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// hanya bisa diakses kalau login
+// =====================
+// DASHBOARD (HARUS LOGIN)
+// =====================
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('cekLogin')
     ->name('dashboard');
 
-
-
-// ===============================DOSEN CONTROLLER================================
-// daftar dosen
-Route::get('/dosen', [DosenController::class, 'index'])
+// =====================
+// SUPER ADMIN CRUD
+// =====================
+Route::get('/superadmin', [SuperAdminController::class, 'index'])
     ->middleware('cekLogin')
-    ->name('dosen');
+    ->name('Super Admin');
 
-// tambah dosen
-Route::get('/dosen/create', [DosenController::class, 'create']);
-Route::post('/dosen/store', [DosenController::class, 'store']);
+Route::get('/superadmin/create', [SuperAdminController::class, 'create'])
+    ->middleware('cekLogin');
 
-// edit dosen
-Route::get('/dosen/edit/{nidn}', [DosenController::class, 'edit']);
-Route::post('/dosen/update/{nidn}', [DosenController::class, 'update']);
+Route::post('/superadmin/store', [SuperAdminController::class, 'store'])
+    ->middleware('cekLogin');
 
-// hapus dosen
-Route::get('/dosen/delete/{nidn}', [DosenController::class, 'destroy']);
+Route::get('/superadmin/edit/{id}', [SuperAdminController::class, 'edit'])
+    ->middleware('cekLogin');
 
+Route::post('/superadmin/update/{id}', [SuperAdminController::class, 'update'])
+    ->middleware('cekLogin');
+
+Route::get('/superadmin/delete/{id}', [SuperAdminController::class, 'destroy'])
+    ->middleware('cekLogin');

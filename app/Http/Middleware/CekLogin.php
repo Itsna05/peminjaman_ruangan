@@ -16,12 +16,12 @@ class CekLogin
     public function handle(Request $request, Closure $next)
     {
         // kalau session login kosong, arahkan ke login
-        if (!session()->has('login')) {
+        if (!session()->has('super_admin')) {
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
         return $next($request);
     }
-
+ 
 
 }
