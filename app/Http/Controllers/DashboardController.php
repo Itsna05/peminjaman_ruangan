@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SuperAdmin;
+use Illuminate\Http\Request;
 use App\Models\Ruangan;
 use App\Models\Transaksi;
+use App\Models\SuperAdmin;
+use App\Models\Petugas;
 
 class DashboardController extends Controller
 {
-    public function index()
+        public function index()
     {
-        return view('dashboard.index', [
-            'total_super_admin' => SuperAdmin::count(),
-        ]);
+        $role = session('role');
+
+        if ($role === 'super_admin') {
+            return view('dashboard.superadmin');
+        }
+
+        if ($role === 'petugas') {
+            return view('dashboard.petugas');
+        }
+
+        abort(403);
     }
+
 }

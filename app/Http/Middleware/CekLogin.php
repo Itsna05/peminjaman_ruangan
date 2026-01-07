@@ -15,8 +15,7 @@ class CekLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        // kalau session login kosong, arahkan ke login
-        if (!session()->has('super_admin')) {
+        if (!session()->has('user')) {
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
 

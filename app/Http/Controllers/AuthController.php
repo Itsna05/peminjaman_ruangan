@@ -3,57 +3,60 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuperAdmin;
+use App\Models\Petugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // =====================
-    // TAMPILKAN HALAMAN LOGIN
-    // =====================
     public function showLogin()
     {
         return view('auth.login');
     }
 
-    // =====================
-    // PROSES LOGIN SUPER ADMIN
-    // =====================
     public function authenticate(Request $request)
     {
-        // Validasi input
         $request->validate([
             'username' => 'required',
             'password' => 'required',
         ]);
 
-        // Cari super admin berdasarkan username
+        // =====================
+        // CEK SUPER ADMIN
+        // =====================
         $admin = SuperAdmin::where('username', $request->username)->first();
 
-        // Jika user tidak ditemukan atau password salah
-        if (!$admin || !Hash::check($request->password, $admin->password)) {
-            return back()->withErrors([
-                'login' => 'Username atau password salah!'
+        if ($admin && Hash::check($request->password, $admin->password)) {
+            session([
+                'role' => 'super_admin',
+                'user' => $admin
             ]);
+
+            return redirect()->route('dashboard');
         }
 
-        // Simpan ke session
-        session([
-            'super_admin' => $admin
-        ]);
+        // =====================
+        // CEK PETUGAS
+        // =====================
+        $petugas = Petugas::where('username', $request->username)->first();
 
-        // Redirect ke dashboard super admin
-        return redirect()->route('dashboard');
+        if ($petugas && Hash::check($request->password, $petugas->password)) {
+            session([
+                'role' => 'petugas',
+                'user' => $petugas
+            ]);
+
+            return redirect()->route('dashboard');
+        }
+
+        return back()->withErrors([
+            'login' => 'Username atau password salah!'
+        ]);
     }
 
-    // =====================
-    // LOGOUT
-    // =====================
     public function logout()
     {
-        session()->forget('super_admin');
         session()->flush();
-
         return redirect('/login');
     }
 }
