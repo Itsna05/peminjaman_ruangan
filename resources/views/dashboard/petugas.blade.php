@@ -5,7 +5,7 @@
 @section('content')
 <section class="section">
   <div class="section-header">
-    <h1>Dashboard</h1>
+    <h1>Dashboard Petugas</h1>
   </div>
   <div class="row">
     <!-- Total Dosen -->
