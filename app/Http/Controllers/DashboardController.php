@@ -14,7 +14,7 @@ class DashboardController extends Controller
     {
         $role = session('role');
 
-        if ($role === 'super_admin') {
+        if ($role === 'superadmin') {
             return view('dashboard.superadmin');
         }
 

@@ -28,8 +28,8 @@ class AuthController extends Controller
 
         if ($admin && Hash::check($request->password, $admin->password)) {
             session([
-                'role' => 'super_admin',
-                'user' => $admin
+                'user_id' => $admin->id_user,
+                'role'    => $admin->role,
             ]);
 
             return redirect()->route('dashboard');
@@ -42,8 +42,8 @@ class AuthController extends Controller
 
         if ($petugas && Hash::check($request->password, $petugas->password)) {
             session([
-                'role' => 'petugas',
-                'user' => $petugas
+                'user_id' => $petugas->id_user,
+                'role'    => $petugas->role,
             ]);
 
             return redirect()->route('dashboard');

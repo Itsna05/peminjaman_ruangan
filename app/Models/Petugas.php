@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Petugas extends Model
 {
-    protected $table = 'petugas';
-    protected $primaryKey = 'id_petugas';
+    protected $table = 'user';
+    protected $primaryKey = 'id_user';
     public $timestamps = false;
 
     protected $fillable = [
@@ -15,4 +15,11 @@ class Petugas extends Model
         'username',
         'password',
     ];
+
+    protected static function booted()
+    {
+        static::addGlobalScope('petugas', function ($query) {
+            $query->where('role', 'petugas');
+        });
+    }
 }

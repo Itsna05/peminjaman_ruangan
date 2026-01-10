@@ -15,7 +15,7 @@ class CekLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!session()->has('user')) {
+        if (!session()->has('user_id')) {
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
         }
 

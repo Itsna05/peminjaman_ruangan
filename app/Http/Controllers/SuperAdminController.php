@@ -23,14 +23,16 @@ class SuperAdminController extends Controller
     {
         $request->validate([
             'nama'     => 'required',
-            'username' => 'required|unique:super_admin,username',
+            'username' => 'required|unique:user,username',
             'password' => 'required|min:6',
+            'role'     => 'required|in:superadmin,petugas',
         ]);
 
         SuperAdmin::create([
             'nama'     => $request->nama,
             'username' => $request->username,
             'password' => Hash::make($request->password),
+            'role'     => $request->role,
         ]);
 
         return redirect('/superadmin')->with('success', 'Data berhasil ditambahkan');
@@ -46,7 +48,7 @@ class SuperAdminController extends Controller
     {
         $request->validate([
             'nama'     => 'required',
-            'username' => 'required|unique:super_admin,username,' . $id . ',id_super_admin',
+            'username' => 'required|unique:user,username,' . $id . ',id_user',
         ]);
 
         $admin = SuperAdmin::findOrFail($id);
