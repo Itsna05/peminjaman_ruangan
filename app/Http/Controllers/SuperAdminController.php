@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SuperAdmin;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class SuperAdminController extends Controller
 {
     public function index()
     {
-        $admins = SuperAdmin::all();
+        // HANYA ambil user role superadmin
+        $admins = User::where('role', 'superadmin')->get();
         return view('superadmin.index', compact('admins'));
     }
 
@@ -25,22 +26,21 @@ class SuperAdminController extends Controller
             'nama'     => 'required',
             'username' => 'required|unique:user,username',
             'password' => 'required|min:6',
-            'role'     => 'required|in:superadmin,petugas',
         ]);
 
-        SuperAdmin::create([
+        User::create([
             'nama'     => $request->nama,
             'username' => $request->username,
             'password' => Hash::make($request->password),
-            'role'     => $request->role,
+            'role'     => 'superadmin', // 🔑 DIPAKSA
         ]);
 
-        return redirect('/superadmin')->with('success', 'Data berhasil ditambahkan');
+        return redirect('/superadmin')->with('success', 'Super Admin berhasil ditambahkan');
     }
 
     public function edit($id)
     {
-        $admin = SuperAdmin::findOrFail($id);
+        $admin = User::where('role', 'superadmin')->findOrFail($id);
         return view('superadmin.edit', compact('admin'));
     }
 
@@ -51,7 +51,7 @@ class SuperAdminController extends Controller
             'username' => 'required|unique:user,username,' . $id . ',id_user',
         ]);
 
-        $admin = SuperAdmin::findOrFail($id);
+        $admin = User::where('role', 'superadmin')->findOrFail($id);
 
         $data = [
             'nama'     => $request->nama,
@@ -64,14 +64,14 @@ class SuperAdminController extends Controller
 
         $admin->update($data);
 
-        return redirect('/superadmin')->with('success', 'Data berhasil diubah');
+        return redirect('/superadmin')->with('success', 'Super Admin berhasil diubah');
     }
 
     public function destroy($id)
     {
-        $admin = SuperAdmin::findOrFail($id);
+        $admin = User::where('role', 'superadmin')->findOrFail($id);
         $admin->delete();
 
-        return redirect('/superadmin')->with('success', 'Data berhasil dihapus');
+        return redirect('/superadmin')->with('success', 'Super Admin berhasil dihapus');
     }
 }

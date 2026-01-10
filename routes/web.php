@@ -5,38 +5,46 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SuperAdminController;
 
-// =====================
-// LOGIN
-// =====================
+/*
+|--------------------------------------------------------------------------
+| AUTH
+|--------------------------------------------------------------------------
+*/
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// =====================
-// DASHBOARD (HARUS LOGIN)
-// =====================
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware('cekLogin')
-    ->name('dashboard');
+/*
+|--------------------------------------------------------------------------
+| DASHBOARD (SEMUA USER LOGIN)
+|--------------------------------------------------------------------------
+*/
+Route::middleware('cekLogin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+});
 
-// =====================
-// SUPER ADMIN CRUD
-// =====================
-Route::get('/superadmin', [SuperAdminController::class, 'index'])
-    ->middleware('cekLogin')
-    ->name('Super Admin');
+/*
+|--------------------------------------------------------------------------
+| SUPER ADMIN (ROLE: superadmin)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['cekLogin:superadmin'])->group(function () {
+    Route::get('/superadmin', [SuperAdminController::class, 'index'])
+        ->name('superadmin.index');
 
-Route::get('/superadmin/create', [SuperAdminController::class, 'create'])
-    ->middleware('cekLogin');
+    Route::get('/superadmin/create', [SuperAdminController::class, 'create'])
+        ->name('superadmin.create');
 
-Route::post('/superadmin/store', [SuperAdminController::class, 'store'])
-    ->middleware('cekLogin');
+    Route::post('/superadmin/store', [SuperAdminController::class, 'store'])
+        ->name('superadmin.store');
 
-Route::get('/superadmin/edit/{id}', [SuperAdminController::class, 'edit'])
-    ->middleware('cekLogin');
+    Route::get('/superadmin/edit/{id}', [SuperAdminController::class, 'edit'])
+        ->name('superadmin.edit');
 
-Route::post('/superadmin/update/{id}', [SuperAdminController::class, 'update'])
-    ->middleware('cekLogin');
+    Route::post('/superadmin/update/{id}', [SuperAdminController::class, 'update'])
+        ->name('superadmin.update');
 
-Route::get('/superadmin/delete/{id}', [SuperAdminController::class, 'destroy'])
-    ->middleware('cekLogin');
+    Route::get('/superadmin/delete/{id}', [SuperAdminController::class, 'destroy'])
+        ->name('superadmin.delete');
+});

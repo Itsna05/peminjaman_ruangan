@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SuperAdmin;
-use App\Models\Petugas;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,37 +20,24 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // =====================
-        // CEK SUPER ADMIN
-        // =====================
-        $admin = SuperAdmin::where('username', $request->username)->first();
+        // 🔍 CARI USER BERDASARKAN USERNAME
+        $user = User::where('username', $request->username)->first();
 
-        if ($admin && Hash::check($request->password, $admin->password)) {
-            session([
-                'user_id' => $admin->id_user,
-                'role'    => $admin->role,
+        // ❌ Kalau user tidak ada atau password salah
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return back()->withErrors([
+                'login' => 'Username atau password salah!'
             ]);
-
-            return redirect()->route('dashboard');
         }
 
-        // =====================
-        // CEK PETUGAS
-        // =====================
-        $petugas = Petugas::where('username', $request->username)->first();
-
-        if ($petugas && Hash::check($request->password, $petugas->password)) {
-            session([
-                'user_id' => $petugas->id_user,
-                'role'    => $petugas->role,
-            ]);
-
-            return redirect()->route('dashboard');
-        }
-
-        return back()->withErrors([
-            'login' => 'Username atau password salah!'
+        // ✅ LOGIN BERHASIL
+        session([
+            'user_id' => $user->id_user,
+            'username' => $user->username,
+            'role' => $user->role
         ]);
+
+        return redirect()->route('dashboard');
     }
 
     public function logout()
