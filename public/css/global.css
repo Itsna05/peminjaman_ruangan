@@ -5,6 +5,8 @@
 .navbar-petugas {
     background-color: #15468A; 
     min-height: 70px;
+    display: flex;
+    align-items: center;
 }
 
 /* Brand text */
@@ -32,15 +34,74 @@
 .navbar-petugas .btn-logout {
     width: 42px;
     height: 42px;
-    border-radius: 50%;
-    border: 2px solid #ffffff;
     color: #ffffff;
     padding: 0;
+    font-size: 2rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background: transparent;
 }
+
 
 .navbar-petugas .btn-logout:hover {
     background-color: #ffffff;
     color: #15468A;
+}
+
+/* =========================
+   NAVBAR RESPONSIVE
+   ========================= */
+
+.navbar-menu-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Mobile */
+@media (max-width: 991.98px) {
+    .navbar-menu-wrapper {
+        justify-content: space-between;
+        width: 100%;
+        padding-top: 10px;
+    }
+
+    .navbar-menu-wrapper .nav {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .navbar-petugas .btn-logout {
+        margin-left: 0;
+    }
+}
+
+/* =========================
+   OFFCANVAS PETUGAS
+   ========================= */
+
+.offcanvas.navbar-petugas {
+    background-color: #15468A;
+}
+
+.offcanvas.navbar-petugas .nav-link {
+    color: #ffffff;
+    display: inline-block;
+    width: auto;
+    padding-bottom: 6px;
+}
+
+.offcanvas.navbar-petugas .nav-link.active {
+    border-bottom: 2px solid #FFD800;
+}
+
+.offcanvas.navbar-petugas .btn-logout {
+    color: #ffffff;
+}
+
+.offcanvas.navbar-petugas .btn-logout:hover {
+    color: #FFD800;
 }
 
 /* =========================
@@ -76,6 +137,32 @@
 .footer-dinas .btn-warning {
     font-weight: 500;
 }
+
+/* =========================
+   FOOTER LOGO
+   ========================= */
+
+.footer-logo {
+    max-width: 250px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 16px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .footer-logo {
+        max-width: 110px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .footer-logo {
+        max-width: 90px;
+    }
+}
+
 
 /* =========================
    NAVBAR SUPER ADMIN

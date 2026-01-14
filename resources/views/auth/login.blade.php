@@ -39,9 +39,10 @@
                            required>
                 </div>
 
-                <button type="submit" class="btn btn-warning w-100 fw-semibold">
+                <a href="{{ route('petugas.dashboard') }}"
+                    class="btn btn-warning w-100 fw-semibold">
                     MASUK
-                </button>
+                </a>
             </form>
 
         </div>

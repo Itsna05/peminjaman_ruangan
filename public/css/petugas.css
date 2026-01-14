@@ -1,0 +1,195 @@
+/* =========================
+   DASHBOARD HEADER
+   ========================= */
+
+/* Background foto */
+.dashboard-hero {
+    height: 260px;
+    background-image: url('../img/bg-dashboard.png'); /* GANTI sesuai file kamu */
+    background-size: cover;
+    background-position: center;
+}
+
+/* Section pembungkus info */
+.dashboard-info {
+    margin-top: 20px; 
+    margin-bottom: 15px;
+}
+
+/* Card info */
+.info-box {
+    background-color: #bcd2ee;
+    border-radius: 16px;
+    padding: 40px 190px;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .info-box {
+        padding: 24px;
+    }
+}
+
+/* Judul */
+.info-title {
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* Garis kuning kiri kanan judul */
+.info-title .line {
+    width: 4px;
+    height: 24px;
+    background-color: #FFD800;
+    display: inline-block;
+}
+
+/* Deskripsi */
+.info-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media (max-width: 768px) {
+    .dashboard-hero {
+        height: 200px;
+    }
+
+    .info-box {
+        padding: 24px;
+    }
+
+    .info-title {
+        font-size: 1.1rem;
+    }
+}
+
+.header-title {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.header-desc {
+    color: #eaeaea;
+    font-size: 0.9rem;
+    max-width: 700px;
+}
+
+/* =======================
+   RUNNING TEXT
+   ======================= */
+.running-text {
+    background-color: #FFD800;
+    padding: 8px 0;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* =======================
+   KALENDER
+   ======================= */
+
+.calendar-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.calendar-title {
+    font-weight: 700;
+}
+
+/* GRID */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+/* Header hari */
+.calendar-day {
+    text-align: center;
+    font-weight: 600;
+    padding: 8px 0;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    font-size: 0.8rem;
+}
+
+/* Cell tanggal */
+.calendar-date {
+    min-height: 110px;
+    border: 1px solid #ddd;
+    padding: 6px;
+    font-size: 0.75rem;
+    position: relative;
+    background-color: #ffffff;
+}
+
+/* Kosong sebelum tanggal 1 */
+.calendar-date.empty {
+    background-color: #f8f9fa;
+}
+
+/* Nomor tanggal */
+.date-number {
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+/* Event */
+.event {
+    margin-top: 6px;
+    font-size: 0.7rem;
+}
+
+/* Ada event */
+.active-event {
+    background-color: #bfe9e1;
+}
+
+
+/* =======================
+   EVENT INFO
+   ======================= */
+.event-info-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+}
+
+.event-info-title {
+    background-color: #154889;
+    color: #ffffff;
+    padding: 8px;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+}
+
+.event-info-item {
+    margin-bottom: 8px;
+}
+
+.event-info-item p {
+    margin: 0;
+    font-size: 0.85rem;
+}
+

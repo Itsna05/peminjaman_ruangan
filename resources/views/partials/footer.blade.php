@@ -4,7 +4,9 @@
 
             {{-- Logo & Alamat --}}
             <div class="col-md-4">
-                <img src="{{ asset('img/logo_nav.png') }}" alt="Logo DPU" height="60" class="mb-3">
+                <img src="{{ asset('img/logo_nav.png') }}"
+                    alt="Logo DPU"
+                class="footer-logo img-fluid">
 
                 <p class="small mb-1">
                     Jl. Madukoro Blok AA-BB, Tawangmas, Kec.

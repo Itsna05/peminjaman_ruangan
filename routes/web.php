@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Petugas\DashboardController;
 use App\Http\Controllers\SuperAdminController;
 
 /*
@@ -16,35 +16,31 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /*
 |--------------------------------------------------------------------------
-| DASHBOARD (SEMUA USER LOGIN)
+| PETUGAS (TANPA MIDDLEWARE DULU)
 |--------------------------------------------------------------------------
 */
-Route::middleware('cekLogin')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->name('dashboard');
-});
+Route::get('/petugas/dashboard', [DashboardController::class, 'index'])
+    ->name('petugas.dashboard');
 
 /*
 |--------------------------------------------------------------------------
-| SUPER ADMIN (ROLE: superadmin)
+| SUPER ADMIN
 |--------------------------------------------------------------------------
 */
-Route::middleware(['cekLogin:superadmin'])->group(function () {
-    Route::get('/superadmin', [SuperAdminController::class, 'index'])
-        ->name('superadmin.index');
+Route::get('/superadmin', [SuperAdminController::class, 'index'])
+    ->name('superadmin.index');
 
-    Route::get('/superadmin/create', [SuperAdminController::class, 'create'])
-        ->name('superadmin.create');
+Route::get('/superadmin/create', [SuperAdminController::class, 'create'])
+    ->name('superadmin.create');
 
-    Route::post('/superadmin/store', [SuperAdminController::class, 'store'])
-        ->name('superadmin.store');
+Route::post('/superadmin/store', [SuperAdminController::class, 'store'])
+    ->name('superadmin.store');
 
-    Route::get('/superadmin/edit/{id}', [SuperAdminController::class, 'edit'])
-        ->name('superadmin.edit');
+Route::get('/superadmin/edit/{id}', [SuperAdminController::class, 'edit'])
+    ->name('superadmin.edit');
 
-    Route::post('/superadmin/update/{id}', [SuperAdminController::class, 'update'])
-        ->name('superadmin.update');
+Route::post('/superadmin/update/{id}', [SuperAdminController::class, 'update'])
+    ->name('superadmin.update');
 
-    Route::get('/superadmin/delete/{id}', [SuperAdminController::class, 'destroy'])
-        ->name('superadmin.delete');
-});
+Route::get('/superadmin/delete/{id}', [SuperAdminController::class, 'destroy'])
+    ->name('superadmin.delete');

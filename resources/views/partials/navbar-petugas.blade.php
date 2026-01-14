@@ -1,52 +1,84 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary px-4">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-petugas px-4">
     <div class="container-fluid">
 
-        {{-- Logo & Instansi --}}
+        {{-- Logo --}}
         <a class="navbar-brand d-flex align-items-center gap-2" href="#">
             <img src="{{ asset('img/logo_nav.png') }}" alt="Logo" height="38">
         </a>
 
-        {{-- Toggle Mobile --}}
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navPetugas">
+        {{-- TOGGLER (MUNCUL DI MOBILE SAJA) --}}
+        <button class="navbar-toggler d-lg-none" type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasPetugas">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        {{-- Menu --}}
-        <div class="collapse navbar-collapse justify-content-end" id="navPetugas">
-
+        {{-- MENU DESKTOP --}}
+        <div class="collapse navbar-collapse d-none d-lg-flex justify-content-end">
             <ul class="nav nav-underline align-items-center gap-3">
 
                 <li class="nav-item">
-                    <a class="nav-link text-white active" aria-current="page" href="#">
+                    <a class="nav-link {{ request()->routeIs('petugas.dashboard') ? 'active' : '' }}"
+                       href="{{ route('petugas.dashboard') }}">
                         Dashboard
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">
-                        Denah Ruangan
-                    </a>
+                    <a class="nav-link" href="#">Denah Ruangan</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">
-                        Peminjaman Ruangan
-                    </a>
+                    <a class="nav-link" href="#">Peminjaman Ruangan</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">
-                        Kontak
-                    </a>
+                    <a class="nav-link" href="#">Kontak</a>
                 </li>
+
             </ul>
 
-            {{-- Logout Button --}}
-            <a href="#"
-               class="btn btn-outline-light btn-logout d-flex align-items-center justify-content-center">
-               <i class="bi bi-arrow-right-circle"></i>
+            {{-- Logout DESKTOP --}}
+            <a href="#" class="btn btn-logout ms-3">
+                <i class="bi bi-arrow-right-circle"></i>
             </a>
-
         </div>
+
     </div>
 </nav>
+
+{{-- OFFCANVAS MOBILE ONLY --}}
+<div class="offcanvas offcanvas-end navbar-petugas d-lg-none" id="offcanvasPetugas">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title text-white">Menu</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body">
+
+        <ul class="nav nav-underline flex-column gap-2 mb-3">
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('petugas.dashboard') ? 'active' : '' }}"
+                   href="{{ route('petugas.dashboard') }}">
+                    Dashboard
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Denah Ruangan</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Peminjaman Ruangan</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Kontak</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Logout</a>
+            </li>
+        </ul>
+    </div>
+</div>
