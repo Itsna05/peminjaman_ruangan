@@ -1,0 +1,107 @@
+/* =========================
+   NAVBAR PETUGAS
+   ========================= */
+
+.navbar-petugas {
+    background-color: #15468A; 
+    min-height: 70px;
+}
+
+/* Brand text */
+.navbar-petugas .navbar-brand small {
+    font-size: 0.75rem;
+}
+
+/* Menu underline */
+.navbar-petugas .nav-underline .nav-link {
+    color: #ffffff;
+    font-weight: 500;
+    padding-bottom: 6px;
+}
+
+.navbar-petugas .nav-underline .nav-link.active {
+    border-bottom: 2px solid #FFD800;
+}
+
+/* Hover menu */
+.navbar-petugas .nav-underline .nav-link:hover {
+    opacity: 0.85;
+}
+
+/* Logout button */
+.navbar-petugas .btn-logout {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 0;
+}
+
+.navbar-petugas .btn-logout:hover {
+    background-color: #ffffff;
+    color: #15468A;
+}
+
+/* =========================
+   FOOTER DINAS
+   ========================= */
+
+.footer-dinas {
+    background-color: #15468A; /* sama dengan navbar */
+    font-size: 0.9rem;
+}
+
+/* Link footer */
+.footer-link a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer-link a:hover {
+    text-decoration: underline;
+}
+
+/* Sosial media icon */
+.footer-social a {
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+.footer-social a:hover {
+    opacity: 0.8;
+}
+
+/* WA Button */
+.footer-dinas .btn-warning {
+    font-weight: 500;
+}
+
+/* =========================
+   NAVBAR SUPER ADMIN
+   ========================= */
+
+.navbar-superadmin {
+    background-color: #154889; /* atau warna beda */
+    min-height: 70px;
+}
+
+/* nav underline hanya untuk superadmin */
+.navbar-superadmin .nav-underline {
+    --bs-nav-underline-border-color: #ffffff;
+    --bs-nav-underline-link-active-color: #ffffff;
+    --bs-nav-underline-border-width: 2px;
+}
+
+.navbar-superadmin .nav-underline .nav-link {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* logout button */
+.navbar-superadmin .btn-logout {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
