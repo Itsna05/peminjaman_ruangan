@@ -16,7 +16,7 @@
         {{-- MENU DESKTOP --}}
         <div class="collapse navbar-collapse d-none d-lg-flex justify-content-end">
             <ul class="nav nav-underline align-items-center gap-3">
-
+<!-- perubahan -->
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('petugas.dashboard') ? 'active' : '' }}"
                        href="{{ route('petugas.dashboard') }}">
