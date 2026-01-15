@@ -5,6 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Petugas\DashboardController;
 use App\Http\Controllers\SuperAdminController;
 
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
 /*
 |--------------------------------------------------------------------------
 | AUTH
