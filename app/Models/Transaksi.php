@@ -30,4 +30,16 @@ class Transaksi extends Model
         'waktu_mulai'   => 'datetime',
         'waktu_selesai' => 'datetime',
     ];
+
+    // RELASI KE BIDANG
+    public function bidang()
+    {
+        return $this->belongsTo(BidangPegawai::class, 'id_bidang', 'id_bidang');
+    }
+
+    // RELASI KE RUANGAN
+    public function ruangan()
+    {
+        return $this->belongsTo(Ruangan::class, 'id_ruangan', 'id_ruangan');
+    }
 }

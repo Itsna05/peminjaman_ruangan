@@ -15,6 +15,11 @@
 
     {{-- PETUGAS --}}
     <link rel="stylesheet" href="{{ asset('css/petugas.css') }}">
+
+    {{-- JAVASCRIPT --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/dashboard-calendar.js') }}"></script>
+
 </head>
 <body>
 

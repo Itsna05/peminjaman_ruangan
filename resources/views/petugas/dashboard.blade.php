@@ -40,11 +40,19 @@
    ======================= --}}
 <div class="running-text">
     <marquee>
-        @foreach ($eventsMonth as $event)
-            {{ strtoupper($event->acara) }} &nbsp; • &nbsp;
-        @endforeach
+        @if ($eventsMonth->count())
+            @foreach ($eventsMonth as $event)
+                {{ strtoupper($event->acara) }}
+                ({{ $event->waktu_mulai->format('d M') }})
+                &nbsp; • &nbsp;
+            @endforeach
+        @else
+            TIDAK ADA KEGIATAN PADA BULAN
+            {{ strtoupper($currentDate->translatedFormat('F Y')) }}
+        @endif
     </marquee>
 </div>
+
 
 {{-- =======================
    KALENDER & DATA KEGIATAN
@@ -54,123 +62,141 @@
         <div class="row g-4">
 
             {{-- =======================
-            KALENDER DASHBOARD PETUGAS
+            KALENDER (KIRI)
             ======================= --}}
             <div class="col-lg-8">
                 <div class="calendar-card">
 
-                    {{-- Header Kalender --}}
-                    <div class="calendar-header">
-                        <a href="{{ route('petugas.dashboard', [
-                            'month' => $today->copy()->subMonth()->format('Y-m')
-                        ]) }}" class="btn btn-sm btn-primary">
-                            &lt;
-                        </a>
+                    {{-- HEADER KALENDER --}}
+                    @php
+                        $prevMonth = $currentDate->copy()->subMonthNoOverflow();
+                        $nextMonth = $currentDate->copy()->addMonthNoOverflow();
+                    @endphp
 
-                        <span class="calendar-title">
-                            {{ strtoupper($today->translatedFormat('F Y')) }}
-                        </span>
+                    <div class="calendar-header d-flex align-items-center justify-content-center gap-3">
+                        <a href="{{ route('petugas.dashboard', [
+                            'month' => $prevMonth->month,
+                            'year'  => $prevMonth->year
+                        ]) }}" class="btn btn-sm btn-primary">&lt;</a>
+
+                        <form method="GET" action="{{ route('petugas.dashboard') }}"
+                            class="d-flex align-items-center gap-2">
+
+                            <select name="month" class="form-select form-select-sm">
+                                @foreach ([1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',
+                                        5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',
+                                        9=>'September',10=>'Oktober',11=>'November',12=>'Desember'] as $num => $name)
+                                    <option value="{{ $num }}" {{ $currentDate->month == $num ? 'selected' : '' }}>
+                                        {{ $name }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            <select name="year" class="form-select form-select-sm">
+                                @for ($y = now()->year - 5; $y <= now()->year + 5; $y++)
+                                    <option value="{{ $y }}" {{ $currentDate->year == $y ? 'selected' : '' }}>
+                                        {{ $y }}
+                                    </option>
+                                @endfor
+                            </select>
+
+                            <button type="submit" class="btn btn-sm btn-warning fw-semibold">OK</button>
+                        </form>
 
                         <a href="{{ route('petugas.dashboard', [
-                            'month' => $today->copy()->addMonth()->format('Y-m')
-                        ]) }}" class="btn btn-sm btn-primary">
-                            &gt;
-                        </a>
+                            'month' => $nextMonth->month,
+                            'year'  => $nextMonth->year
+                        ]) }}" class="btn btn-sm btn-primary">&gt;</a>
                     </div>
 
-                    {{-- Grid Kalender --}}
-                    <div class="calendar-grid">
+                    {{-- GRID KALENDER --}}
+                    @php
+                        $startCalendar = $currentDate->copy()->startOfMonth()->startOfWeek(Carbon\Carbon::MONDAY);
+                        $endCalendar   = $currentDate->copy()->endOfMonth()->endOfWeek(Carbon\Carbon::SUNDAY);
+                    @endphp
 
-                        {{-- Nama Hari --}}
-                        @foreach (['Senin','Selasa','Rabu','Kamis','Jum\'at','Sabtu','Minggu'] as $day)
+                    <div class="calendar-grid">
+                        @foreach (['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'] as $day)
                             <div class="calendar-day">{{ $day }}</div>
                         @endforeach
 
-                        @php
-                            $startOfMonth = $today->copy()->startOfMonth();
-                            $daysInMonth  = $today->daysInMonth;
-                            $startDay     = $startOfMonth->dayOfWeekIso; // Senin = 1
-                        @endphp
-
-                        {{-- Cell kosong sebelum tanggal 1 --}}
-                        @for ($i = 1; $i < $startDay; $i++)
-                            <div class="calendar-date empty"></div>
-                        @endfor
-
-                        {{-- Tanggal --}}
-                        @for ($day = 1; $day <= $daysInMonth; $day++)
+                        @for ($date = $startCalendar; $date <= $endCalendar; $date->addDay())
                             @php
-                                $currentDate = $startOfMonth->copy()->addDays($day - 1);
-                                $eventsOnDate = $eventsMonth->filter(function ($event) use ($currentDate) {
-                                    return $event->waktu_mulai->toDateString()
-                                        === $currentDate->toDateString();
-                                });
+                                $eventsOnDate = $eventsMonth->filter(fn($e) =>
+                                    $e->waktu_mulai->toDateString() === $date->toDateString()
+                                );
                             @endphp
 
-                            <div class="calendar-date {{ $eventsOnDate->count() ? 'active-event' : '' }}">
-                                <span class="date-number">{{ $day }}</span>
+                            <div class="calendar-date
+                                {{ $date->month != $currentDate->month ? 'text-muted' : '' }}
+                                {{ $eventsOnDate->count() ? 'active-event' : '' }}">
+                                <span class="date-number">{{ $date->day }}</span>
 
                                 @foreach ($eventsOnDate as $event)
-                                    <div class="event">
-                                        • {{ $event->acara }}<br>
-                                        {{ $event->waktu_mulai->format('H:i') }} -
-                                        {{ $event->waktu_selesai->format('H:i') }}
+                                    <div class="event event-clickable"
+                                        data-id="{{ $event->id_peminjaman }}">
+                                        <small>
+                                            {{ $event->acara }}<br>
+                                            {{ $event->waktu_mulai->format('H:i') }} -
+                                            {{ $event->waktu_selesai->format('H:i') }}
+                                        </small>
                                     </div>
                                 @endforeach
                             </div>
                         @endfor
-
                     </div>
-                </div>
-            </div>
 
+                </div> {{-- calendar-card --}}
+            </div> {{-- col-lg-8 --}}
 
-            {{-- DATA KEGIATAN HARI INI --}}
+            {{-- =======================
+            PANEL KANAN
+            ======================= --}}
             <div class="col-lg-4">
                 <div class="event-info-card">
-                    <h6 class="event-info-title">
-                        Data kegiatan berlangsung hari ini
-                    </h6>
+                    <h6 class="event-info-title">Data kegiatan berlangsung hari ini</h6>
 
-                    @if ($eventsToday->count())
-                        @foreach ($eventsToday as $event)
+                    @forelse ($eventsToday as $event)
+                        <div class="event-info-item">
+                            <strong>Nama Acara</strong>
+                            <p>{{ $event->acara }}</p>
+                        </div>
 
-                            <div class="event-info-item">
-                                <strong>Nama Acara</strong>
-                                <p>{{ $event->acara }}</p>
-                            </div>
+                        <div class="event-info-item">
+                            <strong>Jumlah Peserta</strong>
+                            <p>{{ $event->jumlah_peserta }} orang</p>
+                        </div>
 
-                            <div class="event-info-item">
-                                <strong>Jumlah Peserta</strong>
-                                <p>{{ $event->jumlah_peserta }} orang</p>
-                            </div>
+                        <div class="event-info-item">
+                            <strong>Waktu</strong>
+                            <p>{{ $event->waktu_mulai->format('H:i') }} -
+                            {{ $event->waktu_selesai->format('H:i') }}</p>
+                        </div>
 
-                            <div class="event-info-item">
-                                <strong>Waktu</strong>
-                                <p>
-                                    {{ $event->waktu_mulai->format('H:i') }} -
-                                    {{ $event->waktu_selesai->format('H:i') }}
-                                </p>
-                            </div>
+                        <div class="event-info-item">
+                            <strong>Bidang</strong>
+                            <p>{{ $event->bidang->bidang ?? '-' }}</p>
+                        </div>
 
-                            <div class="event-info-item">
-                                <strong>Status</strong>
-                                <p>{{ $event->status_peminjaman }}</p>
-                            </div>
+                        <div class="event-info-item">
+                            <strong>Sub Bidang</strong>
+                            <p>{{ $event->bidang->sub_bidang ?? '-' }}</p>
+                        </div>
 
-                            <div class="event-info-item">
-                                <strong>Catatan</strong>
-                                <p>{{ $event->catatan ?? '-' }}</p>
-                            </div>
+                        <div class="event-info-item">
+                            <strong>Ruangan</strong>
+                            <p>{{ $event->ruangan->nama_ruangan ?? '-' }}</p>
+                        </div>
 
-                            <hr>
+                        <div class="event-info-item">
+                            <strong>Catatan</strong>
+                            <p>{{ $event->catatan ?? '-' }}</p>
+                        </div>
 
-                        @endforeach
-                    @else
-                        <p class="text-muted">
-                            Tidak ada kegiatan yang berlangsung hari ini
-                        </p>
-                    @endif
+                        <hr>
+                    @empty
+                        <p class="text-muted">Tidak ada kegiatan hari ini</p>
+                    @endforelse
                 </div>
             </div>
 
@@ -178,4 +204,7 @@
     </div>
 </section>
 
+@include('petugas.partials.modal-detail-peminjaman')
+
 @endsection
+

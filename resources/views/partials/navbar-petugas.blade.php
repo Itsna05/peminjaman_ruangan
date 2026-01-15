@@ -16,7 +16,6 @@
         {{-- MENU DESKTOP --}}
         <div class="collapse navbar-collapse d-none d-lg-flex justify-content-end">
             <ul class="nav nav-underline align-items-center gap-3">
-
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('petugas.dashboard') ? 'active' : '' }}"
                        href="{{ route('petugas.dashboard') }}">
@@ -42,9 +41,13 @@
             </ul>
 
             {{-- Logout DESKTOP --}}
-            <a href="#" class="btn btn-logout ms-3">
-                <i class="bi bi-arrow-right-circle"></i>
-            </a>
+            <form action="{{ route('logout') }}" method="POST" class="ms-3">
+                @csrf
+                <button type="submit" class="btn btn-logout">
+                    <i class="bi bi-arrow-right-circle"></i>
+                </button>
+            </form>
+
         </div>
 
     </div>
@@ -83,8 +86,14 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
-            </li>
+                <form action="{{ route('login') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="nav-link btn btn-link text-start">
+                        Logout
+                        </button>
+                </form>
+        </li>
+
         </ul>
     </div>
 </div>
