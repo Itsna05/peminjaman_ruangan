@@ -29,5 +29,23 @@
 @include('partials.footer')
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const slider = document.querySelector('.ruangan-slider');
+
+function updateActiveCard() {
+    const cards = document.querySelectorAll('.detail-card');
+    let center = slider.scrollLeft + slider.offsetWidth / 2;
+
+    cards.forEach(card => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const distance = Math.abs(center - cardCenter);
+
+        card.classList.toggle('is-active', distance < card.offsetWidth / 2);
+    });
+}
+
+slider.addEventListener('scroll', () => requestAnimationFrame(updateActiveCard));
+updateActiveCard();
+</script>
 </body>
 </html>

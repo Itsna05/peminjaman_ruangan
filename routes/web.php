@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Petugas\DashboardController;
+use App\Http\Controllers\Petugas\DenahRuanganController;
 use App\Http\Controllers\SuperAdminController;
 
 /*
@@ -22,6 +23,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/petugas/dashboard', [DashboardController::class, 'index'])
     ->name('petugas.dashboard');
 
+Route::get('/petugas/denah-ruangan', [DenahRuanganController::class, 'index'])
+    ->name('petugas.denah');
 /*
 |--------------------------------------------------------------------------
 | SUPER ADMIN

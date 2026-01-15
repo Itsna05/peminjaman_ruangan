@@ -25,7 +25,10 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Denah Ruangan</a>
+                    <a class="nav-link {{ request()->routeIs('petugas.denah') ? 'active' : '' }}"
+                    href="{{ route('petugas.denah') }}">
+                        Denah Ruangan
+                    </a>
                 </li>
 
                 <li class="nav-item">
@@ -65,7 +68,10 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">Denah Ruangan</a>
+                <a class="nav-link {{ request()->routeIs('petugas.denah') ? 'active' : '' }}"
+                    href="{{ route('petugas.denah') }}">
+                     Denah Ruangan
+                </a>
             </li>
 
             <li class="nav-item">
