@@ -2,6 +2,14 @@
    DASHBOARD HEADER
    ========================= */
 
+html, body {
+    overflow-x: hidden;
+}
+
+.dashboard-content {
+    width: 100%;
+}
+
 /* Background foto */
 .dashboard-hero {
     height: 260px;
@@ -104,6 +112,8 @@
     border-radius: 12px;
     padding: 16px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .calendar-header {
@@ -165,6 +175,14 @@
     background-color: #bfe9e1;
 }
 
+/* Pop Up */
+.event-clickable {
+    cursor: pointer;
+}
+.event-clickable:hover {
+    opacity: 0.8;
+}
+
 
 /* =======================
    EVENT INFO
@@ -174,6 +192,7 @@
     border-radius: 10px;
     padding: 16px;
     box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    margin-top: 20px;
 }
 
 .event-info-title {

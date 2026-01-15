@@ -11,36 +11,46 @@ use App\Http\Controllers\SuperAdminController;
 |--------------------------------------------------------------------------
 */
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'authenticate']);
+Route::post('/login', [AuthController::class, 'authenticate'])->name('login.process');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /*
 |--------------------------------------------------------------------------
-| PETUGAS (TANPA MIDDLEWARE DULU)
+| PETUGAS
 |--------------------------------------------------------------------------
 */
-Route::get('/petugas/dashboard', [DashboardController::class, 'index'])
-    ->name('petugas.dashboard');
+Route::prefix('petugas')->name('petugas.')->group(function () {
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+
+    // DETAIL PEMINJAMAN (POPUP)
+    Route::get('/transaksi/{id}', [DashboardController::class, 'show'])
+        ->name('transaksi.show');
+});
 
 /*
 |--------------------------------------------------------------------------
 | SUPER ADMIN
 |--------------------------------------------------------------------------
 */
-Route::get('/superadmin', [SuperAdminController::class, 'index'])
-    ->name('superadmin.index');
+Route::prefix('superadmin')->name('superadmin.')->group(function () {
 
-Route::get('/superadmin/create', [SuperAdminController::class, 'create'])
-    ->name('superadmin.create');
+    Route::get('/', [SuperAdminController::class, 'index'])
+        ->name('index');
 
-Route::post('/superadmin/store', [SuperAdminController::class, 'store'])
-    ->name('superadmin.store');
+    Route::get('/create', [SuperAdminController::class, 'create'])
+        ->name('create');
 
-Route::get('/superadmin/edit/{id}', [SuperAdminController::class, 'edit'])
-    ->name('superadmin.edit');
+    Route::post('/store', [SuperAdminController::class, 'store'])
+        ->name('store');
 
-Route::post('/superadmin/update/{id}', [SuperAdminController::class, 'update'])
-    ->name('superadmin.update');
+    Route::get('/edit/{id}', [SuperAdminController::class, 'edit'])
+        ->name('edit');
 
-Route::get('/superadmin/delete/{id}', [SuperAdminController::class, 'destroy'])
-    ->name('superadmin.delete');
+    Route::post('/update/{id}', [SuperAdminController::class, 'update'])
+        ->name('update');
+
+    Route::get('/delete/{id}', [SuperAdminController::class, 'destroy'])
+        ->name('delete');
+});
