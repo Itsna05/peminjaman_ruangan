@@ -57,7 +57,7 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
     </div>
 
-    <div class="offcanvas-body">
+    <div class="offcanvas-body nav-menu-wrapper">
 
         <ul class="nav nav-underline flex-column gap-2 mb-3">
             <li class="nav-item">
