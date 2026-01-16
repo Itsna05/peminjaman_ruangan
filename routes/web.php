@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Petugas\DashboardController;
+use App\Http\Controllers\Petugas\DenahRuanganController;
 use App\Http\Controllers\SuperAdminController;
 
 Route::get('/', function () {
@@ -33,6 +34,8 @@ Route::prefix('petugas')->name('petugas.')->group(function () {
         ->name('transaksi.show');
 });
 
+Route::get('/petugas/denah-ruangan', [DenahRuanganController::class, 'index'])
+    ->name('petugas.denah');
 /*
 |--------------------------------------------------------------------------
 | SUPER ADMIN
