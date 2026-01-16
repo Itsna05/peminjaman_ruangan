@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class User extends Authenticatable
 {
     use HasFactory;
 
-    // ⬇️ INI PALING PENTING
     protected $table = 'user';
-
     protected $primaryKey = 'id_user';
 
     protected $fillable = [
@@ -23,3 +21,4 @@ class User extends Model
 
     public $timestamps = false;
 }
+
