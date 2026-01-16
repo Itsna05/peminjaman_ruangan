@@ -1,3 +1,4 @@
+
 /* =========================
    NAVBAR PETUGAS
    ========================= */
@@ -62,47 +63,88 @@
 /* Mobile */
 @media (max-width: 991.98px) {
     .navbar-menu-wrapper {
-        justify-content: space-between;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
         width: 100%;
-        padding-top: 10px;
+        padding: 20px;
+        gap: 24px;
     }
 
-    .navbar-menu-wrapper .nav {
-        flex-wrap: wrap;
-        gap: 12px;
+    .navbar-menu-wrapper .nav{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 16px;
+    }
+
+    .navbar-menu-wrapper .nav .nav-link{
+        width: 100%;
+        text-align: left;
+        padding: 12px 0;
+        font-size: 16px;
     }
 
     .navbar-petugas .btn-logout {
         margin-left: 0;
+        align-self: flex-start;
     }
 }
 
 /* =========================
-   OFFCANVAS PETUGAS
+   OFFCANVAS PETUGAS - FINAL FIX
    ========================= */
 
 .offcanvas.navbar-petugas {
     background-color: #15468A;
 }
 
-.offcanvas.navbar-petugas .nav-link {
-    color: #ffffff;
-    display: inline-block;
-    width: auto;
-    padding-bottom: 6px;
+/* HEADER */
+.offcanvas.navbar-petugas .offcanvas-header {
+    padding: 16px !important;
 }
 
+.offcanvas.navbar-petugas .offcanvas-title {
+    margin: 0 !important;
+}
+
+.offcanvas.navbar-petugas .btn-close {
+    margin: 0 !important;
+}
+
+/* BODY */
+.offcanvas.navbar-petugas .offcanvas-body {
+    padding: 16px !important;
+}
+
+/* NAV LIST */
+.offcanvas.navbar-petugas .nav {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    align-items: flex-start;
+}
+
+/* LINK */
+.offcanvas.navbar-petugas .nav-link {
+    color: #ffffff;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: fit-content;
+}
+
+/* UNDERLINE */
 .offcanvas.navbar-petugas .nav-link.active {
     border-bottom: 2px solid #FFD800;
 }
 
-.offcanvas.navbar-petugas .btn-logout {
+/* LOGOUT */
+.offcanvas.navbar-petugas .btn-link {
     color: #ffffff;
+    padding-left: 0 !important;
+    text-decoration: none;
 }
 
-.offcanvas.navbar-petugas .btn-logout:hover {
-    color: #FFD800;
-}
+
 
 /* =========================
    FOOTER DINAS
@@ -143,7 +185,7 @@
    ========================= */
 
 .footer-logo {
-    max-width: 250px;
+    max-width: 235px;
     height: auto;
     object-fit: contain;
     margin-bottom: 16px;

@@ -182,6 +182,9 @@ html, body {
 .event-clickable:hover {
     opacity: 0.8;
 }
+.modal-header{
+    background-color: #15468A;
+}
 
 
 /* =======================
@@ -193,6 +196,7 @@ html, body {
     padding: 16px;
     box-shadow: 0 0 10px rgba(0,0,0,0.08);
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .event-info-title {
