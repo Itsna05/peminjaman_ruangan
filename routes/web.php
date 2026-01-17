@@ -61,3 +61,11 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
     Route::get('/delete/{id}', [SuperAdminController::class, 'destroy'])
         ->name('delete');
 });
+/*
+|--------------------------------------------------------------------------
+| KONTAK
+|--------------------------------------------------------------------------
+*/
+Route::get('/kontak', function () {
+    return view('shared.kontak');
+})->name('shared.kontak');
