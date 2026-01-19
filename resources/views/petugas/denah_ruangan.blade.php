@@ -46,7 +46,11 @@
                 <div class="detail-card-header">DETAIL RUANGAN</div>
 
                 <div class="detail-card-image">
-                    <div id="foto1" class="carousel slide foto-carousel" data-bs-touch="false" data-bs-interval="false">
+                    <div id="foto-skpd-timur"
+                         class="carousel slide foto-carousel"
+                         data-bs-touch="false"
+                         data-bs-interval="false">
+
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <img src="{{ asset('img/ruang_SKPD_TP1.png') }}">
@@ -54,9 +58,23 @@
                             <div class="carousel-item">
                                 <img src="{{ asset('img/ruang_SKPD_TP2.png') }}">
                             </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/ruang_SKPD_TP3.png') }}">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/ruang_SKPD_TP4.png') }}">
+                            </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#foto1" data-bs-slide="prev"></button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#foto1" data-bs-slide="next"></button>
+
+                        <button class="carousel-control-prev"
+                                type="button"
+                                data-bs-target="#foto-skpd-timur"
+                                data-bs-slide="prev"></button>
+
+                        <button class="carousel-control-next"
+                                type="button"
+                                data-bs-target="#foto-skpd-timur"
+                                data-bs-slide="next"></button>
                     </div>
                 </div>
 
@@ -80,57 +98,125 @@
                             </ul>
                         </div>
                     </div>
-
-                    <div class="detail-card-footer">
-                        <button class="btn btn-warning">TUTUP</button>
-                    </div>
                 </div>
             </div>
 
             {{-- ================= CARD 2 ================= --}}
             <div class="detail-card">
+
                 <div class="detail-card-header">DETAIL RUANGAN</div>
+
                 <div class="detail-card-image">
-                    <img src="{{ asset('img/ruang_SKPD_TP3.png') }}">
+                    <div id="foto-rapat-a"
+                         class="carousel slide foto-carousel"
+                         data-bs-touch="false"
+                         data-bs-interval="false">
+
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{ asset('img/ruang_SKPD_TP3.png') }}">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/ruang_SKPD_TP2.png') }}">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/ruang_SKPD_TP1.png') }}">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/ruang_SKPD_TP4.png') }}">
+                            </div>
+                        </div>
+
+                        <button class="carousel-control-prev"
+                                type="button"
+                                data-bs-target="#foto-rapat-a"
+                                data-bs-slide="prev"></button>
+
+                        <button class="carousel-control-next"
+                                type="button"
+                                data-bs-target="#foto-rapat-a"
+                                data-bs-slide="next"></button>
+                    </div>
                 </div>
+
                 <div class="detail-card-body">
                     <h5 class="detail-card-title">Ruang Rapat A</h5>
+
                     <div class="detail-card-info">
                         <div class="info-box">
                             <h6>Elektronik</h6>
-                            <ul><li>AC : 4</li><li>Sound System : 2</li></ul>
+                            <ul>
+                                <li>AC : 4</li>
+                                <li>Sound System : 2</li>
+                            </ul>
                         </div>
                         <div class="info-box">
                             <h6>Non Elektronik</h6>
-                            <ul><li>Kursi : 40</li><li>Meja : 10</li></ul>
+                            <ul>
+                                <li>Kursi : 40</li>
+                                <li>Meja : 10</li>
+                            </ul>
                         </div>
-                    </div>
-                    <div class="detail-card-footer">
-                        <button class="btn btn-warning">TUTUP</button>
                     </div>
                 </div>
             </div>
 
             {{-- ================= CARD 3 ================= --}}
             <div class="detail-card">
+
                 <div class="detail-card-header">DETAIL RUANGAN</div>
+
                 <div class="detail-card-image">
-                    <img src="{{ asset('img/ruang_SKPD_TP4.png') }}">
+                    <div id="foto-aula-utama"
+                         class="carousel slide foto-carousel"
+                         data-bs-touch="false"
+                         data-bs-interval="false">
+
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{ asset('img/ruang_SKPD_TP4.png') }}">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/ruang_SKPD_TP3.png') }}">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/ruang_SKPD_TP2.png') }}">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/ruang_SKPD_TP1.png') }}">
+                            </div>
+                        </div>
+
+                        <button class="carousel-control-prev"
+                                type="button"
+                                data-bs-target="#foto-aula-utama"
+                                data-bs-slide="prev"></button>
+
+                        <button class="carousel-control-next"
+                                type="button"
+                                data-bs-target="#foto-aula-utama"
+                                data-bs-slide="next"></button>
+                    </div>
                 </div>
+
                 <div class="detail-card-body">
                     <h5 class="detail-card-title">Aula Utama</h5>
+
                     <div class="detail-card-info">
                         <div class="info-box">
                             <h6>Elektronik</h6>
-                            <ul><li>AC : 10</li><li>Sound System : 4</li></ul>
+                            <ul>
+                                <li>AC : 10</li>
+                                <li>Sound System : 4</li>
+                            </ul>
                         </div>
                         <div class="info-box">
                             <h6>Non Elektronik</h6>
-                            <ul><li>Kursi : 120</li><li>Meja : 20</li></ul>
+                            <ul>
+                                <li>Kursi : 120</li>
+                                <li>Meja : 20</li>
+                            </ul>
                         </div>
-                    </div>
-                    <div class="detail-card-footer">
-                        <button class="btn btn-warning">TUTUP</button>
                     </div>
                 </div>
             </div>
