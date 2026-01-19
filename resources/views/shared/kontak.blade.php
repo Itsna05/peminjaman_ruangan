@@ -23,7 +23,7 @@
             </h4>
 
             <p class="info-desc">
-                Halaman ini menyediakan informasi kontak resmi pengelolaan sistem
+                Halaman ini menyediakan informasi kontak resmi pengelolaan sistem<br>
                 peminjaman ruangan DPU Bina Marga dan Cipta Karya Provinsi Jawa Tengah.
             </p>
 
@@ -46,7 +46,7 @@
                 {{-- MAPS --}}
                 <div class="contact-card mb-4">
                     <h6 class="contact-title">
-                        <span class="icon">📍</span> Maps
+                        <i class="bi bi-map"></i> Maps
                     </h6>
 
                     <iframe
@@ -62,7 +62,7 @@
                 {{-- FAQ --}}
                 <div class="contact-card">
                     <h6 class="contact-title">
-                        <span class="icon">❓</span> Pertanyaan Umum (FAQ)
+                        <i class="bi bi-question-lg"></i> Pertanyaan Umum (FAQ)
                     </h6>
 
                     <details class="faq-item">
@@ -101,7 +101,7 @@
                     <h6 class="contact-title">Alamat Kantor</h6>
 
                     <div class="contact-info">
-                        <span class="icon">📍</span>
+                        <i class="bi bi-map"></i>
                         <div>
                             <strong>Lokasi</strong>
                             <p>
@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="contact-info">
-                        <span class="icon">📞</span>
+                        <i class="bi bi-telephone"></i>
                         <div>
                             <strong>Telepon & Fax</strong>
                             <p>
@@ -124,7 +124,7 @@
                     </div>
 
                     <div class="contact-info">
-                        <span class="icon">✉️</span>
+                        <i class="bi bi-envelope"></i>
                         <div>
                             <strong>Email</strong>
                             <p>dpubimargajtg@jatengprov.go.id</p>
@@ -132,12 +132,19 @@
                     </div>
 
                     <div class="contact-info">
-                        <span class="icon">🌐</span>
+                        <i class="bi bi-globe"></i>
                         <div>
                             <strong>Website</strong>
-                            <p>https://dpubimargajtg.jatengprov.go.id</p>
+                            <p>
+                                <a href="https://dpubimargajtg.jatengprov.go.id"
+                                target="_blank"
+                                class="website-link">
+                                https://dpubimargajtg.jatengprov.go.id
+                                </a>
+                            </p>
                         </div>
                     </div>
+
 
                 </div>
             </div>

@@ -82,7 +82,7 @@
                         <form method="GET" action="{{ route('petugas.dashboard') }}"
                             class="d-flex align-items-center gap-2">
 
-                            <select name="month" class="form-select form-select-sm">
+                            <select name="month" class="form-select form-select-sm" style="min-width: 150px; padding-right: 38px;">
                                 @foreach ([1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',
                                         5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',
                                         9=>'September',10=>'Oktober',11=>'November',12=>'Desember'] as $num => $name)
@@ -92,7 +92,7 @@
                                 @endforeach
                             </select>
 
-                            <select name="year" class="form-select form-select-sm">
+                            <select name="year" class="form-select form-select-sm" style="min-width: 100px; padding-right: 20px;">
                                 @for ($y = now()->year - 5; $y <= now()->year + 5; $y++)
                                     <option value="{{ $y }}" {{ $currentDate->year == $y ? 'selected' : '' }}>
                                         {{ $y }}

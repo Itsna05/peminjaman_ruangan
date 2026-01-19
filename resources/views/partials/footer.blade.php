@@ -42,9 +42,9 @@
             <div class="col-md-3">
                 <h6 class="fw-semibold mb-3">LAYANAN</h6>
                 <ul class="list-unstyled small footer-link">
-                    <li><a href="#">Peminjaman Ruangan</a></li>
-                    <li><a href="#">Jadwal Rapat</a></li>
-                    <li><a href="#">Fasilitas</a></li>
+                    <li><a href="{{ route('petugas.peminjaman') }}">Peminjaman Ruangan</a></li>
+                    <li><a href="{{ route('petugas.dashboard') }}">Jadwal Rapat</a></li>
+                    <li><a href="{{ route('petugas.denah') }}">Fasilitas</a></li>
                 </ul>
             </div>
 
@@ -52,9 +52,8 @@
             <div class="col-md-3">
                 <h6 class="fw-semibold mb-3">BANTUAN</h6>
                 <ul class="list-unstyled small footer-link">
-                    <li><a href="#">Panduan Penggunaan</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Kontak Admin</a></li>
+                    <li><a href="{{ route('shared.kontak') }}">FAQ</a></li>
+                    <li><a href="{{ route('shared.kontak') }}">Kontak Admin</a></li>
                 </ul>
             </div>
 

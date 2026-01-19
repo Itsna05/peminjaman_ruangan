@@ -35,7 +35,7 @@
 {{-- =======================
    ISI PEMINJAMAN
    ======================= --}}
-<section class="dashboard-content">
+<section>
     <div class="container">
 
         {{-- FORM PEMINJAMAN --}}
@@ -144,19 +144,30 @@
                 {{-- SEARCH & FILTER --}}
                 <div class="status-toolbar">
                     <div class="search-box">
-                        <span class="search-icon">🔍</span>
-                        <input type="text" placeholder="Pencarian">
+                        <button type="button" class="search-btn">
+                            <i class="bi bi-search"></i>
+                        </button>
+                        <input type="text" placeholder="Pencarian" id="searchInput">
                     </div>
 
                     <div class="filter-box">
-                        <button class="filter-btn">
-                            Filter <span>▾</span>
+                        <button class="filter-btn" type="button" id="filterToggle">
+                            Filter
+                            <span class="arrow">▾</span>
                         </button>
+
+                        <div class="filter-dropdown" id="filterDropdown">
+                            <button class="filter-item" data-value="menunggu">Menunggu</button>
+                            <button class="filter-item" data-value="disetujui">Disetujui</button>
+                            <button class="filter-item" data-value="ditolak">Ditolak</button>
+                            <button class="filter-item" data-value="dibatalkan">Dibatalkan</button>
+                        </div>
                     </div>
+
                 </div>
 
                 {{-- TABLE --}}
-                <div class="table-responsive">
+                <div class="table-responsive search-item">
                     <table class="status-table">
                         <thead>
                             <tr>
@@ -168,8 +179,8 @@
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="tableBody">
+                            <tr data-status="menunggu">
                                 <td>1</td>
                                 <td>Ruang Studio</td>
                                 <td>Hari Amal Bakti DPU</td>
@@ -188,7 +199,7 @@
                                 </td>
                             </tr>
 
-                            <tr>
+                            <tr data-status="disetujui">
                                 <td>2</td>
                                 <td>Ruang Bond</td>
                                 <td>Perencanaan Masjid At-Taqwa</td>
@@ -204,7 +215,7 @@
 
                             </tr>
 
-                            <tr>
+                            <tr data-status="ditolak">
                                 <td>3</td>
                                 <td>Ruang Olahraga</td>
                                 <td>Rapat Preservasi Jalan</td>
@@ -217,7 +228,7 @@
                                 </td>
                             </tr>
 
-                            <tr>
+                            <tr data-status="dibatalkan">
                                 <td>4</td>
                                 <td>Ruang Dharma Wanita</td>
                                 <td>Pelatihan Kepenulisan</td>
@@ -229,6 +240,71 @@
                                     <button class="btn-aksi disabled">✎</button>
                                 </td>
                             </tr>
+
+                            <tr data-status="menunggu">
+                                <td>5</td>
+                                <td>Ruang Studio</td>
+                                <td>Hari Amal Bakti DPU</td>
+                                <td>Teknologi Informasi</td>
+                                <td class="text-center">
+                                    <span class="badge-status menunggu">Menunggu</span>
+                                </td>
+                                <td class="text-center">
+                                    <button 
+                                        class="btn-aksi"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalEditPeminjaman">
+                                        ✎
+                                    </button>
+
+                                </td>
+                            </tr>
+
+                            <tr data-status="menunggu">
+                                <td>6</td>
+                                <td>Ruang Bond</td>
+                                <td>Perencanaan Masjid At-Taqwa</td>
+                                <td>Bidang Rancang Bangun</td>
+                                <td class="text-center">
+                                    <span class="badge-status menunggu">Menunggu</span>
+                                </td>
+                               <td class="text-center">
+                                    <button 
+                                        class="btn-aksi"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalEditPeminjaman">
+                                        ✎
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            <tr data-status="ditolak">
+                                <td>7</td>
+                                <td>Ruang Olahraga</td>
+                                <td>Rapat Preservasi Jalan</td>
+                                <td>Bidang Pelaksanaan Jalan</td>
+                                <td class="text-center">
+                                    <span class="badge-status ditolak">Ditolak</span>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn-aksi disabled">✎</button>
+                                </td>
+                            </tr>
+
+                            <tr data-status="dibatalkan">
+                                <td>8</td>
+                                <td>Ruang Dharma Wanita</td>
+                                <td>Pelatihan Kepenulisan</td>
+                                <td>Dharma Wanita Persatuan</td>
+                                <td class="text-center">
+                                    <span class="badge-status dibatalkan">Dibatalkan</span>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn-aksi disabled">✎</button>
+                                </td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -237,20 +313,14 @@
                 <div class="status-footer">
                     <div class="rows-info">
                         Jumlah Baris :
-                        <select>
-                            <option>5</option>
-                            <option>10</option>
+                        <select id="rowsPerPage">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
                         </select>
                     </div>
 
-                    <div class="pagination">
-                        <button>‹</button>
-                        <button class="active">1</button>
-                        <button>2</button>
-                        <button>…</button>
-                        <button>5</button>
-                        <button>›</button>
-                    </div>
+
+                    <div class="pagination" id="pagination"></div>
                 </div>
 
             </div>
@@ -285,17 +355,20 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Nama Acara</label>
-                                <input type="text" class="form-control" value="Hari Amal Bakti DPU">
+                                <input type="text" class="form-control edit-field" value="Hari Amal Bakti DPU" disabled>
+
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Jumlah Peserta</label>
-                                <input type="number" class="form-control" value="300">
+                                <input type="number" class="form-control edit-field" value="300" disabled>
+
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Waktu Mulai</label>
-                                <select class="form-select">
+                                <select class="form-select edit-field" disabled>
+
                                     <option>08.00 WIB</option>
                                     <option>09.00 WIB</option>
                                 </select>
@@ -303,7 +376,8 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Waktu Selesai</label>
-                                <select class="form-select">
+                                <select class="form-select edit-field" disabled>
+
                                     <option>14.00 WIB</option>
                                     <option>15.00 WIB</option>
                                 </select>
@@ -311,33 +385,38 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Pilih Bidang</label>
-                                <select class="form-select">
+                                <select class="form-select edit-field" disabled>
+
                                     <option>Bidang Rancang Bangun dan Pengawasan</option>
                                 </select>
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Pilih Sub Bidang</label>
-                                <select class="form-select">
+                                <select class="form-select edit-field" disabled>
+
                                     <option>Kasi Perancang Bangunan</option>
                                 </select>
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Pilih Ruangan</label>
-                                <select class="form-select">
+                                <select class="form-select edit-field" disabled>
+
                                     <option>Ruang Studio</option>
                                 </select>
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Nomor WhatsApp</label>
-                                <input type="text" class="form-control" value="083239242938">
+                                <input type="text" class="form-control edit-field" value="083239242938" disabled>
+
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label">Catatan</label>
-                                <textarea class="form-control">Butuh sound</textarea>
+                                <textarea class="form-control edit-field" disabled>Butuh sound</textarea>
+
                             </div>
 
                         </div>
@@ -345,19 +424,96 @@
                 </div>
 
                 {{-- FOOTER --}}
-                <div class="modal-footer border-0 justify-content-center gap-3">
-                    <button class="btn btn-primary px-4">
-                        Edit
-                    </button>
-                    <button class="btn btn-danger px-4">
-                        Batalkan Peminjaman
-                    </button>
+                <div class="modal-footer border-0 modal-footer-custom">
+
+                    {{-- MODE AWAL --}}
+                    <div id="footerView" class="footer-actions">
+                        <button class="btn btn-primary px-4" id="btnEdit">
+                            Edit
+                        </button>
+
+                        <button class="btn btn-danger px-4" id="btnBatalkanPeminjaman">
+                            Batalkan Peminjaman
+                        </button>
+
+                    </div>
+
+                    {{-- MODE EDIT --}}
+                    <div id="footerEdit" class="footer-actions d-none">
+                        <button class="btn btn-success px-4" id="btnSimpan">
+                            Simpan
+                        </button>
+
+                        <button class="btn btn-danger px-4" id="btnBatal">
+                            Batal
+                        </button>
+                    </div>
+
+                    {{-- MODE DIBATALKAN --}}
+                    <div id="footerCanceled" class="footer-canceled d-none">
+                        Acara dibatalkan oleh pihak terkait
+                    </div>
+
+
                 </div>
+
+
+
 
             </div>
         </div>
     </div>
 
 </section>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const btnEdit   = document.getElementById('btnEdit');
+    const btnBatal  = document.getElementById('btnBatal');
+    const btnBatalkan = document.getElementById('btnBatalkanPeminjaman'); // ⬅️ BARU
+
+    const footerView = document.getElementById('footerView');
+    const footerEdit = document.getElementById('footerEdit');
+    const footerCanceled = document.getElementById('footerCanceled'); // ⬅️ BARU
+
+    const fields = document.querySelectorAll('.edit-field');
+
+    // KLIK EDIT
+    btnEdit.addEventListener('click', function () {
+
+        // Aktifkan semua input
+        fields.forEach(field => {
+            field.disabled = false;
+        });
+
+        // Ganti footer
+        footerView.classList.add('d-none');
+        footerEdit.classList.remove('d-none');
+    });
+
+    // KLIK BATAL (MODE EDIT)
+    btnBatal.addEventListener('click', function () {
+        location.reload();
+    });
+
+    // KLIK BATALKAN PEMINJAMAN (MODE AWAL)
+    btnBatalkan.addEventListener('click', function () {
+
+        // Pastikan semua field terkunci
+        fields.forEach(field => {
+            field.disabled = true;
+        });
+
+        // Sembunyikan semua footer tombol
+        footerView.classList.add('d-none');
+        footerEdit.classList.add('d-none');
+
+        // Tampilkan pesan dibatalkan
+        footerCanceled.classList.remove('d-none');
+    });
+
+
+});
+</script>
 
 @endsection

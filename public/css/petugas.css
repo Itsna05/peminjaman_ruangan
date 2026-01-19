@@ -13,7 +13,7 @@ html, body {
 /* Background foto */
 .dashboard-hero {
     height: 260px;
-    background-image: url('../img/bg-dashboard.png'); /* GANTI sesuai file kamu */
+    background-image: url('../img/bg-dashboard.png');
     background-size: cover;
     background-position: center;
 }
@@ -22,26 +22,37 @@ html, body {
 .dashboard-info {
     margin-top: 20px; 
     margin-bottom: 15px;
+    background: none !important;
 }
 
 /* Card info */
 .info-box {
-    background-color: #bcd2ee;
+    background-color: #6192D6 !important;
     border-radius: 16px;
-    padding: 40px 190px;
-    max-width: 1800px;
+    max-width: 1200px;
+    min-width: 220px;
+    width: 100%;
+    padding: 32px 48px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
+
 
 @media (max-width: 768px) {
     .info-box {
         padding: 24px;
+        min-height: auto;
     }
 }
 
 /* Judul */
 .info-title {
     font-weight: 700;
+    font-size: 1.3rem;
+    margin-top: 20px;
     margin-bottom: 16px;
     display: flex;
     align-items: center;
@@ -62,6 +73,10 @@ html, body {
     font-size: 0.95rem;
     line-height: 1.6;
     margin: 0;
+    max-width: 900px;
+    margin-bottom: 20px;
+    margin-left: 170px !important;
+    margin-right: 170px !important;
 }
 
 /* =========================
@@ -73,11 +88,16 @@ html, body {
     }
 
     .info-box {
-        padding: 24px;
+        padding: 24px 20px;
     }
 
     .info-title {
         font-size: 1.1rem;
+        gap: 8px;
+    }
+
+    .info-desc {
+        font-size: 0.9rem;
     }
 }
 
@@ -88,7 +108,7 @@ html, body {
 }
 
 .header-desc {
-    color: #eaeaea;
+    color: #6192D6;
     font-size: 0.9rem;
     max-width: 700px;
 }
@@ -175,7 +195,9 @@ html, body {
     background-color: #bfe9e1;
 }
 
-/* Pop Up */
+/* =======================
+   POP UP BATALKAN PESANAN (HALAMAN PEMINJAMAN RUANGAN)
+   ======================= */
 .event-clickable {
     cursor: pointer;
 }
@@ -184,6 +206,37 @@ html, body {
 }
 .modal-header{
     background-color: #15468A;
+}
+
+/* Footer modal agar tombol kiri - kanan */
+.modal-footer-custom {
+    width: 100%;
+}
+
+/* Container tombol */
+.footer-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* kiri & kanan */
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Ukuran tombol biar konsisten */
+.footer-actions .btn {
+    min-width: 160px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* Footer pemberitahuan dibatalkan */
+.footer-canceled {
+    width: 100%;
+    text-align: center;
+    color: #dc3545; /* merah bootstrap */
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 0;
 }
 
 
@@ -557,8 +610,8 @@ html, body {
 
 /* Tombol */
 .btn-ajukan {
-    background: #ffd400;
-    color: #000;
+    background: #ffd800;
+    color: #fff;
     font-weight: 700;
     padding: 10px 26px;
     border-radius: 10px;
@@ -580,6 +633,7 @@ html, body {
     padding: 40px 20px;
     border-radius: 16px;
     margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .status-title {
@@ -597,35 +651,142 @@ html, body {
 /* Toolbar */
 .status-toolbar {
     display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 20px;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .search-box {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid #1e4fa1;
-    border-radius: 12px;
-    padding: 8px 14px;
-    width: 100%;
-    max-width: 420px;
+    position: relative;
+    flex: 1;
+    max-width: 320px;
 }
 
 .search-box input {
-    border: none;
-    outline: none;
     width: 100%;
+    padding: 10px 14px 10px 42px;
+    border-radius: 12px;
+    border: 1.5px solid #15468A;
+    outline: none;
+    font-size: 14px;
 }
 
+.search-box input:focus {
+    outline: none;
+    border-color: #15468A;
+}
+
+/* ICON SEARCH */
+.search-box i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    cursor: pointer;
+    color:#15468A;
+    z-index: 2;
+}
+
+.search-box i:hover {
+    color: #15468A;
+}
+
+.search-btn {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #15468A;
+    cursor: pointer;
+    padding: 0;
+}
+
+.search-btn:hover {
+    color: #15468A;
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+    .status-toolbar {
+        flex-direction: column;
+    }
+
+    .search-box {
+        max-width: 100%;
+    }
+}
+
+/* filter */
+/* WRAPPER */
+.filter-box {
+    position: relative;
+}
+
+/* BUTTON FILTER */
 .filter-btn {
-    border: 1px solid #1e4fa1;
     background: #fff;
-    padding: 8px 18px;
+    border: 1.5px solid #0d47a1;
+    color: #000;
+    padding: 10px 16px;
     border-radius: 12px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
 }
+
+/* ARROW */
+.filter-btn .arrow {
+    font-size: 14px;
+}
+
+/* DROPDOWN */
+.filter-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 180px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #15468A;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    display: none;
+    flex-direction: column;
+    padding: 8px;
+    z-index: 1000;
+}
+
+/* ITEM */
+.filter-item {
+    background: transparent;
+    border: none;
+    padding: 10px 12px;
+    text-align: left;
+    border-radius: 10px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.filter-item:hover {
+    background: #e3f2fd;
+}
+
+/* AKTIF */
+.filter-dropdown.show {
+    display: flex;
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+    .filter-dropdown {
+        width: 100%;
+    }
+}
+
 
 /* Table */
 .status-table {
