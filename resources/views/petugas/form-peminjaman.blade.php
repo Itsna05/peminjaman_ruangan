@@ -67,48 +67,71 @@
                         <input type="time" class="form-control">
                     </div>
 
+                    @php
+                        $bidang = \Illuminate\Support\Facades\DB::table('bidang_pegawai')
+                                    ->select('bidang')
+                                    ->distinct()
+                                    ->get();
+                    @endphp
+
                     <div class="col-md-6">
                         <label class="form-label">Pilih Bidang</label>
-                        <select class="form-select">
-                            <option>Please Select</option>
-                            <option>Sekretariat</option>
-                            <option>Bina Marga</option>
-                            <option>Cipta Karya</option>
-                            <option>Teknologi Informasi</option>
-                            <option>Perencanaan dan Keuangan</option>
-                            <option>Kepegawaian</option>
-                        </select>
+                        <select name="bidang" id="bidang" class="form-select">
+                            <option value="">Please Select</option>
+                            @foreach ($bidang as $b)
+                                <option value="{{ $b->bidang }}">{{ $b->bidang }}</option>
+                                <script>
+                                document.getElementById('bidang').addEventListener('change', function () {
+                                    let bidang = this.value;
 
+                                    if (bidang === '') {
+                                        document.getElementById('sub_bidang').innerHTML =
+                                            "<option value=''>Please Select</option>";
+                                        return;
+                                    }
+
+                                    fetch('/petugas/get-sub-bidang?bidang=' + encodeURIComponent(bidang))
+                                        .then(res => res.text())
+                                        .then(data => {
+                                            document.getElementById('sub_bidang').innerHTML = data;
+                                        })
+                                        .catch(err => {
+                                            console.error(err);
+                                        });
+                                });
+                                </script>
+
+                            @endforeach
+                        </select>
                     </div>
+
 
                     <div class="col-md-6">
                         <label class="form-label">Pilih Sub Bidang</label>
-                        <select class="form-select">
-                            <option>Please Select</option>
-                            <option>Pembangunan Jalan</option>
-                            <option>Preservasi Jalan</option>
-                            <option>Bangunan Gedung</option>
-                            <option>Air Minum</option>
-                            <option>Sanitasi</option>
-                            <option>Umum dan Kepegawaian</option>
+                        <select name="id_bidang" id="sub_bidang" class="form-select">
+                            <option value="">Please Select</option>
                         </select>
-
                     </div>
+
+
+                    @php
+                        $ruangan = \Illuminate\Support\Facades\DB::table('ruangan')
+                                    ->where('ketersediaan', 'Tersedia')
+                                    ->get();
+                    @endphp
 
                     <div class="col-md-6">
                         <label class="form-label">Pilih Ruangan</label>
-                        <select class="form-select">
-                            <option>Please Select</option>
-                            <option>RUANG SEKDIN</option>
-                            <option>RUANG SKPD TP 2</option>
-                            <option>RUANG RAPAT KADINAS</option>
-                            <option>RUANG BIDANG SPPBG</option>
-                            <option>RUANG BIDANG BARAT</option>
-                            <option>RUANG BIDANG TIMUR</option>
-                            <option>RUANG STUDIO</option>
-                            <option>RUANG DHARMA WANITA</option>
+                        <select name="id_ruangan" class="form-select">
+                            <option value="">Please Select</option>
+                            @foreach ($ruangan as $r)
+                                <option value="{{ $r->id_ruangan }}">
+                                    {{ $r->nama_ruangan }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
+
 
                     <div class="col-md-6">
                         <label class="form-label">Nomor WhatsApp</label>
