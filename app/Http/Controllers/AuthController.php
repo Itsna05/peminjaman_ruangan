@@ -15,34 +15,50 @@ class AuthController extends Controller
 
     public function authenticate(Request $request)
     {
+
+        // VALIDASI
         $request->validate([
             'username' => 'required',
             'password' => 'required',
         ]);
 
-        // 🔍 CARI USER BERDASARKAN USERNAME
         $user = User::where('username', $request->username)->first();
 
-        // ❌ Kalau user tidak ada atau password salah
         if (!$user || !Hash::check($request->password, $user->password)) {
             return back()->withErrors([
                 'login' => 'Username atau password salah!'
             ]);
         }
 
-        // ✅ LOGIN BERHASIL
-        session([
+        // SIMPAN SESSION (BENAR)
+        $request->session()->put([
             'user_id' => $user->id_user,
             'username' => $user->username,
-            'role' => $user->role
+            'role' => $user->role,
         ]);
 
-        return redirect()->route('dashboard');
+        $request->session()->regenerate();
+
+        // REDIRECT SESUAI ROLE
+        if ($user->role === 'petugas') {
+            return redirect()->route('petugas.dashboard');
+        }
+
+        if ($user->role === 'superadmin') {
+            return redirect()->route('superadmin.dashboard');
+        }
+
+        return redirect()->route('login');
+
+
+
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        session()->flush();
-        return redirect('/login');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }

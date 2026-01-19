@@ -33,14 +33,19 @@
                 
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Peminjaman Ruangan</a>
+                    <a class="nav-link {{ request()->routeIs('petugas.peminjaman') ? 'active' : '' }}"
+                    href="{{ route('petugas.peminjaman') }}">
+                        Peminjaman Ruangan
+                    </a>
                 </li>
+
 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('shared.kontak') ? 'active' : '' }}"
                     href="{{ route('shared.kontak') }}">
                         Kontak
                     </a>
+                    
                 </li>
 
             </ul>
@@ -81,10 +86,15 @@
                      Denah Ruangan
                 </a>
             </li>
-
             <li class="nav-item">
-                <a class="nav-link" href="#">Peminjaman Ruangan</a>
+                <a class="nav-link {{ request()->routeIs('petugas.peminjaman') ? 'active' : '' }}"
+                    href="{{ route('petugas.peminjaman') }}">
+                    Peminjaman Ruangan
+                </a>
             </li>
+
+
+          
 
             <li class="nav-item">
                 <a class="nav-link" href="#">Kontak</a>

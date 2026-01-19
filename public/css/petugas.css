@@ -401,53 +401,55 @@ html, body {
     box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
 }
 
-/* =======================
-   CONTACT PAGE
-   ======================= */
+/* =========================
+   KONTAK PAGE STYLING
+   ========================= */
 
-.contact-card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 16px;
-    border: 1px solid #e5e7eb;
+/* background halaman kontak */
+.dashboard-content {
+    background: #f1f6fb; /* biru muda lembut */
+    padding: 30px 0;
 }
 
+/* CARD UMUM */
+.contact-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid #e6eaf0;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+/* JUDUL DI DALAM CARD */
 .contact-title {
     font-weight: 600;
-    margin-bottom: 12px;
+    font-size: 15px;
+    margin-bottom: 14px;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
+/* MAPS */
 .contact-card iframe {
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
-/* FAQ */
-.faq-item {
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 10px 12px;
-    margin-bottom: 10px;
-}
-
-.faq-item summary {
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.faq-item p {
-    margin-top: 8px;
-    font-size: 14px;
-    color: #555;
-}
-
-/* KONTAK INFO */
+/* INFO KONTAK (KANAN) */
 .contact-info {
     display: flex;
-    gap: 10px;
-    margin-bottom: 14px;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.contact-info strong {
+    font-size: 14px;
 }
 
 .contact-info p {
@@ -456,6 +458,316 @@ html, body {
     color: #555;
 }
 
+/* ICON */
 .icon {
-    font-size: 16px;
+    font-size: 18px;
+    color: #f43f5e; /* merah lembut */
 }
+
+/* FAQ */
+.faq-item {
+    border: 1px solid #e6eaf0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+}
+
+.faq-item:hover {
+    background: #f9fbfd;
+}
+
+.faq-item summary {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.faq-item p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* =================================
+   HEADER KONTAK - BIRU LEBIH TUA
+   ================================= */
+
+/* khusus section judul halaman */
+.dashboard-info {
+    background: #b6cdea; /* biru lebih tua & kalem */
+ 
+    padding: 26px 0;
+}
+
+/* judul tetap kontras */
+.dashboard-info .info-title {
+    color: #0f2a44;
+}
+
+/* deskripsi tetap enak dibaca */
+.dashboard-info .info-desc {
+    color: #1f3a56;
+}
+
+/* garis kuning tetap kelihatan */
+.dashboard-info .line {
+    background-color: #facc15;
+}
+
+/* =========================
+   FORM PEMINJAMAN RUANGAN
+========================= */
+
+.form-wrapper {
+    background: #eef3f8;
+    padding: 40px 48px;
+    border-radius: 18px;
+    margin-bottom: 40px;
+}
+
+.form-title {
+    font-weight: 700;
+    margin-bottom: 36px;
+}
+
+/* Input & select */
+.form-control,
+.form-select {
+    border-radius: 10px;
+    padding: 10px 14px;
+    border: 1px solid #d6d6d6;
+}
+
+.form-control::placeholder {
+    color: #a0a0a0;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #1e4fa1;
+    box-shadow: 0 0 0 0.15rem rgba(30, 79, 161, 0.15);
+}
+
+/* Textarea */
+.textarea-catatan {
+    resize: none;
+}
+
+/* Tombol */
+.btn-ajukan {
+    background: #ffd400;
+    color: #000;
+    font-weight: 700;
+    padding: 10px 26px;
+    border-radius: 10px;
+    border: none;
+    transition: 0.3s ease;
+}
+
+.btn-ajukan:hover {
+    background: #e6c000;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   STATUS PEMINJAMAN
+========================= */
+
+.status-wrapper {
+    background: #eef3f8;
+    padding: 40px 20px;
+    border-radius: 16px;
+    margin-top: 40px;
+}
+
+.status-title {
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.status-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Toolbar */
+.status-toolbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #1e4fa1;
+    border-radius: 12px;
+    padding: 8px 14px;
+    width: 100%;
+    max-width: 420px;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.filter-btn {
+    border: 1px solid #1e4fa1;
+    background: #fff;
+    padding: 8px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+/* Table */
+.status-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.status-table th {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid #1e4fa1;
+    font-weight: 700;
+}
+
+.status-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Badge status */
+.badge-status {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.menunggu {
+    background: #ffe082;
+    color: #7a5d00;
+}
+
+.disetujui {
+    background: #4caf50;
+    color: #fff;
+}
+
+.ditolak {
+    background: #e53935;
+    color: #fff;
+}
+
+.dibatalkan {
+    background: #9e9e9e;
+    color: #fff;
+}
+
+/* Button aksi */
+.btn-aksi {
+    background: #1e4fa1;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-aksi.disabled {
+    background-color: #cfcfcf;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+
+/* Footer */
+.status-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.pagination button {
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+.pagination .active {
+    background: #1e4fa1;
+    color: #fff;
+}
+
+/* =========================
+   MODAL EDIT PEMINJAMAN
+========================= */
+
+.modal-custom {
+    background: #eef3f8;
+    border-radius: 18px;
+    padding: 10px;
+}
+
+/* X PUTIH PEKAT & TAJAM */
+.btn-close-custom {
+    opacity: 1 !important;
+    filter: none !important;
+    background: none;
+}
+
+.modal-header {
+    position: relative;
+    display: flex;
+    align-items: center; /* 🔥 ini yang bikin center tombol X */
+}
+
+.btn-close-custom {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%); /* 🔥 bikin PAS TENGAH */
+
+    opacity: 1 !important;
+    filter: none !important;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+/* Ganti icon X jadi SVG putih solid */
+.btn-close-custom::before {
+    content: "✕";
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.btn-close-custom:hover::before {
+    color: #ffd54f; /* kuning lembut */
+}
+
+.modal-title {
+    font-size: 1.2rem;
+}
+
+.modal-body {
+    padding: 20px 30px;
+}
+
+.modal-footer button {
+    border-radius: 10px;
+    font-weight: 600;
+}
+

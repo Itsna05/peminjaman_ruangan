@@ -16,33 +16,43 @@
     <div class="card login-card shadow">
         <div class="card-body text-center">
 
-            {{-- Logo (sudah termasuk tulisan) --}}
+            {{-- Logo --}}
             <img src="{{ asset('img/logo_login.png') }}"
                  alt="Logo DPU"
                  class="login-logo mb-4">
 
-            {{-- Form --}}
-            <form action="#" method="POST">
+            {{-- ERROR MESSAGE --}}
+            @if ($errors->any())
+                <div class="alert alert-danger text-start">
+                    {{ $errors->first() }}
+                </div>
+            @endif
+
+            {{-- FORM LOGIN --}}
+            <form action="{{ route('login.process') }}" method="POST">
                 @csrf
 
                 <div class="mb-3">
                     <input type="text"
+                           name="username"
                            class="form-control"
                            placeholder="Masukkan Username"
+                           value="{{ old('username') }}"
                            required>
                 </div>
 
                 <div class="mb-4">
                     <input type="password"
+                           name="password"
                            class="form-control"
                            placeholder="Masukkan Password"
                            required>
                 </div>
 
-                <a href="{{ route('petugas.dashboard') }}"
-                    class="btn btn-warning w-100 fw-semibold">
+                <button type="submit"
+                        class="btn btn-warning w-100 fw-semibold">
                     MASUK
-                </a>
+                </button>
             </form>
 
         </div>

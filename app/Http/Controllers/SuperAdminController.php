@@ -12,7 +12,7 @@ class SuperAdminController extends Controller
     {
         // HANYA ambil user role superadmin
         $admins = User::where('role', 'superadmin')->get();
-        return view('superadmin.index', compact('admins'));
+        return view('superadmin.dashboard', compact('admins'));
     }
 
     public function create()

@@ -24,48 +24,60 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 | PETUGAS
 |--------------------------------------------------------------------------
 */
-Route::prefix('petugas')->name('petugas.')->group(function () {
+Route::middleware(['CekLogin:petugas'])
+    ->prefix('petugas')
+    ->name('petugas.')
+    ->group(function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('dashboard');
 
-    // DETAIL PEMINJAMAN (POPUP)
-    Route::get('/transaksi/{id}', [DashboardController::class, 'show'])
-        ->name('transaksi.show');
-});
+        Route::get('/denah-ruangan', [DenahRuanganController::class, 'index'])
+            ->name('denah');
 
-Route::get('/petugas/denah-ruangan', [DenahRuanganController::class, 'index'])
-    ->name('petugas.denah');
+        // PEMINJAMAN RUANGAN
+        Route::get('/peminjaman-ruangan', function () {
+            return view('petugas.form-peminjaman');
+        })->name('peminjaman');
+    });
+
+
 /*
 |--------------------------------------------------------------------------
 | SUPER ADMIN
 |--------------------------------------------------------------------------
 */
-Route::prefix('superadmin')->name('superadmin.')->group(function () {
+Route::middleware(['CekLogin:superadmin'])
+    ->prefix('superadmin')
+    ->name('superadmin.')
+    ->group(function () {
 
-    Route::get('/', [SuperAdminController::class, 'index'])
-        ->name('index');
+        Route::get('/dashboard', [SuperAdminController::class, 'index'])
+            ->name('dashboard');
 
-    Route::get('/create', [SuperAdminController::class, 'create'])
-        ->name('create');
+        Route::get('/create', [SuperAdminController::class, 'create'])
+            ->name('create');
 
-    Route::post('/store', [SuperAdminController::class, 'store'])
-        ->name('store');
+        Route::post('/store', [SuperAdminController::class, 'store'])
+            ->name('store');
 
-    Route::get('/edit/{id}', [SuperAdminController::class, 'edit'])
-        ->name('edit');
+        Route::get('/edit/{id}', [SuperAdminController::class, 'edit'])
+            ->name('edit');
 
-    Route::post('/update/{id}', [SuperAdminController::class, 'update'])
-        ->name('update');
+        Route::post('/update/{id}', [SuperAdminController::class, 'update'])
+            ->name('update');
 
-    Route::get('/delete/{id}', [SuperAdminController::class, 'destroy'])
-        ->name('delete');
-});
+        Route::get('/delete/{id}', [SuperAdminController::class, 'destroy'])
+            ->name('delete');
+    });
+
 /*
 |--------------------------------------------------------------------------
-| KONTAK
+| KONTAK (SHARED)
 |--------------------------------------------------------------------------
 */
 Route::get('/kontak', function () {
     return view('shared.kontak');
 })->name('shared.kontak');
+
+
