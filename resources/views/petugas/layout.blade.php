@@ -35,22 +35,44 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-const slider = document.querySelector('.ruangan-slider');
+document.addEventListener("DOMContentLoaded", () => {
 
-function updateActiveCard() {
-    const cards = document.querySelectorAll('.detail-card');
-    let center = slider.scrollLeft + slider.offsetWidth / 2;
+    const slider = document.querySelector('.ruangan-slider');
+    if (!slider) return;
 
+    const cards = Array.from(slider.children);
+    const gap = 30;
+    const cardWidth = cards[0].offsetWidth + gap;
+
+    // clone card untuk infinite loop
     cards.forEach(card => {
-        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-        const distance = Math.abs(center - cardCenter);
-
-        card.classList.toggle('is-active', distance < card.offsetWidth / 2);
+        slider.appendChild(card.cloneNode(true));
+        slider.insertBefore(card.cloneNode(true), slider.firstChild);
     });
-}
 
-slider.addEventListener('scroll', () => requestAnimationFrame(updateActiveCard));
-updateActiveCard();
+    slider.scrollLeft = cardWidth * cards.length;
+
+    function updateActiveCard() {
+        const center = slider.scrollLeft + slider.offsetWidth / 2;
+        slider.querySelectorAll('.detail-card').forEach(card => {
+            const pos = card.offsetLeft + card.offsetWidth / 2;
+            card.classList.toggle('is-active', Math.abs(center - pos) < cardWidth / 2);
+        });
+    }
+
+    slider.addEventListener('scroll', () => {
+        if (slider.scrollLeft <= cardWidth) {
+            slider.scrollLeft += cardWidth * cards.length;
+        }
+        if (slider.scrollLeft >= cardWidth * (cards.length * 2)) {
+            slider.scrollLeft -= cardWidth * cards.length;
+        }
+        requestAnimationFrame(updateActiveCard);
+    });
+
+    updateActiveCard();
+});
 </script>
+
 </body>
 </html>
