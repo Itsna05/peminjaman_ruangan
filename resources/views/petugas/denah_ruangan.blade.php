@@ -39,6 +39,7 @@
         <h3 class="text-center fw-bold mb-5">Detail Ruangan</h3>
 
         <div class="ruangan-slider">
+            <div class="ruangan-track">
 
             {{-- ================= CARD 1 ================= --}}
             <div class="detail-card">
@@ -220,7 +221,8 @@
                     </div>
                 </div>
             </div>
-
+            
+            </div>
         </div>
     </div>
 </section>

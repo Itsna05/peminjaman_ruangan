@@ -250,24 +250,13 @@ html, body {
     margin-top: 80px;
 }
 
-.ruangan-slider {
-    display: flex;
-    gap: 30px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding: 20px 80px;
-}
-
-.ruangan-slider::-webkit-scrollbar {
-    display: none;
-}
-
 .detail-card {
     flex: 0 0 420px;
     background: #fff;
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 12px 30px rgba(0, 0, 0, .18);
+    scroll-snap-align: center;
     scroll-snap-align: center;
 }
 
@@ -399,6 +388,19 @@ html, body {
     transform: scale(1);
     opacity: 1;
     box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
+}
+
+.ruangan-slider {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    /* biar gesernya halus */
+    padding: 20px 0;
+}
+
+.ruangan-track {
+    display: flex;
+    gap: 30px;
+    width: max-content;
 }
 
 /* =========================
