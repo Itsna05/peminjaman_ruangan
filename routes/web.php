@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Petugas\DashboardController;
 use App\Http\Controllers\Petugas\DenahRuanganController;
 use App\Http\Controllers\SuperAdminController;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -39,6 +40,21 @@ Route::middleware(['CekLogin:petugas'])
         Route::get('/peminjaman-ruangan', function () {
             return view('petugas.form-peminjaman');
         })->name('peminjaman');
+
+        Route::get('/get-sub-bidang', function () {
+            $bidang = request('bidang');
+
+            $data = DB::table('bidang_pegawai')
+                ->where('bidang', $bidang)
+                ->get();
+
+            $html = "<option value=''>Please Select</option>";
+            foreach ($data as $d) {
+                $html .= "<option value='{$d->id_bidang}'>{$d->sub_bidang}</option>";
+            }
+
+            return $html;
+        });
     });
 
 
