@@ -93,7 +93,7 @@
                 </a>
             </li>
 
-            
+
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('shared.kontak') ? 'active' : '' }}"
                     href="{{ route('shared.kontak') }}">Kontak</a>
@@ -106,7 +106,7 @@
                         Logout
                         </button>
                 </form>
-        </li>
+            </li>
 
         </ul>
     </div>
