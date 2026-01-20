@@ -92,8 +92,10 @@ Route::middleware(['CekLogin:superadmin'])
 | KONTAK (SHARED)
 |--------------------------------------------------------------------------
 */
-Route::get('/kontak', function () {
-    return view('shared.kontak');
-})->name('shared.kontak');
+Route::middleware(['CekLogin:petugas,superadmin'])
+    ->get('/kontak', function () {
+        return view('shared.kontak');
+    })
+    ->name('shared.kontak');
 
 

@@ -47,11 +47,9 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('shared.kontak') ? 'active' : '' }}"
-                    href="{{ route('shared.kontak') }}">
+                    <a class="nav-link text-white" href="#">
                         Kontak
                     </a>
-                    
                 </li>
 
             </ul>
