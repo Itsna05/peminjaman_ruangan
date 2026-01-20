@@ -57,15 +57,44 @@
                         <input type="number" class="form-control" placeholder="Masukkan Jumlah Peserta">
                     </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label">Waktu Mulai</label>
-                        <input type="time" class="form-control">
+                    <div class="col-12">
+                        <label class="form-label">Waktu Peminjaman</label>
+
+                        <div class="d-flex gap-2">
+                            <input type="date" id="tgl_mulai" class="form-control">
+                            <input type="time" id="jam_mulai" class="form-control" style="max-width:140px">
+
+                            <span class="align-self-center">~</span>
+
+                            <input type="date" id="tgl_selesai" class="form-control">
+                            <input type="time" id="jam_selesai" class="form-control" style="max-width:140px">
+                        </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label">Waktu Selesai</label>
-                        <input type="time" class="form-control">
-                    </div>
+ 
+
+                    {{-- INPUT HIDDEN UNTUK MENGGABUNG WAKTU --}}
+                    <input type="hidden" name="waktu_mulai" id="waktu_mulai">
+                    <input type="hidden" name="waktu_selesai" id="waktu_selesai">
+
+                    <script>
+                    function gabungWaktu() {
+                        const tglMulai = document.getElementById('tgl_mulai').value;
+                        const jamMulai = document.getElementById('jam_mulai').value;
+                        const tglSelesai = document.getElementById('tgl_selesai').value;
+                        const jamSelesai = document.getElementById('jam_selesai').value;
+
+                        if (tglMulai && jamMulai) {
+                            document.getElementById('waktu_mulai').value =
+                                tglMulai + ' ' + jamMulai + ':00';
+                        }
+
+                        if (tglSelesai && jamSelesai) {
+                            document.getElementById('waktu_selesai').value =
+                                tglSelesai + ' ' + jamSelesai + ':00';
+                        }
+                    }
+                    </script>
 
                     @php
                         $bidang = \Illuminate\Support\Facades\DB::table('bidang_pegawai')
@@ -145,7 +174,7 @@
                     </div>
 
                     <div class="col-12 text-end">
-                        <button type="submit" class="btn-ajukan">
+                        <button type="submit" class="btn-ajukan" onclick="gabungWaktu()">
                             Ajukan Peminjaman
                         </button>
                     </div>
@@ -154,8 +183,129 @@
             </form>
         </div>
 
-        
         {{-- STATUS PEMINJAMAN --}}
+        <div class="status-wrapper">
+            <h4 class="status-title text-center">
+                Status Peminjaman Ruangan
+            </h4>
+
+            <div class="status-card">
+
+                {{-- SEARCH & FILTER --}}
+                <div class="status-toolbar">
+                    <div class="search-box">
+                        <button type="button" class="search-btn">
+                            <i class="bi bi-search"></i>
+                        </button>
+                        <input type="text" placeholder="Pencarian" id="searchInput">
+                    </div>
+
+                    <div class="filter-box">
+                        <button class="filter-btn" type="button" id="filterToggle">
+                            Filter <span class="arrow">▾</span>
+                        </button>
+
+                        <div class="filter-dropdown" id="filterDropdown">
+                            <button class="filter-item" data-value="tampilkansemua">Tampilkan Semua</button>
+                            <button class="filter-item" data-value="menunggu">Menunggu</button>
+                            <button class="filter-item" data-value="disetujui">Disetujui</button>
+                            <button class="filter-item" data-value="ditolak">Ditolak</button>
+                            <button class="filter-item" data-value="dibatalkan">Dibatalkan</button>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- TABLE --}}
+                <div class="table-responsive table-scroll-x search-item ">
+                    <table class="status-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Ruangan</th>
+                                <th>Acara</th>
+                                <th>Waktu</th>
+                                <th>Bidang</th>
+                                <th>No WhatsApp</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tableBody">
+                            @forelse ($transaksi as $item)
+                                <tr data-status="{{ strtolower($item->status_peminjaman) }}">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nama_ruangan }}</td>
+                                    <td>{{ $item->acara }}</td>
+                                    <td>
+                                        <div class="tanggal">
+                                            {{ \Carbon\Carbon::parse($item->waktu_mulai)->translatedFormat('d F Y') }}
+                                        </div>
+                                        <div class="jam">
+                                            {{ \Carbon\Carbon::parse($item->waktu_mulai)->format('H:i') }}
+                                            -
+                                            {{ \Carbon\Carbon::parse($item->waktu_selesai)->format('H:i') }} WIB
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="bidang-nama">
+                                            {{ $item->bidang }}
+                                        </div>
+                                        <div class="sub-bidang">
+                                            {{ $item->sub_bidang ?? '-' }}
+                                        </div>
+                                    </td>
+                                    
+                                    <td>{{ $item->no_wa }}</td>
+
+                                    <td class="text-center">
+                                        <span class="badge-status {{ strtolower($item->status_peminjaman) }}">
+                                            {{ $item->status_peminjaman }}
+                                        </span>
+                                    </td>
+
+                                    <td class="text-center">
+                                        @if ($item->status_peminjaman === 'Menunggu')
+                                            <button class="btn-aksi"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalEditPeminjaman"
+                                                data-id="{{ $item->id_peminjaman }}">
+                                                ✎
+                                            </button>
+                                        @else
+                                            <button class="btn-aksi disabled" disabled>✎</button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted">
+                                        Data peminjaman belum ada
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- FOOTER --}}
+                <div class="status-footer">
+                    <div class="rows-info">
+                        Jumlah Baris :
+                        <select id="rowsPerPage">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+
+                    <div class="pagination" id="pagination"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- {{-- STATUS PEMINJAMAN --}}
         <div class="status-wrapper">
 
             <h4 class="status-title text-center">
@@ -180,6 +330,7 @@
                         </button>
 
                         <div class="filter-dropdown" id="filterDropdown">
+                            <button class="filter-item" data-value="tampilkansemua">Tampilkan Semua</button>
                             <button class="filter-item" data-value="menunggu">Menunggu</button>
                             <button class="filter-item" data-value="disetujui">Disetujui</button>
                             <button class="filter-item" data-value="ditolak">Ditolak</button>
@@ -188,6 +339,41 @@
                     </div>
 
                 </div>
+                <tbody id="tableBody">
+                @foreach ($transaksi as $i => $t)
+                <tr data-status="{{ strtolower($t->status_peminjaman) }}">
+                    <td>{{ $i + 1 }}</td>
+
+                    <td>{{ $t->nama_ruangan }}</td>
+
+                    <td>{{ $t->acara }}</td>
+
+                    <td>{{ $t->bidang }}</td>
+
+                    {{-- STATUS --}}
+                    <td class="text-center">
+                        <span class="badge-status {{ strtolower($t->status_peminjaman) }}">
+                            {{ $t->status_peminjaman }}
+                        </span>
+                    </td>
+
+                    {{-- AKSI --}}
+                    <td class="text-center">
+                        @if ($t->status_peminjaman === 'Menunggu')
+                            <button
+                                class="btn-aksi"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalEditPeminjaman"
+                                data-id="{{ $t->id_peminjaman }}">
+                                ✎
+                            </button>
+                        @else
+                            <button class="btn-aksi disabled" disabled>✎</button>
+                        @endif
+                    </td>
+                </tr>
+                @endforeach
+                </tbody>
 
                 {{-- TABLE --}}
                 <div class="table-responsive search-item">
@@ -203,131 +389,38 @@
                             </tr>
                         </thead>
                         <tbody id="tableBody">
-                            <tr data-status="menunggu">
-                                <td>1</td>
-                                <td>Ruang Studio</td>
-                                <td>Hari Amal Bakti DPU</td>
-                                <td>Teknologi Informasi</td>
-                                <td class="text-center">
-                                    <span class="badge-status menunggu">Menunggu</span>
-                                </td>
-                                <td class="text-center">
-                                    <button 
-                                        class="btn-aksi"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#modalEditPeminjaman">
-                                        ✎
-                                    </button>
+                            @forelse ($transaksi as $item)
+                                <tr data-status="{{ strtolower($item->status_peminjaman) }}">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nama_ruangan }}</td>
+                                    <td>{{ $item->acara }}</td>
+                                    <td>{{ $item->bidang }}</td>
 
-                                </td>
-                            </tr>
+                                    <td class="text-center">
+                                        <span class="badge-status {{ strtolower($item->status_peminjaman) }}">
+                                            {{ $item->status_peminjaman }}
+                                        </span>
+                                    </td>
 
-                            <tr data-status="disetujui">
-                                <td>2</td>
-                                <td>Ruang Bond</td>
-                                <td>Perencanaan Masjid At-Taqwa</td>
-                                <td>Bidang Rancang Bangun</td>
-                                <td class="text-center">
-                                    <span class="badge-status disetujui">Disetujui</span>
-                                </td>
-                               <td class="text-center">
-                                    <button class="btn-aksi disabled" disabled>
-                                        ✎
-                                    </button>
-                                </td>
-
-                            </tr>
-
-                            <tr data-status="ditolak">
-                                <td>3</td>
-                                <td>Ruang Olahraga</td>
-                                <td>Rapat Preservasi Jalan</td>
-                                <td>Bidang Pelaksanaan Jalan</td>
-                                <td class="text-center">
-                                    <span class="badge-status ditolak">Ditolak</span>
-                                </td>
-                                <td class="text-center">
-                                    <button class="btn-aksi disabled">✎</button>
-                                </td>
-                            </tr>
-
-                            <tr data-status="dibatalkan">
-                                <td>4</td>
-                                <td>Ruang Dharma Wanita</td>
-                                <td>Pelatihan Kepenulisan</td>
-                                <td>Dharma Wanita Persatuan</td>
-                                <td class="text-center">
-                                    <span class="badge-status dibatalkan">Dibatalkan</span>
-                                </td>
-                                <td class="text-center">
-                                    <button class="btn-aksi disabled">✎</button>
-                                </td>
-                            </tr>
-
-                            <tr data-status="menunggu">
-                                <td>5</td>
-                                <td>Ruang Studio</td>
-                                <td>Hari Amal Bakti DPU</td>
-                                <td>Teknologi Informasi</td>
-                                <td class="text-center">
-                                    <span class="badge-status menunggu">Menunggu</span>
-                                </td>
-                                <td class="text-center">
-                                    <button 
-                                        class="btn-aksi"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#modalEditPeminjaman">
-                                        ✎
-                                    </button>
-
-                                </td>
-                            </tr>
-
-                            <tr data-status="menunggu">
-                                <td>6</td>
-                                <td>Ruang Bond</td>
-                                <td>Perencanaan Masjid At-Taqwa</td>
-                                <td>Bidang Rancang Bangun</td>
-                                <td class="text-center">
-                                    <span class="badge-status menunggu">Menunggu</span>
-                                </td>
-                               <td class="text-center">
-                                    <button 
-                                        class="btn-aksi"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#modalEditPeminjaman">
-                                        ✎
-                                    </button>
-                                </td>
-
-                            </tr>
-
-                            <tr data-status="ditolak">
-                                <td>7</td>
-                                <td>Ruang Olahraga</td>
-                                <td>Rapat Preservasi Jalan</td>
-                                <td>Bidang Pelaksanaan Jalan</td>
-                                <td class="text-center">
-                                    <span class="badge-status ditolak">Ditolak</span>
-                                </td>
-                                <td class="text-center">
-                                    <button class="btn-aksi disabled">✎</button>
-                                </td>
-                            </tr>
-
-                            <tr data-status="dibatalkan">
-                                <td>8</td>
-                                <td>Ruang Dharma Wanita</td>
-                                <td>Pelatihan Kepenulisan</td>
-                                <td>Dharma Wanita Persatuan</td>
-                                <td class="text-center">
-                                    <span class="badge-status dibatalkan">Dibatalkan</span>
-                                </td>
-                                <td class="text-center">
-                                    <button class="btn-aksi disabled">✎</button>
-                                </td>
-                            </tr>
-
+                                    <td class="text-center">
+                                        @if ($item->status_peminjaman === 'Menunggu')
+                                            <button class="btn-aksi"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalEditPeminjaman">
+                                                ✎
+                                            </button>
+                                        @else
+                                            <button class="btn-aksi disabled" disabled>✎</button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted">
+                                        Data peminjaman belum ada
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -348,9 +441,7 @@
 
             </div>
         </div>
-
-
-    </div>
+    </div> -->
         {{-- =======================
     MODAL EDIT PEMINJAMAN
     ======================= --}}
@@ -370,8 +461,94 @@
                     </button>
                 </div>
 
+                <div class="modal-body">
+                <form>
+                    <div class="row g-3">
 
-                {{-- BODY --}}
+                        <div class="col-md-6">
+                            <label class="form-label">Nama Acara</label>
+                            <input type="text" class="form-control edit-field"
+                                value="Hari Amal Bakti DPU" readonly>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Jumlah Peserta</label>
+                            <input type="number" class="form-control edit-field"
+                                value="300" readonly>
+                        </div>
+
+                        {{-- WAKTU PEMINJAMAN --}}
+                        <div class="col-12">
+                            <label class="form-label">Waktu Peminjaman</label>
+
+                            <div class="d-flex gap-2">
+                                <input type="date" id="tgl_mulai"
+                                    class="form-control edit-field"
+                                    value="{{ $tglMulai ?? '' }}" readonly>
+
+                                <input type="time" id="jam_mulai"
+                                    class="form-control edit-field"
+                                    value="{{ $jamMulai ?? '' }}"
+                                    style="max-width:140px" readonly>
+
+                                <span class="align-self-center">~</span>
+
+                                <input type="date" id="tgl_selesai"
+                                    class="form-control edit-field"
+                                    value="{{ $tglSelesai ?? '' }}" readonly>
+
+                                <input type="time" id="jam_selesai"
+                                    class="form-control edit-field"
+                                    value="{{ $jamSelesai ?? '' }}"
+                                    style="max-width:140px" readonly>
+                            </div>
+                        </div>
+
+                        {{-- HIDDEN DATETIME --}}
+                        <input type="hidden" name="waktu_mulai" id="waktu_mulai">
+                        <input type="hidden" name="waktu_selesai" id="waktu_selesai">
+
+                        <div class="col-md-6">
+                            <label class="form-label">Pilih Bidang</label>
+                            <select class="form-select edit-field" readonly>
+                                <option>Bidang Rancang Bangun dan Pengawasan</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Pilih Sub Bidang</label>
+                            <select class="form-select edit-field" readonly>
+                                <option>Kasi Perancang Bangunan</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Pilih Ruangan</label>
+                            <select class="form-select edit-field" readonly>
+                                <option>Ruang Studio</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Nomor WhatsApp</label>
+                            <input type="text" class="form-control edit-field"
+                                value="083239242938" readonly>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Catatan</label>
+                            <textarea class="form-control edit-field" readonly>
+                                Butuh sound
+                            </textarea>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+
+
+                <!-- {{-- BODY --}}
                 <div class="modal-body">
                     <form>
                         <div class="row g-3">
@@ -387,6 +564,50 @@
                                 <input type="number" class="form-control edit-field" value="300" disabled>
 
                             </div>
+
+                            <div class="col-12">
+                                <label class="form-label">Waktu Peminjaman</label>
+
+                                <div class="d-flex gap-2">
+                                    <input type="date" id="tgl_mulai" class="form-control"
+                                        value="{{ $tglMulai ?? '' }}" readonly>
+
+                                    <input type="time" id="jam_mulai" class="form-control"
+                                        value="{{ $jamMulai ?? '' }}" style="max-width:140px" readonly>
+
+                                    <span class="align-self-center">~</span>
+
+                                    <input type="date" id="tgl_selesai" class="form-control"
+                                        value="{{ $tglSelesai ?? '' }}" readonly>
+
+                                    <input type="time" id="jam_selesai" class="form-control"
+                                        value="{{ $jamSelesai ?? '' }}" style="max-width:140px" readonly>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="waktu_mulai" id="waktu_mulai">
+                            <input type="hidden" name="waktu_selesai" id="waktu_selesai">
+
+                            <script>
+                            function gabungWaktu() {
+                                const tglMulai = document.getElementById('tgl_mulai').value;
+                                const jamMulai = document.getElementById('jam_mulai').value;
+                                const tglSelesai = document.getElementById('tgl_selesai').value;
+                                const jamSelesai = document.getElementById('jam_selesai').value;
+
+                                if (tglMulai && jamMulai) {
+                                    document.getElementById('waktu_mulai').value =
+                                        tglMulai + ' ' + jamMulai + ':00';
+                                }
+
+                                if (tglSelesai && jamSelesai) {
+                                    document.getElementById('waktu_selesai').value =
+                                        tglSelesai + ' ' + jamSelesai + ':00';
+                                }
+                            }
+                            </script>
+
+
 
                             <div class="col-md-6">
                                 <label class="form-label">Waktu Mulai</label>
@@ -444,7 +665,7 @@
 
                         </div>
                     </form>
-                </div>
+                </div> -->
 
                 {{-- FOOTER --}}
                 <div class="modal-footer border-0 modal-footer-custom">
@@ -463,7 +684,7 @@
 
                     {{-- MODE EDIT --}}
                     <div id="footerEdit" class="footer-actions d-none">
-                        <button class="btn btn-success px-4" id="btnSimpan">
+                        <button class="btn btn-success px-4" id="btnSimpan" onclick="gabungWaktu()">
                             Simpan
                         </button>
 
@@ -537,6 +758,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 });
+</script>
+{{-- SCRIPT GABUNG WAKTU --}}
+<script>
+function gabungWaktu() {
+    document.getElementById('waktu_mulai').value =
+        document.getElementById('tgl_mulai').value + ' ' +
+        document.getElementById('jam_mulai').value + ':00';
+
+    document.getElementById('waktu_selesai').value =
+        document.getElementById('tgl_selesai').value + ' ' +
+        document.getElementById('jam_selesai').value + ':00';
+}
 </script>
 
 @endsection

@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Petugas\DashboardController;
 use App\Http\Controllers\Petugas\DenahRuanganController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\PeminjamanRuanganController;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
@@ -37,9 +38,11 @@ Route::middleware(['CekLogin:petugas'])
             ->name('denah');
 
         // PEMINJAMAN RUANGAN
-        Route::get('/peminjaman-ruangan', function () {
-            return view('petugas.form-peminjaman');
-        })->name('peminjaman');
+
+        Route::get(
+            '/peminjaman-ruangan',
+            [PeminjamanRuanganController::class, 'index']
+        )->name('peminjaman');
 
         Route::get('/get-sub-bidang', function () {
             $bidang = request('bidang');
@@ -55,6 +58,9 @@ Route::middleware(['CekLogin:petugas'])
 
             return $html;
         });
+
+
+
     });
 
 
