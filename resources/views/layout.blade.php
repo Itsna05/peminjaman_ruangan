@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>@yield('title')</title>
+
+    {{-- Bootstrap --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    {{-- Bootstrap Icons --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    {{-- GLOBAL --}}
+    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
+
+    {{-- PETUGAS --}}
+    <link rel="stylesheet" href="{{ asset('css/superadmin.css') }}">
+
+    {{-- JAVASCRIPT --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</head>
+<body>
+
+{{-- Navbar --}}
+@include('partials.navbar-superadmin')
+
+<main>
+    @yield('content')
+</main>
+
+{{-- Footer --}}
+@include('partials.footer')
+
+</body>
+</html>

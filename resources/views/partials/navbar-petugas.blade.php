@@ -93,11 +93,10 @@
                 </a>
             </li>
 
-
-          
-
+            
             <li class="nav-item">
-                <a class="nav-link" href="#">Kontak</a>
+                <a class="nav-link {{ request()->routeIs('shared.kontak') ? 'active' : '' }}"
+                    href="{{ route('shared.kontak') }}">Kontak</a>
             </li>
 
             <li class="nav-item">
