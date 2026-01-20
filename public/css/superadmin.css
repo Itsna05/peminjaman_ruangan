@@ -112,3 +112,359 @@ html, body {
     font-size: 0.9rem;
     max-width: 700px;
 }
+
+
+
+  /* SUMMARY CARD */
+
+  .summary-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+.summary-card p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.summary-card h3 {
+    margin: 6px 0;
+    font-weight: 700;
+}
+
+.summary-card small {
+    font-size: 12px;
+    color: #28a745;
+}
+
+.summary-card.warning small {
+    color: #f59e0b;
+}
+
+.summary-card.success small {
+    color: #16a34a;
+}
+
+/* TABEL RIWAYAT PEMINJAMAN */
+/* =========================
+   STATUS PEMINJAMAN
+========================= */
+
+.status-wrapper {
+    background: #eef3f8;
+    padding: 40px 20px;
+    border-radius: 16px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.status-title {
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.status-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Toolbar */
+.status-toolbar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    max-width: 320px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 14px 10px 42px;
+    border-radius: 12px;
+    border: 1.5px solid #15468A;
+    outline: none;
+    font-size: 14px;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #15468A;
+}
+
+/* ICON SEARCH */
+.search-box i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    cursor: pointer;
+    color:#15468A;
+    z-index: 2;
+}
+
+.search-box i:hover {
+    color: #15468A;
+}
+
+.search-btn {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #15468A;
+    cursor: pointer;
+    padding: 0;
+}
+
+.search-btn:hover {
+    color: #15468A;
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+    .status-toolbar {
+        flex-direction: column;
+    }
+
+    .search-box {
+        max-width: 100%;
+    }
+}
+
+/* filter */
+/* WRAPPER */
+.filter-box {
+    position: relative;
+}
+
+/* BUTTON FILTER */
+.filter-btn {
+    background: #fff;
+    border: 1.5px solid #0d47a1;
+    color: #000;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* ARROW */
+.filter-btn .arrow {
+    font-size: 14px;
+}
+
+/* DROPDOWN */
+.filter-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 180px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #15468A;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    display: none;
+    flex-direction: column;
+    padding: 8px;
+    z-index: 1000;
+}
+
+/* =========================
+   UNDUH DROPDOWN
+   ========================= */
+
+.unduh-box {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tombol utama */
+.unduh-btn {
+    background-color: #15468A;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    min-width: 110px;
+}
+
+.unduh-btn:hover {
+    background-color: #15468A;
+}
+
+/* Panah */
+.unduh-btn .arrow {
+    font-size: 12px;
+}
+
+/* Dropdown */
+.unduh-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 100%;
+    background-color: #15468A;
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+    z-index: 20;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Item dropdown */
+.unduh-item {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.unduh-item:not(:last-child) {
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+
+.unduh-item:hover {
+    background-color: rgba(255,255,255,0.15);
+}
+
+/* Aktif */
+.unduh-dropdown.show {
+    display: block;
+}
+
+/* ITEM */
+.filter-item {
+    background: transparent;
+    border: none;
+    padding: 10px 12px;
+    text-align: left;
+    border-radius: 10px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.filter-item:hover {
+    background: #e3f2fd;
+}
+
+/* AKTIF */
+.filter-dropdown.show {
+    display: flex;
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+    .filter-dropdown {
+        width: 100%;
+    }
+}
+
+
+/* Table */
+.status-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.status-table th {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid #15468A;
+    font-weight: 700;
+}
+
+.status-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Badge status */
+.badge-status {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.menunggu {
+    background: #ffe082;
+    color: #7a5d00;
+}
+
+.disetujui {
+    background: #4caf50;
+    color: #fff;
+}
+
+.ditolak {
+    background: #e53935;
+    color: #fff;
+}
+
+.dibatalkan {
+    background: #9e9e9e;
+    color: #fff;
+}
+
+/* Button aksi */
+.btn-aksi {
+    background: #1e4fa1;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-aksi.disabled {
+    background-color: #cfcfcf;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+
+/* Footer */
+.status-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.pagination button {
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+.pagination .active {
+    background: #1e4fa1;
+    color: #fff;
+}
