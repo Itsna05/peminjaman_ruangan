@@ -24,7 +24,11 @@
 <body>
 
 {{-- Navbar --}}
-@include('partials.navbar-petugas')
+@if(session('role') === 'petugas')
+    @include('partials.navbar-petugas')
+@elseif(session('role') === 'superadmin')
+    @include('partials.navbar-superadmin')
+@endif
 
 <main>
     @yield('content')
