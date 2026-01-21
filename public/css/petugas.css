@@ -611,6 +611,14 @@ body {
     border-color: #15468a;
 }
 
+/* filter aktif untuk dropdown */
+.filter-item.active {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: 600;
+}
+
+
 /* ICON SEARCH */
 .search-box i {
     position: absolute;
