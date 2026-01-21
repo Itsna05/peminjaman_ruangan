@@ -105,3 +105,21 @@ Route::middleware(['CekLogin:petugas,superadmin'])
     ->name('shared.kontak');
 
 
+/*
+|--------------------------------------------------------------------------
+| MANAJEMEN PEMINJAMAN (SUPERADMIN)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['CekLogin:superadmin'])
+    ->prefix('superadmin')
+    ->name('superadmin.')
+    ->group(function () {
+
+        Route::get('/manajemen-peminjaman', function () {
+            return view('superadmin.manajemen-peminjaman');
+        })->name('manajemen-peminjaman');
+
+    });
+
+
+

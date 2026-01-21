@@ -28,6 +28,8 @@
 
 
 </head>
+<script src="{{ asset('js/pagination.js') }}"></script>
+
 <body>
 
 {{-- Navbar --}}

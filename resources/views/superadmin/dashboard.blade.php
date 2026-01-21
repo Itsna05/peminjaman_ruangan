@@ -25,15 +25,16 @@
             <p class="info-desc">
                 Peminjaman ruangan hanya dapat digunakan apabila telah memperoleh persetujuan resmi
                 dari pihak terkait sesuai alur yang ditetapkan oleh Dinas Pekerjaan Umum Bina Marga
-                dan Cipta Karya (DPU BMCK) Provinsi Jawa Tengah. Penggunaan ruangan wajib mematuhi
-                ketentuan jam operasional, kapasitas ruangan, serta menjaga kebersihan, ketertiban,
-                dan keamanan fasilitas selama kegiatan berlangsung.
+                dan Cipta Karya (DPU BMCK) Provinsi Jawa Tengah.
             </p>
+
 
         </div>
     </div>
 </section>
 
+
+           
 {{-- =======================
    SUMMARY CARD
    ======================= --}}
@@ -178,6 +179,7 @@
                             <td>0849237903</td>
                             <td class="text-center">
                                 <span class="badge-status ditolak">Ditolak</span>
+                            </td>
                         </tr>
 
                         <tr data-status="dibatalkan">
