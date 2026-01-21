@@ -10,7 +10,7 @@
 {{-- HEADER INFO --}}
 <section class="dashboard-info">
     <div class="container">
-        <div class="info-box text-center">
+        <div class="info-label text-center">
             <h4 class="info-title">
                 <span class="line"></span>
                 Denah Ruangan
@@ -83,7 +83,7 @@
                     <h5 class="detail-card-title">Ruang SKPD Timur</h5>
 
                     <div class="detail-card-info">
-                        <div class="info-box">
+                        <div class="info-label">
                             <h6>Elektronik</h6>
                             <ul>
                                 <li>AC : 2</li>
@@ -91,7 +91,7 @@
                                 <li>Layar LED : 1</li>
                             </ul>
                         </div>
-                        <div class="info-box">
+                        <div class="info-label">
                             <h6>Non Elektronik</h6>
                             <ul>
                                 <li>Kursi : 20</li>
@@ -144,14 +144,14 @@
                     <h5 class="detail-card-title">Ruang Rapat A</h5>
 
                     <div class="detail-card-info">
-                        <div class="info-box">
+                        <div class="info-label">
                             <h6>Elektronik</h6>
                             <ul>
                                 <li>AC : 4</li>
                                 <li>Sound System : 2</li>
                             </ul>
                         </div>
-                        <div class="info-box">
+                        <div class="info-label">
                             <h6>Non Elektronik</h6>
                             <ul>
                                 <li>Kursi : 40</li>
@@ -204,14 +204,14 @@
                     <h5 class="detail-card-title">Aula Utama</h5>
 
                     <div class="detail-card-info">
-                        <div class="info-box">
+                        <div class="info-label">
                             <h6>Elektronik</h6>
                             <ul>
                                 <li>AC : 10</li>
                                 <li>Sound System : 4</li>
                             </ul>
                         </div>
-                        <div class="info-box">
+                        <div class="info-label">
                             <h6>Non Elektronik</h6>
                             <ul>
                                 <li>Kursi : 120</li>
