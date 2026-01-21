@@ -60,24 +60,75 @@
                     <div class="col-12">
                         <label class="form-label">Waktu Peminjaman</label>
 
-                        <div class="d-flex gap-2">
-                            <input type="date" id="tgl_mulai" class="form-control">
-                            <input type="time" id="jam_mulai" class="form-control" style="max-width:140px">
+                        <div class="waktu-wrapper">
+                            <input
+                                type="date"
+                                id="tgl_mulai"
+                                class="form-control"
+                                onchange="aturJamMulai(); gabungWaktu()">
 
-                            <span class="align-self-center">~</span>
+                            <input
+                                type="time"
+                                id="jam_mulai"
+                                class="form-control waktu-jam"
+                                onchange="aturJamSelesai(); gabungWaktu()">
 
-                            <input type="date" id="tgl_selesai" class="form-control">
-                            <input type="time" id="jam_selesai" class="form-control" style="max-width:140px">
+                            <span class="separator">~</span>
+
+                            <input
+                                type="date"
+                                id="tgl_selesai"
+                                class="form-control"
+                                onchange="gabungWaktu()">
+
+                            <input
+                                type="time"
+                                id="jam_selesai"
+                                class="form-control waktu-jam"
+                                onchange="gabungWaktu()">
                         </div>
                     </div>
 
- 
-
-                    {{-- INPUT HIDDEN UNTUK MENGGABUNG WAKTU --}}
                     <input type="hidden" name="waktu_mulai" id="waktu_mulai">
                     <input type="hidden" name="waktu_selesai" id="waktu_selesai">
 
                     <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const today = new Date().toISOString().split('T')[0];
+
+                        document.getElementById('tgl_mulai').min = today;
+                        document.getElementById('tgl_selesai').min = today;
+                    });
+
+                    /* ===== BATASI JAM MULAI JIKA HARI INI ===== */
+                    function aturJamMulai() {
+                        const tglMulai = document.getElementById('tgl_mulai').value;
+                        const jamMulai = document.getElementById('jam_mulai');
+
+                        const today = new Date().toISOString().split('T')[0];
+
+                        if (tglMulai === today) {
+                            const now = new Date();
+                            const jam = String(now.getHours()).padStart(2, '0');
+                            const menit = String(now.getMinutes()).padStart(2, '0');
+
+                            jamMulai.min = `${jam}:${menit}`;
+                        } else {
+                            jamMulai.removeAttribute('min');
+                        }
+                    }
+
+                    /* ===== JAM SELESAI ≥ JAM MULAI ===== */
+                    function aturJamSelesai() {
+                        const jamMulai = document.getElementById('jam_mulai').value;
+                        const jamSelesai = document.getElementById('jam_selesai');
+
+                        if (jamMulai) {
+                            jamSelesai.min = jamMulai;
+                        }
+                    }
+
+                    /* ===== GABUNG KE HIDDEN INPUT ===== */
                     function gabungWaktu() {
                         const tglMulai = document.getElementById('tgl_mulai').value;
                         const jamMulai = document.getElementById('jam_mulai').value;
@@ -86,12 +137,12 @@
 
                         if (tglMulai && jamMulai) {
                             document.getElementById('waktu_mulai').value =
-                                tglMulai + ' ' + jamMulai + ':00';
+                                `${tglMulai} ${jamMulai}:00`;
                         }
 
                         if (tglSelesai && jamSelesai) {
                             document.getElementById('waktu_selesai').value =
-                                tglSelesai + ' ' + jamSelesai + ':00';
+                                `${tglSelesai} ${jamSelesai}:00`;
                         }
                     }
                     </script>
@@ -218,6 +269,17 @@
                 {{-- TABLE --}}
                 <div class="table-responsive table-scroll-x search-item ">
                     <table class="status-table">
+                        <colgroup>
+                            <col style="width:50px">     <!-- No -->
+                            <col style="width:160px">    <!-- Nama Ruangan -->
+                            <col>                        <!-- Acara (fleksibel) -->
+                            <col style="width:180px">    <!-- Waktu -->
+                            <col style="width:220px">    <!-- Bidang -->
+                            <col style="width:140px">    <!-- No WA -->
+                            <col style="width:160px">    <!-- Status -->
+                            <col style="width:80px">     <!-- Aksi -->
+                        </colgroup>
+
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -304,144 +366,7 @@
 
             </div>
         </div>
-
-        <!-- {{-- STATUS PEMINJAMAN --}}
-        <div class="status-wrapper">
-
-            <h4 class="status-title text-center">
-                Status Peminjaman Ruangan
-            </h4>
-
-            <div class="status-card">
-
-                {{-- SEARCH & FILTER --}}
-                <div class="status-toolbar">
-                    <div class="search-box">
-                        <button type="button" class="search-btn">
-                            <i class="bi bi-search"></i>
-                        </button>
-                        <input type="text" placeholder="Pencarian" id="searchInput">
-                    </div>
-
-                    <div class="filter-box">
-                        <button class="filter-btn" type="button" id="filterToggle">
-                            Filter
-                            <span class="arrow">▾</span>
-                        </button>
-
-                        <div class="filter-dropdown" id="filterDropdown">
-                            <button class="filter-item" data-value="tampilkansemua">Tampilkan Semua</button>
-                            <button class="filter-item" data-value="menunggu">Menunggu</button>
-                            <button class="filter-item" data-value="disetujui">Disetujui</button>
-                            <button class="filter-item" data-value="ditolak">Ditolak</button>
-                            <button class="filter-item" data-value="dibatalkan">Dibatalkan</button>
-                        </div>
-                    </div>
-
-                </div>
-                <tbody id="tableBody">
-                @foreach ($transaksi as $i => $t)
-                <tr data-status="{{ strtolower($t->status_peminjaman) }}">
-                    <td>{{ $i + 1 }}</td>
-
-                    <td>{{ $t->nama_ruangan }}</td>
-
-                    <td>{{ $t->acara }}</td>
-
-                    <td>{{ $t->bidang }}</td>
-
-                    {{-- STATUS --}}
-                    <td class="text-center">
-                        <span class="badge-status {{ strtolower($t->status_peminjaman) }}">
-                            {{ $t->status_peminjaman }}
-                        </span>
-                    </td>
-
-                    {{-- AKSI --}}
-                    <td class="text-center">
-                        @if ($t->status_peminjaman === 'Menunggu')
-                            <button
-                                class="btn-aksi"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalEditPeminjaman"
-                                data-id="{{ $t->id_peminjaman }}">
-                                ✎
-                            </button>
-                        @else
-                            <button class="btn-aksi disabled" disabled>✎</button>
-                        @endif
-                    </td>
-                </tr>
-                @endforeach
-                </tbody>
-
-                {{-- TABLE --}}
-                <div class="table-responsive search-item">
-                    <table class="status-table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Ruangan</th>
-                                <th>Acara</th>
-                                <th>Bidang</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                            @forelse ($transaksi as $item)
-                                <tr data-status="{{ strtolower($item->status_peminjaman) }}">
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->nama_ruangan }}</td>
-                                    <td>{{ $item->acara }}</td>
-                                    <td>{{ $item->bidang }}</td>
-
-                                    <td class="text-center">
-                                        <span class="badge-status {{ strtolower($item->status_peminjaman) }}">
-                                            {{ $item->status_peminjaman }}
-                                        </span>
-                                    </td>
-
-                                    <td class="text-center">
-                                        @if ($item->status_peminjaman === 'Menunggu')
-                                            <button class="btn-aksi"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modalEditPeminjaman">
-                                                ✎
-                                            </button>
-                                        @else
-                                            <button class="btn-aksi disabled" disabled>✎</button>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center text-muted">
-                                        Data peminjaman belum ada
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-
-                {{-- FOOTER --}}    
-                <div class="status-footer">
-                    <div class="rows-info">
-                        Jumlah Baris :
-                        <select id="rowsPerPage">
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                        </select>
-                    </div>
-
-
-                    <div class="pagination" id="pagination"></div>
-                </div>
-
-            </div>
-        </div>
-    </div> -->
+    </div> 
         {{-- =======================
     MODAL EDIT PEMINJAMAN
     ======================= --}}
