@@ -73,7 +73,7 @@
    ======================= --}}
    <div class="container my-5">
         <div class="card p-4">
-            <h6 class="fw-bold mb-3">Statistik Peminjaman</h6>
+            <h4 class="fw-bold mb-3">Statistik Peminjaman</h4>
             <canvas id="loanChart"></canvas>
         </div>
     </div>
