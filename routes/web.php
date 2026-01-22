@@ -93,6 +93,16 @@ Route::middleware(['CekLogin:superadmin'])
             ->name('delete');
     });
 
+
+/*
+|--------------------------------------------------------------------------
+| LANDING PAGE MONITOR
+|--------------------------------------------------------------------------
+*/
+Route::get('/monitor', function () {
+    return view('monitor.landingpage');
+})->name('monitor.landingpage');
+
 /*
 |--------------------------------------------------------------------------
 | KONTAK (SHARED)
