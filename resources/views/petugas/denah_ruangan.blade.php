@@ -10,7 +10,7 @@
 {{-- HEADER INFO --}}
 <section class="dashboard-info">
     <div class="container">
-        <div class="info-label text-center">
+        <div class="info-box text-center">
             <h4 class="info-title">
                 <span class="line"></span>
                 Denah Ruangan
