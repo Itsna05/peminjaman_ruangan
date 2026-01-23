@@ -41,8 +41,8 @@
 
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('petugas.peminjaman') ? 'active' : '' }}"
-                    href="{{ route('petugas.peminjaman') }}">
+                    <a class="nav-link {{ request()->routeIs('superadmin.manajemenuser') ? 'active' : '' }}"
+                    href="{{ route('superadmin.manajemenuser') }}">
                         Manajemen User
                     </a>
                 </li>
@@ -98,8 +98,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('petugas.peminjaman') ? 'active' : '' }}"
-                    href="{{ route('petugas.peminjaman') }}">
+                <a class="nav-link {{ request()->routeIs('superadmin.manajemenuser') ? 'active' : '' }}"
+                    href="{{ route('superadmin.manajemenuser') }}">
                     Manajemen User
                 </a>
             </li>

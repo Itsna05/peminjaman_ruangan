@@ -15,6 +15,13 @@ class SuperAdminController extends Controller
         return view('superadmin.dashboard', compact('admins'));
     }
 
+    public function manajemenuser()
+    {
+        $users = User::all();
+        return view('superadmin.manajemen-user', compact('users'));
+    }
+
+
     public function create()
     {
         return view('superadmin.create');

@@ -77,6 +77,9 @@ Route::middleware(['CekLogin:superadmin'])
         Route::get('/dashboard', [SuperAdminController::class, 'index'])
             ->name('dashboard');
 
+        Route::get('/manajemen-user', [SuperAdminController::class, 'manajemenuser'])
+            ->name('manajemenuser');
+
         Route::get('/create', [SuperAdminController::class, 'create'])
             ->name('create');
 
