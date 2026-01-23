@@ -6,6 +6,7 @@ use App\Http\Controllers\Petugas\DashboardController;
 use App\Http\Controllers\Petugas\DenahRuanganController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\PeminjamanRuanganController;
+use App\Http\Controllers\ManajemenRuanganController;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
@@ -134,5 +135,17 @@ Route::middleware(['CekLogin:superadmin'])
 
     });
 
+/*
+|--------------------------------------------------------------------------
+| MANAJEMEN PEMINJAMAN (SUPERADMIN)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['CekLogin:superadmin'])
+    ->prefix('superadmin')
+    ->name('superadmin.')
+    ->group(function () {
 
-
+        Route::get('/manajemen-ruangan', function () {
+            return view('superadmin.manajemen-ruangan');
+        })->name('manajemen-ruangan');
+    });

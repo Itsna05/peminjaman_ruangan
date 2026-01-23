@@ -24,8 +24,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('petugas.denah') ? 'active' : '' }}"
-                    href="{{ route('petugas.denah') }}">
+                    <a class="nav-link {{ request()->routeIs('superadmin.manajemen-ruangan') ? 'active' : '' }}"
+                    href="{{ route('superadmin.manajemen-ruangan') }}">
                         Manajemen Ruangan
                     </a>
                 </li>
