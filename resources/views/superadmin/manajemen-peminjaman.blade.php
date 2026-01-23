@@ -4,6 +4,12 @@
 
 @section('content')
 
+{{-- TENTUKAN TAB DARI URL--}}
+@php
+    $tab = request('tab', 'persetujuan');
+@endphp
+
+
 {{-- =======================
    HEADER BACKGROUND
    ======================= --}}
@@ -17,7 +23,8 @@
 
             {{-- KIRI - AKTIF --}}
             <a href="{{ route('superadmin.manajemen-peminjaman') }}"
-               class="dual-header active">
+                class="dual-header {{ $tab == 'persetujuan' ? 'active' : '' }}">
+
 
                 <h4 class="dual-header-title">
                     <span class="line"></span>
@@ -33,8 +40,9 @@
             </a>
 
             {{-- KANAN --}}
-            <a href="#"
-               class="dual-header">
+            <a href="{{ route('superadmin.manajemen-peminjaman', ['tab' => 'form']) }}"
+                class="dual-header {{ $tab == 'form' ? 'active' : '' }}">
+
 
                 <h4 class="dual-header-title">
                     <span class="line muted"></span>
@@ -58,6 +66,8 @@
 {{-- =======================
    PERSETUJUAN PEMINJAMAN RUANGAN
    ======================= --}}
+
+@if ($tab == 'persetujuan')
 <section>
     <div class="container"> 
         <div class="status-wrapper">
@@ -266,6 +276,77 @@
         </div>
     </div>
 </section>
+@endif
+
+@if ($tab == 'form')
+
+<section class="form-peminjaman-section">
+    <div class="container">
+
+        <div class="form-card">
+            <h4 class="form-title">Form Peminjaman Ruangan</h4>
+
+            <form>
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Nama Acara</label>
+                        <input type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Peserta</label>
+                        <input type="number">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Waktu Mulai</label>
+                        <input type="time">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Waktu Selesai</label>
+                        <input type="time">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bidang</label>
+                        <select></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sub Bidang</label>
+                        <select></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ruangan</label>
+                        <select></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>No WhatsApp</label>
+                        <input type="text">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Catatan</label>
+                        <textarea></textarea>
+                    </div>
+
+                </div>
+
+                <div class="text-end mt-4">
+                    <button class="btn-submit">Ajukan Peminjaman</button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</section>
+
+@endif
 
 <!-- ================= MODAL DETAIL PEMINJAMAN ================= -->
 <div class="modal-overlay" id="detailModal">

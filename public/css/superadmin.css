@@ -1138,3 +1138,100 @@ DETAIL PENGAJUAN PEMINJAMAN  ================= */
     }
 }
 
+/* ===============================
+   FORM PEMINJAMAN RUANGAN
+   (MANAJEMEN PEMINJAMAN)
+================================ */
+
+.form-peminjaman-section {
+    margin-top: 40px;
+    margin-bottom: 80px;
+}
+
+.form-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* Judul */
+.form-title {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 35px;
+}
+
+/* Grid 2 kolom */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 30px;
+}
+
+/* Group label + input */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label */
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* Input, select, textarea */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    height: 42px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.2s;
+}
+
+/* Textarea khusus */
+.form-group textarea {
+    height: 90px;
+    resize: none;
+}
+
+/* Fokus */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #4a80c7;
+    box-shadow: 0 0 0 2px rgba(74,128,199,0.2);
+}
+
+/* Full width */
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+/* Tombol */
+.form-action {
+    margin-top: 35px;
+    text-align: right;
+}
+
+.btn-submit {
+    background: #f7c600;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-submit:hover {
+    background: #e6b800;
+}
+
