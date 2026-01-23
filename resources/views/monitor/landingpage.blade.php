@@ -14,17 +14,25 @@
             <div class="today-card">
                 <span class="badge-status red">SEDANG DIGUNAKAN</span>
                 <h6>RUANG STUDIO</h6>
-                <p>🕒 08.00 - 10.00</p>
-                <strong>Rapat Perencanaan Jalan</strong>
-                <small>Bidang Pembangunan Jalan</small>
+                <p><i class="bi bi-clock"></i> <small>WAKTU :</small> 10.00 - 12.00</p>
+                <p><i class="bi bi-calendar2-event"></i><small> NAMA ACARA :</small><strong> Rapat Koordinasi</strong></p>
+                <p><i class="bi bi-people"></i><small> BIDANG :</small> Bidang Pembangunan Jalan</p>
             </div>
 
             <div class="today-card">
                 <span class="badge-status red">SEDANG DIGUNAKAN</span>
                 <h6>RUANG STUDIO</h6>
-                <p>🕒 10.00 - 12.00</p>
-                <strong>Rapat Koordinasi</strong>
-                <small>Bidang Pengawasan</small>
+                <p><i class="bi bi-clock"></i> <small>WAKTU :</small> 10.00 - 12.00</p>
+                <p><i class="bi bi-calendar2-event"></i><small> NAMA ACARA :</small><strong> Rapat Koordinasi</strong></p>
+                <p><i class="bi bi-people"></i><small> BIDANG :</small> Bidang Pembangunan Jalan</p>
+            </div>
+
+            <div class="today-card">
+                <span class="badge-status red">SEDANG DIGUNAKAN</span>
+                <h6>RUANG STUDIO</h6>
+                <p><i class="bi bi-clock"></i> <small>WAKTU :</small> 10.00 - 12.00</p>
+                <p><i class="bi bi-calendar2-event"></i><small> NAMA ACARA :</small><strong> Rapat Koordinasi</strong></p>
+                <p><i class="bi bi-people"></i><small> BIDANG :</small>Bidang Pembangunan Jalan</p>
             </div>
         </div>
     </section>
@@ -33,16 +41,19 @@
     <section class="monitor-card-mendatang">
         <h5 class="section-title">Jadwal Pemakaian Ruangan Mendatang</h5>
 
-        <div class="table-wrapper table-scroll">
+        <table class="monitor-table monitor-table-head">
+            <thead>
+                <tr>
+                    <th>Waktu</th>
+                    <th>Ruangan</th>
+                    <th>Nama Acara</th>
+                    <th>Bidang</th>
+                </tr>
+            </thead>
+        </table>
+
+        <div class="table-body-wrapper">
             <table class="monitor-table">
-                <thead>
-                    <tr>
-                        <th>Waktu</th>
-                        <th>Ruangan</th>
-                        <th>Nama Acara</th>
-                        <th>Bidang</th>
-                    </tr>
-                </thead>
                 <tbody id="autoScrollTable">
                     <tr>
                         <td>15 Jan 2026<br>10.00–13.00</td>
@@ -56,11 +67,12 @@
                         <td><strong>Evaluasi Proyek</strong></td>
                         <td>Bidang Prancangan Jalan</td>
                     </tr>
-                    {{-- dst --}}
+                    
                 </tbody>
             </table>
         </div>
     </section>
+
 
 </main>
 
@@ -68,19 +80,47 @@
 
 {{-- GALERI --}}
 <section class="monitor-gallery">
-    <h3>RUANGAN STUDIO</h3>
+    <h3 class="gallery-title">RUANGAN RAPAT</h3>
 
-    <div class="room-slider">
-        <img src="{{ asset('img/ruang_studio.png') }}">
-        <img src="{{ asset('img/ruang_studio.png') }}">
-        <img src="{{ asset('img/ruang_studio.png') }}">
-        <img src="{{ asset('img/ruang_studio.png') }}">
-        <img src="{{ asset('img/ruang_studio.png') }}">
-        <img src="{{ asset('img/ruang_studio.png') }}">
-        <img src="{{ asset('img/ruang_studio.png') }}">
-        <img src="{{ asset('img/ruang_studio.png') }}">
-        <img src="{{ asset('img/ruang_studio.png') }}">
-        <img src="{{ asset('img/ruang_studio.png') }}">
+    <div class="gallery-slider" id="gallerySlider">
+        <div class="slide active">
+            <img src="{{ asset('img/ruang_studio.png') }}">
+        </div>
+        <div class="slide active">
+            <img src="{{ asset('img/ruang_studio.png') }}">
+        </div>
+        <div class="slide active">
+            <img src="{{ asset('img/ruang_studio.png') }}">
+        </div>
+        <div class="slide active">
+            <img src="{{ asset('img/ruang_studio.png') }}">
+        </div>
+        <div class="slide active">
+            <img src="{{ asset('img/ruang_studio.png') }}">
+        </div>
+        <div class="slide active">
+            <img src="{{ asset('img/ruang_studio.png') }}">
+        </div>
+        <div class="slide active">
+            <img src="{{ asset('img/ruang_studio.png') }}">
+        </div>
+        <div class="slide active">
+            <img src="{{ asset('img/ruang_studio.png') }}">
+        </div>
+        <div class="slide active">
+            <img src="{{ asset('img/ruang_studio.png') }}">
+        </div>
+        <div class="slide active">
+            <img src="{{ asset('img/ruang_studio.png') }}">
+        </div>
+    </div>
+
+    <div class="gallery-indicator">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
     </div>
 </section>
+
+
 @endsection

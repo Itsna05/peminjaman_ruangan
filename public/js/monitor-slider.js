@@ -10,3 +10,10 @@ document.querySelectorAll('.today-slider, .room-slider').forEach(slider => {
         }
     }, 30);
 });
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('todaySlider');
+    if (!slider) return;
+
+    // clone isi slider biar looping
+    slider.innerHTML += slider.innerHTML;
+});

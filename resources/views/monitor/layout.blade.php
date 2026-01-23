@@ -35,6 +35,8 @@
 <script src="{{ asset('js/monitor-clock.js') }}"></script>
 <script src="{{ asset('js/monitor-slider.js') }}"></script>
 <script src="{{ asset('js/monitor-table-scroll.js') }}"></script>
+<script src="{{ asset('js/monitor-gallery.js') }}"></script>
+
 
 
 </body>
