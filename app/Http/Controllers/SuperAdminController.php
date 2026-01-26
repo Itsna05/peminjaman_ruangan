@@ -39,10 +39,10 @@ class SuperAdminController extends Controller
             'nama'     => $request->nama,
             'username' => $request->username,
             'password' => Hash::make($request->password),
-            'role'     => 'superadmin', // 🔑 DIPAKSA
+            'role'     => $request -> role, // 🔑 DIPAKSA
         ]);
 
-        return redirect('/superadmin')->with('success', 'Super Admin berhasil ditambahkan');
+        return redirect('/superadmin/manajemen-user')->with('success', 'User berhasil ditambahkan');
     }
 
     public function edit($id)
