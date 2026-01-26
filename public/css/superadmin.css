@@ -1,10 +1,11 @@
-/* =========================
+ /* =========================
    DASHBOARD HEADER
    ========================= */
 
 html, body {
     overflow-x: hidden;
 }
+
 
 .dashboard-content {
     width: 100%;
@@ -557,11 +558,19 @@ html, body {
 
 
 
-/* ================= MANAJEMEN PEMINJAMAN ================= */
-/* ================= DUAL HEADER ================= */
 
+
+
+/* ================= MANAJEMEN PEMINJAMAN ================= */
+/* ================= MANAJEMEN PEMINJAMAN ================= */
+/* ================= MANAJEMEN PEMINJAMAN ================= */
+
+
+/* ====== DUAL HEADER ===== */
 .dual-header-section {
-    margin-top: -60px;
+    margin-top: -90px; /* lebih naik */
+    position: relative;
+    z-index: 10;
 }
 
 /* GRID */
@@ -573,15 +582,15 @@ html, body {
 
 /* CARD */
 .dual-header {
-    background: #eef4fb;
-    border-radius: 18px;
-    padding: 28px 32px;
-    min-height: 170px; /* ⬅️ BIAR TINGGI SAMA */
+    background: #f1f5f9;
+    border-radius: 20px;
+    padding: 30px 36px;
     text-align: center;
     text-decoration: none;
     color: #0f172a;
-    box-shadow: 0 8px 20px rgba(0,0,0,.12);
+    box-shadow: 0 12px 30px rgba(0,0,0,.15);
     transition: all .25s ease;
+    min-height: 190px; 
 
     display: flex;
     flex-direction: column;
@@ -590,7 +599,7 @@ html, body {
 
 /* AKTIF */
 .dual-header.active {
-    background: #6192D6;
+    background: #6b97d3;
 }
 
 /* HOVER */
@@ -605,12 +614,11 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     font-weight: 700;
-    font-size: 22px; /* ⬅️ DIBESARKAN */
-    margin-bottom: 14px;
-    color: #0f172a;
+    font-size: 20px;
 }
+
 
 
 /* JUDUL AKTIF */
@@ -618,12 +626,34 @@ html, body {
     color: #0f172a;
 }
 
-/* GARIS KUNING */
+/* == GARIS JUDUL ====*/
+
+/* DEFAULT → ABU */
 .dual-header-title .line {
     width: 4px;
-    height: 18px;
-    background: #FFD800;
+    height: 22px;
+    background: #cbd5e1;
     border-radius: 2px;
+}
+
+/* ACTIVE → KUNING */
+.dual-header.active .dual-header-title .line {
+    background: #FFD800;
+}
+
+.dual-header:not(.active) .dual-header-title,
+.dual-header:not(.active) .dual-header-desc {
+    color: #cbd5e1;
+}
+
+.dual-header.active .dual-header-title,
+.dual-header.active .dual-header-desc {
+    color: #0f172a;
+}
+
+/* Jika card ACTIVE, semua garis jadi kuning */
+.dual-header.active .dual-header-title .line {
+    background: #FFD800;
 }
 
 /* GARIS NON AKTIF */
@@ -634,12 +664,12 @@ html, body {
 /* ================= DESKRIPSI ================= */
 
 .dual-header-desc {
-    font-size: 14.5px;
+    font-size: 14px;
     line-height: 1.6;
-    max-width: 90%;
+    max-width: 85%;
     margin: 0 auto;
-    color: #1e293b;
 }
+
 
 /* ================= RESPONSIVE ================= */
 
@@ -810,6 +840,8 @@ html, body {
 .table-responsive {
     width: 100%;
     overflow-x: auto;
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
 }
 
 /* TABLE */
@@ -968,8 +1000,7 @@ html, body {
     }
 }
 
-/* ================= MODAL POP UP  
-DETAIL PENGAJUAN PEMINJAMAN  ================= */
+/* ====MODAL POP UP DETAIL PENGAJUAN PEMINJAMAN  == */
 
 /* ================= MODAL OVERLAY ================= */
 .modal-overlay {
@@ -1139,100 +1170,289 @@ DETAIL PENGAJUAN PEMINJAMAN  ================= */
 }
 
 /* ===============================
-   FORM PEMINJAMAN RUANGAN
+   RESPONSIF FILTER-ITEM DAN SEARCH 
+   TABEL PERSETUJUAN PEMINJAMAN
    (MANAJEMEN PEMINJAMAN)
 ================================ */
 
-.form-peminjaman-section {
-    margin-top: 40px;
-    margin-bottom: 80px;
+.manajemen-peminjaman .status-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
-.form-card {
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 14px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+.manajemen-peminjaman .search-box {
+    flex: 1;
+    max-width: 420px;
 }
 
-/* Judul */
-.form-title {
-    text-align: center;
-    font-weight: 600;
-    margin-bottom: 35px;
+.manajemen-peminjaman .filter-box {
+    flex: 0 0 auto;
 }
 
-/* Grid 2 kolom */
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px 30px;
+/* MODE HP */
+@media (max-width: 768px) {
+    .manajemen-peminjaman .status-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .manajemen-peminjaman .search-box,
+    .manajemen-peminjaman .filter-box {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .manajemen-peminjaman .filter-btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .manajemen-peminjaman .filter-dropdown {
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
 }
 
-/* Group label + input */
-.form-group {
+/* ===============================
+   FIX DROPDOWN FILTER TIDAK MUNCUL
+   =============================== */
+
+.manajemen-peminjaman .filter-box {
+    position: relative;
+    z-index: 2000; /* ⬅️ NAIKKAN */
+}
+
+.manajemen-peminjaman .filter-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 3000; /* ⬅️ LEBIH TINGGI */
+    background: #fff;
+}
+
+.manajemen-peminjaman .filter-dropdown {
+    display: none;
+}
+
+.manajemen-peminjaman .filter-dropdown.show {
     display: flex;
     flex-direction: column;
 }
 
+.manajemen-peminjaman .status-card {
+    overflow: visible;
+}
+
+
+
+/* ===============================
+   FORM PEMINJAMAN RUANGAN (CENTER)
+================================ */
+
+.form-wrapper {
+    max-width: 900px;          /* ⬅️ bikin tidak terlalu lebar */
+    margin: 40px auto;         /* ⬅️ center horizontal */
+    background: #eef3f7;       /* ⬅️ abu-abu muda */
+    padding: 36px 40px;
+    border-radius: 22px;
+}
+
+/* Judul */
+.form-title {
+    font-weight: 700;
+    margin-bottom: 28px;
+}
+
+/* Grid Bootstrap biar lebih rapat */
+.form-wrapper .row {
+    row-gap: 18px;
+}
+
 /* Label */
-.form-group label {
-    font-size: 14px;
+.form-wrapper .form-label {
+    font-size: 13px;
     font-weight: 500;
     margin-bottom: 6px;
-    color: #333;
 }
 
 /* Input, select, textarea */
-.form-group input,
-.form-group select,
-.form-group textarea {
+.form-wrapper .form-control,
+.form-wrapper .form-select {
     height: 42px;
-    padding: 8px 12px;
-    font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    outline: none;
-    transition: 0.2s;
+    font-size: 13px;
+    border-radius: 10px;
 }
 
-/* Textarea khusus */
-.form-group textarea {
+/* Textarea */
+.form-wrapper textarea {
     height: 90px;
     resize: none;
 }
 
-/* Fokus */
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    border-color: #4a80c7;
-    box-shadow: 0 0 0 2px rgba(74,128,199,0.2);
+/* Tombol submit */
+.btn-ajukan {
+    background: #ffd800;
+    border: none;
+    color: #000;
+    padding: 10px 26px;
+    border-radius: 10px;
+    font-weight: 600;
 }
 
-/* Full width */
-.form-group.full {
-    grid-column: 1 / -1;
+/* Tombol ke tengah */
+.form-wrapper .text-end {
+    text-align: center !important;
+    margin-top: 16px;
+}
+/* ===============================
+   FORM PEMINJAMAN RUANGAN (FINAL)
+================================ */
+
+.form-wrapper {
+    max-width: 1050px;          /* ⬅️ ukuran pas seperti desain */
+    margin: 40px auto 80px;
+    background: #eef3f7;        /* abu-abu muda */
+    padding: 40px 48px;
+    border-radius: 26px;
+}
+
+/* Judul */
+.form-title {
+    font-weight: 700;
+    margin-bottom: 32px;
+}
+
+/* Grid spacing */
+.form-wrapper .row {
+    row-gap: 22px;
+}
+
+/* Label */
+.form-wrapper .form-label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #1f2937;
+}
+
+/* Input & select */
+.form-wrapper .form-control,
+.form-wrapper .form-select {
+    height: 44px;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+/* Textarea */
+.form-wrapper textarea {
+    height: 110px;
+    resize: none;
+    border-radius: 12px;
+}
+
+/* Fokus */
+.form-wrapper .form-control:focus,
+.form-wrapper .form-select:focus {
+    border-color: #5b8bd9;
+    box-shadow: 0 0 0 2px rgba(91,139,217,0.2);
 }
 
 /* Tombol */
-.form-action {
-    margin-top: 35px;
-    text-align: right;
-}
-
-.btn-submit {
-    background: #f7c600;
+.btn-ajukan {
+    background: #ffd800;
     border: none;
-    padding: 10px 28px;
-    border-radius: 8px;
+    padding: 12px 30px;
+    border-radius: 12px;
     font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
+    color: #000;
 }
 
-.btn-submit:hover {
-    background: #e6b800;
+/* Posisi tombol kanan bawah */
+.form-wrapper .text-end {
+    margin-top: 18px;
+}
+/* ===============================
+   WAKTU PEMINJAMAN (FINAL)
+================================ */
+
+.waktu-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.waktu-wrapper .form-control {
+    height: 44px;
+    border-radius: 10px;
+}
+
+/* Lebar khusus */
+.waktu-wrapper input[type="date"] {
+    flex: 1.2;
+}
+
+.waktu-wrapper .waktu-jam {
+    flex: 0.8;
+}
+
+/* Tanda ~ */
+.waktu-wrapper .separator {
+    font-weight: 600;
+    color: #64748b;
+    padding: 0 4px;
+}
+/* ===============================
+   RAPATKAN JARAK FORM
+================================ */
+
+/* Kurangi jarak antar baris */
+.form-wrapper .row {
+    row-gap: 16px;   /* sebelumnya terlalu besar */
+}
+
+/* Label lebih dekat ke input */
+.form-wrapper .form-label {
+    margin-bottom: 5px;
+}
+
+/* Textarea lebih ramping */
+.form-wrapper textarea {
+    height: 90px;
+}
+
+/* Tombol lebih dekat ke form */
+.form-wrapper .text-end {
+    margin-top: 10px;
+}
+
+/* Khusus bagian waktu peminjaman */
+.waktu-wrapper {
+    margin-top: 2px;
+}
+.form-wrapper .row {
+    row-gap: 14px;
+}
+/* ===============================
+   PERLEBAR AREA KETIK CATATAN
+================================ */
+
+.form-wrapper textarea {
+    min-height: 130px;   /* ⬅️ area ketik lebih lega */
+    padding: 14px 16px;  /* nyaman saat ngetik */
+    line-height: 1.6;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 992px) {
+    .form-wrapper {
+        padding: 28px;
+        margin: 24px;
+    }
 }
 
 /* =======================
@@ -1404,49 +1624,6 @@ DETAIL PENGAJUAN PEMINJAMAN  ================= */
     width: max-content;
 }
 
-/* SEARCH & TAMBAH RUANGAN */
-.status-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin-bottom: 40px;
-}
-
-.toolbar-left {
-    flex: 0 0 auto;
-}
-
-.toolbar-right {
-    flex: 0 0 auto;
-}
-
-.search-box {
-    position: relative;
-    width: 360px;
-}
-
-.search-box input {
-    width: 100%;
-    padding: 12px 16px 12px 44px;
-    border-radius: 14px;
-    border: 2px solid #1d5cb8;
-    font-size: 14px;
-}
-
-.search-box input::placeholder {
-    color: #9aa9c0;
-}
-
-.search-icon {
-    position: absolute;
-    top: 50%;
-    left: 16px;
-    transform: translateY(-50%);
-    color: #1d5cb8;
-    font-size: 16px;
-}
-
 .tambah-box {
     position: relative;
     display: inline-block;
@@ -1608,7 +1785,7 @@ DETAIL PENGAJUAN PEMINJAMAN  ================= */
     padding: 0 24px 16px;
 }
 
-.info-box {
+.info-label {
     background: #6f97d0;
     color: #fff;
 
@@ -1618,7 +1795,7 @@ DETAIL PENGAJUAN PEMINJAMAN  ================= */
     font-size: 14px;
 }
 
-.info-box h6 {
+.info-label h6 {
     text-align: center;
     font-weight: 700;
     margin-bottom: 12px;

@@ -104,12 +104,11 @@
 
                 <div class="filter-box">
                     <button class="filter-btn" type="button" id="filterToggle">
-                        Filter
-                        <span class="arrow">▾</span>
+                        Filter <span class="arrow">▾</span>
                     </button>
 
                     <div class="filter-dropdown" id="filterDropdown">
-                        <button class="filter-item" data-value="tampilkan-semua">Tampilkan Semua</button>
+                        <button class="filter-item" data-value="tampilkansemua">Tampilkan Semua</button>
                         <button class="filter-item" data-value="menunggu">Menunggu</button>
                         <button class="filter-item" data-value="disetujui">Disetujui</button>
                         <button class="filter-item" data-value="ditolak">Ditolak</button>

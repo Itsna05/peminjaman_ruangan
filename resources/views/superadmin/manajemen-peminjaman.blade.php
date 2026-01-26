@@ -68,7 +68,7 @@
    ======================= --}}
 
 @if ($tab == 'persetujuan')
-<section>
+<section class="manajemen-peminjaman">
     <div class="container"> 
         <div class="status-wrapper">
             <div class="status-card">
@@ -85,12 +85,11 @@
 
                 <div class="filter-box">
                     <button class="filter-btn" type="button" id="filterToggle">
-                        Filter
-                        <span class="arrow">▾</span>
+                        Filter <span class="arrow">▾</span>
                     </button>
 
                     <div class="filter-dropdown" id="filterDropdown">
-                        <button class="filter-item" data-value="tampilkan-semua">Tampilkan Semua</button>
+                        <button class="filter-item" data-value="tampilkansemua">Tampilkan Semua</button>
                         <button class="filter-item" data-value="menunggu">Menunggu</button>
                         <button class="filter-item" data-value="disetujui">Disetujui</button>
                         <button class="filter-item" data-value="ditolak">Ditolak</button>
@@ -121,7 +120,7 @@
                             <td>Kasubag</td>
                             <td>Teknologi Informasi</td>
                             <td class="text-center">
-                                <span class="badge-status menunggu">Menunggu</span>
+                                <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
                             </td>
                             <td class="text-center">
                                 <button class="btn-edit btn-open-modal">
@@ -136,7 +135,7 @@
                             <td>Kasubag</td>
                             <td>Bidang Rancang Bangun dan Pengawasan</td>
                             <td class="text-center">
-                                <span class="badge-status disetujui">Disetujui</span>
+                                <span class="badge-status disetujui" data-value="disetujui">Disetujui</span>
                             </td>
                             <td class="text-center">
                                 <button class="btn-edit disabled" disabled>
@@ -150,7 +149,7 @@
                             <td>Kasubag</td>
                             <td>Teknologi Informasi</td>
                             <td class="text-center">
-                                <span class="badge-status ditolak">Ditolak</span>
+                                <span class="badge-status ditolak" data-value="ditolak">Ditolak</span>
                             </td>
                             <td class="text-center">
                                 <button class="btn-edit"><i class="bi bi-pencil"></i></button>
@@ -163,7 +162,7 @@
                             <td>Kasubag</td>
                             <td>Bidang Rancang Bangun dan Pengawasan</td>
                             <td class="text-center">
-                                <span class="badge-status dibatalkan">Dibatalkan</span>
+                                <span class="badge-status dibatalkan" data-value="dibatalkan">Dibatalkan</span>
                             </td>
                             <td class="text-center">
                                 <button class="btn-edit disabled" disabled>
@@ -177,7 +176,7 @@
                             <td>Kasubag</td>
                             <td>Teknologi Informasi</td>
                             <td class="text-center">
-                                <span class="badge-status menunggu">Menunggu</span>
+                                <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
                             </td>
                             <td class="text-center">
                                 <button class="btn-edit"><i class="bi bi-pencil"></i></button>
@@ -190,7 +189,7 @@
                             <td>Kasubag</td>
                             <td>Bidang Rancang Bangun dan Pengawasan</td>
                             <td class="text-center">
-                                <span class="badge-status disetujui">Disetujui</span>
+                                <span class="badge-status disetujui" data-value="disetujui">Disetujui</span>
                             </td>
                             <td class="text-center">
                                 <button class="btn-edit disabled" disabled>
@@ -204,7 +203,7 @@
                             <td>Kasubag</td>
                             <td>Teknologi Informasi</td>
                             <td class="text-center">
-                                <span class="badge-status menunggu">Menunggu</span>
+                                <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
                             </td>
                             <td class="text-center">
                                 <button class="btn-edit"><i class="bi bi-pencil"></i></button>
@@ -217,7 +216,7 @@
                             <td>Kasubag</td>
                             <td>Bidang Rancang Bangun dan Pengawasan</td>
                             <td class="text-center">
-                                <span class="badge-status disetujui">Disetujui</span>
+                                <span class="badge-status disetujui" data-value="disetujui">Disetujui</span>
                             </td>
                             <td class="text-center">
                                 <button class="btn-edit disabled" disabled>
@@ -231,7 +230,7 @@
                             <td>Kasubag</td>
                             <td>Teknologi Informasi</td>
                             <td class="text-center">
-                                <span class="badge-status menunggu">Menunggu</span>
+                                <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
                             </td>
                             <td class="text-center">
                                 <button class="btn-edit"><i class="bi bi-pencil"></i></button>
@@ -244,7 +243,7 @@
                             <td>Kasubag</td>
                             <td>Bidang Rancang Bangun dan Pengawasan</td>
                             <td class="text-center">
-                                <span class="badge-status disetujui">Disetujui</span>
+                                <span class="badge-status disetujui" data-value="disetujui">Disetujui</span>
                             </td>
                             <td class="text-center">
                                 <button class="btn-edit disabled" disabled>
@@ -279,72 +278,97 @@
 @endif
 
 @if ($tab == 'form')
+{{-- FORM PEMINJAMAN --}}
+<div class="form-wrapper">
+    <h4 class="form-title text-center">
+        Form Peminjaman Ruangan
+    </h4>
 
-<section class="form-peminjaman-section">
-    <div class="container">
+    <form>
+        <div class="row g-4">
 
-        <div class="form-card">
-            <h4 class="form-title">Form Peminjaman Ruangan</h4>
+            <div class="col-md-6">
+                <label class="form-label">Nama Acara</label>
+                <input type="text" class="form-control" placeholder="Masukkan Nama Acara">
+            </div>
 
-            <form>
-                <div class="form-grid">
+            <div class="col-md-6">
+                <label class="form-label">Jumlah Peserta</label>
+                <input type="number" class="form-control" placeholder="Masukkan Jumlah Peserta">
+            </div>
 
-                    <div class="form-group">
-                        <label>Nama Acara</label>
-                        <input type="text">
-                    </div>
+            <div class="col-12">
+                <label class="form-label">Waktu Peminjaman</label>
 
-                    <div class="form-group">
-                        <label>Jumlah Peserta</label>
-                        <input type="number">
-                    </div>
+                <div class="waktu-wrapper">
+                    <input type="date" class="form-control">
+                    <input type="time" class="form-control waktu-jam">
 
-                    <div class="form-group">
-                        <label>Waktu Mulai</label>
-                        <input type="time">
-                    </div>
+                    <span class="separator">~</span>
 
-                    <div class="form-group">
-                        <label>Waktu Selesai</label>
-                        <input type="time">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Bidang</label>
-                        <select></select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Sub Bidang</label>
-                        <select></select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Ruangan</label>
-                        <select></select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>No WhatsApp</label>
-                        <input type="text">
-                    </div>
-
-                    <div class="form-group full">
-                        <label>Catatan</label>
-                        <textarea></textarea>
-                    </div>
-
+                    <input type="date" class="form-control">
+                    <input type="time" class="form-control waktu-jam">
                 </div>
+            </div>
 
-                <div class="text-end mt-4">
-                    <button class="btn-submit">Ajukan Peminjaman</button>
-                </div>
-            </form>
+
+            <div class="col-md-6">
+                <label class="form-label">Pilih Bidang</label>
+                <select class="form-select">
+                    <option>Please Select</option>
+                    <option value="">Please Select</option>
+                    <option value="kasubag">Kepala Sub Bagian</option>
+                    <option value="kasi">Kepala Seksi</option>
+                    <option value="staff">Staff</option>
+                    <option value="perencana">Perencana</option>
+                    <option value="pengawas">Pengawas</option>
+                    <option value="teknis">Teknis Lapangan</option>
+
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Pilih Sub Bidang</label>
+                <select class="form-select">
+                    <option>Please Select</option>
+                    <option value="">Please Select</option>
+                    <option value="kasubag">Kepala Sub Bagian</option>
+                    <option value="kasi">Kepala Seksi</option>
+                    <option value="staff">Staff</option>
+                    <option value="perencana">Perencana</option>
+                    <option value="pengawas">Pengawas</option>
+                    <option value="teknis">Teknis Lapangan</option>
+
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Pilih Ruangan</label>
+                <select class="form-select">
+                    <option>Please Select</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Nomor WhatsApp</label>
+                <input type="text" class="form-control" placeholder="Masukkan Nomor WhatsApp">
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Catatan</label>
+                <textarea class="form-control textarea-catatan"
+                    placeholder="Tambahkan Catatan Internal Jika diperlukan"></textarea>
+            </div>
+
+            <div class="col-12 text-end">
+                <button type="submit" class="btn-ajukan">
+                    Ajukan Peminjaman
+                </button>
+            </div>
 
         </div>
-
-    </div>
-</section>
+    </form>
+</div>
 
 @endif
 
@@ -418,10 +442,7 @@
 </div>
 
 
-<script src="{{ asset('js/search.js') }}"></script>
-<script src="{{ asset('js/filter-item.js') }}"></script>
-<script src="{{ asset('js/pagination.js') }}"></script>
-<script src="{{ asset('js/modal-detail.js') }}"></script>
+
 
 
 @endsection

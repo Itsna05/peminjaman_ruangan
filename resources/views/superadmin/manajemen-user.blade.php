@@ -33,7 +33,7 @@
 {{-- =======================
    BIDANG PEGAWAI (STATIS)
    ======================= --}}
-<section class="container my-5">
+<section class="container my-5 status-wrapper">
         <div class="d-flex justify-content-between mb-3">
             <div class="input-group w-50">
                 <span class="input-group-text bg-white">
@@ -49,8 +49,8 @@
             </button>
         </div>
 
-            <div class="table-responsive">
-                <table class="table table-bordered align-middle">
+            <div class="table-responsive search-item">
+                <table class="approval-table status-card">
                     <thead class="table-light text-center">
                         <tr>
                             <th width="50">No</th>
@@ -120,7 +120,7 @@
     </div>
 </section>
 
-<section class="container mb-5">
+<section class="container mb-5 status wrapper">
 
     <div class="card shadow-sm border-0">
 
