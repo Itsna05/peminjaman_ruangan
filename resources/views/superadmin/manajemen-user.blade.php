@@ -136,11 +136,19 @@
                 </div>
 
                 <div class="d-flex gap-2">
-                    <select class="form-select">
-                        <option>Filter</option>
-                        <option value="superadmin">Super Admin</option>
-                        <option value="petugas">Petugas</option>
-                    </select>
+                    <div class="filter-box">
+                        <button class="form-select filter-btn" type="button" id="filterToggle">
+                            Filter
+                            <span class="arrow">▾</span>
+                        </button>
+
+                        <div class="filter-dropdown d-none" id="filterToggle">
+                            <button class="filter-item" data-value="">Semua</button>
+                            <button class="filter-item" data-value="superadmin">Super Admin</button>
+                            <button class="filter-item" data-value="petugas">Petugas</button>
+                        </div>
+                    </div>
+
 
                     <button class="btn btn-outline-primary"
                             data-bs-toggle="modal"
