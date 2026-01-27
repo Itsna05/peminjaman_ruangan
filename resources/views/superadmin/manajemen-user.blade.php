@@ -33,24 +33,25 @@
 {{-- =======================
    BIDANG PEGAWAI (STATIS)
    ======================= --}}
-<section class="container my-5 status-wrapper">
-        <div class="d-flex justify-content-between mb-3">
-            <div class="input-group w-50">
-                <span class="input-group-text bg-white">
+<section class="container my-5 user-bidang-section user-table-wrapper">
+        <div class="d-flex justify-content-between mb-3 user-bidang-toolbar">
+            <div class="search-box">
+                <button type="button" class="search-btn">
                     <i class="bi bi-search"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="Pencarian">
+                </button>
+                <input type="text" placeholder="Pencarian" id="searchInput">
             </div>
 
-            <button class="btn btn-outline-primary"
+            <button class="btn btn-outline-primary user-btn-add"
                 data-bs-toggle="modal"
                 data-bs-target="#modalTambahBidang">
                     Tambah
+                    <i class="bi bi-plus-circle"></i>
             </button>
         </div>
-
-            <div class="table-responsive search-item">
-                <table class="approval-table status-card">
+        <div>
+            <div class="search-item">
+                <table class="approval-table user-table">
                     <thead class="table-light text-center">
                         <tr>
                             <th width="50">No</th>
@@ -120,29 +121,26 @@
     </div>
 </section>
 
-<section class="container mb-5 status wrapper">
+<section class="container mb-5 user-section">
 
-    <div class="card shadow-sm border-0">
+    <div class="card shadow-sm border-0 user-card user-table-wrapper">
 
-            <div class="d-flex justify-content-between mb-3">
-                <div class="input-group w-50">
-                    <span class="input-group-text bg-white">
+            <div class="d-flex justify-content-between mb-3 user-toolbar">
+                <div class="search-box">
+                    <button type="button" class="search-btn">
                         <i class="bi bi-search"></i>
-                    </span>
-                    <input type="text"
-                        id="searchInput"
-                        class="form-control"
-                        placeholder="Pencarian">
+                    </button>
+                    <input type="text" placeholder="Pencarian" id="searchInput">
                 </div>
 
                 <div class="d-flex gap-2">
-                    <div class="filter-box">
-                        <button class="form-select filter-btn" type="button" id="filterToggle">
+                    <div class="filter-box user-filter-box">
+                        <button class="form-select user-filter-btn" type="button" id="filterToggle">
                             Filter
                             <span class="arrow">▾</span>
                         </button>
 
-                        <div class="filter-dropdown d-none" id="filterToggle">
+                        <div class="filter-dropdown d-none user-filter-dropdown" id="filterDropdown">
                             <button class="filter-item" data-value="">Semua</button>
                             <button class="filter-item" data-value="superadmin">Super Admin</button>
                             <button class="filter-item" data-value="petugas">Petugas</button>
@@ -154,43 +152,51 @@
                             data-bs-toggle="modal"
                             data-bs-target="#modalTambahUser">
                         Tambah
+                        <i class="bi bi-plus-circle"></i>
                     </button>
 
                 </div>
             </div>
 
-            <div class="table-responsive">
-                <table class="table table-bordered align-middle">
-                    <thead class="table-light text-center">
-                        <tr>
-                            <th width="50">No</th>
-                            <th>Nama</th>
-                            <th>Username</th>
-                            <th>Peran</th>
-                            <th width="80">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($users as $index => $user)
+            <div class="user-table-responsive">
+                <div class="user-table-responsive">
+                    <table class="table table-bordered align-middle user-table">
+                        <thead class="table-light text-center">
                             <tr>
-                                <td class="text-center">{{ $index + 1 }}</td>
-                                <td>{{ $user->nama }}</td>
-                                <td>{{ $user->username }}</td>
-                                <td>
-                                    <span class="badge bg-secondary">
-                                        {{ ucfirst($user->role) }}
-                                    </span>
-                                </td>
+                                <th width="50">No</th>
+                                <th>Nama</th>
+                                <th>Username</th>
+                                <th>Peran</th>
+                                <th width="80">Aksi</th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="text-center text-muted">
-                                    Data user belum tersedia
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @forelse ($users as $index => $user)
+                                <tr data-role="{{ $user->role }}">
+                                    <td class="text-center">{{ $index + 1 }}</td>
+                                    <td>{{ $user->nama }}</td>
+                                    <td>{{ $user->username }}</td>
+                                    <td>
+                                        <span class="badge bg-secondary">
+                                            {{ ucfirst($user->role) }}
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted">
+                                        Data user belum tersedia
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
     </div>
 
@@ -220,8 +226,9 @@
                         <label class="form-label fw-semibold">Nama Lengkap</label>
                         <input type="text"
                                name="nama"
-                               class="form-control"
+                               class="form-control user-search-input"
                                placeholder="Masukkan nama lengkap"
+                               id="searchInput"
                                required>
                     </div>
                     

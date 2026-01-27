@@ -27,6 +27,7 @@
     <script src="{{ asset('js/pagination.js') }}"></script>
     <script src="{{ asset('js/card-denah.js') }}"></script>
     <script src="{{ asset('js/modal-ruangan.js') }}"></script>
+    <script src="{{ asset('js/user-management.js') }}"></script>
 
 
 </head>
