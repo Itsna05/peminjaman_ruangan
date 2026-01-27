@@ -15,4 +15,10 @@ class Ruangan extends Model
         'gambar_ruangan',
         'ketersediaan'
     ];
+
+    // ✅ RELASI KE data_sarana
+    public function sarana()
+    {
+        return $this->hasMany(DataSarana::class, 'id_ruangan');
+    }
 }
