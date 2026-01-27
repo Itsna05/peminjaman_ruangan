@@ -41,7 +41,7 @@
         <div class="ruangan-slider">
             <div class="ruangan-track">
 
-            {{-- ================= CARD 1 ================= --}}
+            <!-- {{-- ================= CARD 1 ================= --}}
             <div class="detail-card">
 
                 <div class="detail-card-header">DETAIL RUANGAN</div>
@@ -221,9 +221,56 @@
                     </div>
                 </div>
             </div>
-            
+        </div> -->
+        <div class="ruangan-track">
+
+        @foreach ($ruangan as $r)
+        <div class="detail-card">
+
+            <div class="detail-card-header">DETAIL RUANGAN</div>
+
+            {{-- FOTO --}}
+            <div class="detail-card-image">
+                <img src="{{ asset('img/default_ruangan.png') }}" class="img-fluid">
+                {{-- nanti bisa di-upgrade ke carousel --}}
             </div>
+
+            {{-- BODY --}}
+            <div class="detail-card-body">
+                <h5 class="detail-card-title">{{ $r->nama_ruangan }}</h5>
+
+                <div class="detail-card-info">
+
+                    {{-- ELEKTRONIK --}}
+                    <div class="info-label">
+                        <h6>Elektronik</h6>
+                        <ul>
+                            @forelse ($r->sarana->where('jenis_sarana','elektronik') as $s)
+                                <li>{{ $s->nama_sarana }} : {{ $s->jumlah }}</li>
+                            @empty
+                                <li>-</li>
+                            @endforelse
+                        </ul>
+                    </div>
+
+                    {{-- NON ELEKTRONIK --}}
+                    <div class="info-label">
+                        <h6>Non Elektronik</h6>
+                        <ul>
+                            @forelse ($r->sarana->where('jenis_sarana','non-elektronik') as $s)
+                                <li>{{ $s->nama_sarana }} : {{ $s->jumlah }}</li>
+                            @empty
+                                <li>-</li>
+                            @endforelse
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
+        @endforeach
+
     </div>
 </section>
 @endsection
