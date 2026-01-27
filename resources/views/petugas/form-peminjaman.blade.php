@@ -697,6 +697,25 @@ function gabungWaktu() {
 }
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const searchInput = document.getElementById('searchInput');
+    const tableBody   = document.getElementById('tableBody');
+    const rows        = tableBody.getElementsByTagName('tr');
+
+    searchInput.addEventListener('keyup', function () {
+        const keyword = this.value.toLowerCase();
+
+        Array.from(rows).forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(keyword) ? '' : 'none';
+        });
+    });
+
+});
+</script>
+
 
 
 @endsection
