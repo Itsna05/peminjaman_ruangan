@@ -43,15 +43,16 @@
         @if ($eventsMonth->count())
             @foreach ($eventsMonth as $event)
                 {{ strtoupper($event->acara) }}
-                ({{ $event->waktu_mulai->format('d M') }})
+                ({{ $event->waktu_mulai->translatedFormat('d M') }})
                 &nbsp; • &nbsp;
             @endforeach
         @else
             TIDAK ADA KEGIATAN PADA BULAN
-            {{ strtoupper($currentDate->translatedFormat('F Y')) }}
+            {{ mb_strtoupper($currentDate->translatedFormat('F Y'), 'UTF-8') }}
         @endif
     </marquee>
 </div>
+
 
 
 {{-- =======================

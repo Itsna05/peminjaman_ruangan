@@ -28,7 +28,7 @@
     <script src="{{ asset('js/card-denah.js') }}"></script>
     <script src="{{ asset('js/modal-ruangan.js') }}"></script>
     <script src="{{ asset('js/user-management.js') }}"></script>
-
+    <script src="{{ asset('js/popup-persetujuan-MR.js') }}"></script>
 
 </head>
 <script src="{{ asset('js/pagination.js') }}"></script>

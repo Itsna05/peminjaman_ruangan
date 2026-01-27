@@ -152,7 +152,9 @@
                                 <span class="badge-status ditolak" data-value="ditolak">Ditolak</span>
                             </td>
                             <td class="text-center">
-                                <button class="btn-edit"><i class="bi bi-pencil"></i></button>
+                                <button class="btn-edit disabled" disabled>
+                                    <i class="bi bi-pencil"></i>
+                                </button>
                             </td>
                         </tr>
 
@@ -179,8 +181,11 @@
                                 <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
                             </td>
                             <td class="text-center">
-                                <button class="btn-edit"><i class="bi bi-pencil"></i></button>
+                                <button class="btn-edit btn-open-modal">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
                             </td>
+
                         </tr>
 
                         <tr>
@@ -203,11 +208,14 @@
                             <td>Kasubag</td>
                             <td>Teknologi Informasi</td>
                             <td class="text-center">
-                                <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
+                                <span class="badge-status ditolak" data-value="ditolak">Ditolak</span>
                             </td>
                             <td class="text-center">
-                                <button class="btn-edit"><i class="bi bi-pencil"></i></button>
+                                <button class="btn-edit disabled" disabled>
+                                    <i class="bi bi-pencil"></i>
+                                </button>
                             </td>
+
                         </tr>
 
                         <tr>
@@ -233,8 +241,11 @@
                                 <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
                             </td>
                             <td class="text-center">
-                                <button class="btn-edit"><i class="bi bi-pencil"></i></button>
+                                <button class="btn-edit btn-open-modal">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
                             </td>
+
                         </tr>
 
                         <tr>
@@ -243,7 +254,7 @@
                             <td>Kasubag</td>
                             <td>Bidang Rancang Bangun dan Pengawasan</td>
                             <td class="text-center">
-                                <span class="badge-status disetujui" data-value="disetujui">Disetujui</span>
+                                <span class="badge-status dibatalkan" data-value="dibatalkan">Dibatalkan</span>
                             </td>
                             <td class="text-center">
                                 <button class="btn-edit disabled" disabled>
@@ -374,6 +385,7 @@
 
 <!-- ================= MODAL DETAIL PEMINJAMAN ================= -->
 <div class="modal-overlay" id="detailModal">
+
     <div class="modal-card">
 
         <!-- HEADER -->
@@ -385,52 +397,61 @@
         <!-- BODY -->
         <div class="modal-body">
 
-            <div class="form-row">
+            <div class="modal-row">
                 <label>Nama Acara</label>
+                <span>:</span>
                 <input type="text" value="Rapat Koordinasi Pembangunan Jalan Tol" readonly>
             </div>
 
-            <div class="form-row">
+            <div class="modal-row">
                 <label>Jumlah Peserta</label>
+                <span>:</span>
                 <input type="text" value="60 Orang" readonly>
             </div>
 
-            <div class="form-row">
+            <div class="modal-row">
                 <label>Waktu Mulai</label>
+                <span>:</span>
                 <input type="text" value="07.00" readonly>
             </div>
 
-            <div class="form-row">
+            <div class="modal-row">
                 <label>Waktu Selesai</label>
+                <span>:</span>
                 <input type="text" value="13.00" readonly>
             </div>
 
-            <div class="form-row">
+            <div class="modal-row">
                 <label>Bidang</label>
+                <span>:</span>
                 <input type="text" value="Teknologi Informasi" readonly>
             </div>
 
-            <div class="form-row">
+            <div class="modal-row">
                 <label>Sub Bidang</label>
+                <span>:</span>
                 <input type="text" value="Kabid" readonly>
             </div>
 
-            <div class="form-row">
+            <div class="modal-row">
                 <label>Ruangan</label>
+                <span>:</span>
                 <input type="text" value="Ruang Rapat" readonly>
             </div>
 
-            <div class="form-row">
+            <div class="modal-row">
                 <label>No Whatsapp</label>
+                <span>:</span>
                 <input type="text" value="08 berapa ka??" readonly>
             </div>
 
-            <div class="form-row">
+            <div class="modal-row textarea">
                 <label>Catatan</label>
+                <span>:</span>
                 <textarea readonly>Tambahkan Mic 2 pcs</textarea>
             </div>
 
-        </div>         
+        </div>
 
         <!-- FOOTER -->
         <div class="modal-footer">
@@ -441,8 +462,28 @@
     </div>
 </div>
 
+<!-- ================= MODAL KONFIRMASI ================= -->
+<div class="modal-overlay" id="confirmModal">
 
+    <div class="modal-card modal-confirm">
 
+        <!-- HEADER -->
+        <div class="modal-header confirm-header">
+            <h4>KONFIRMASI</h4>
+        </div>
 
+        <!-- BODY -->
+        <div class="confirm-body">
+            <p>Anda yakin dengan jawaban anda?</p>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="confirm-footer">
+            <button class="btn-confirm-yes">Benar</button>
+            <button class="btn-confirm-no">Batal</button>
+        </div>
+
+    </div>
+</div>
 
 @endsection

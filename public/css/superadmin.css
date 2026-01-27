@@ -169,11 +169,12 @@ html, body {
 }
 
 .status-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    background: #ffffff;
+    border-radius: 20px;               /* lebih bulat (gambar 1) */
+    padding: 24px 26px;                /* lebih lega */
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
 }
+
 
 /* Toolbar */
 .status-toolbar {
@@ -719,18 +720,18 @@ html, body {
 
 /* HEADER */
 .approval-table th {
-    padding: 14px 12px;
+    padding: 16px 12px;
     font-weight: 700;
     text-align: left;
-    border-bottom: 2px solid #15468A;
+    border-bottom: 2px solid #1e4fa1; /* biru lebih tegas */
     font-size: 14px;
-    white-space: nowrap;
 }
+
 
 /* BODY */
 .approval-table td {
-    padding: 14px 12px;
-    border-bottom: 1px solid #e5e7eb;
+    padding: 16px 12px;
+    border-bottom: 2px solid #c7d7f5; /* garis biru lembut */
     font-size: 14px;
 }
 
@@ -753,24 +754,28 @@ html, body {
     width: 150px;
 }
 
+/* BIDANG → DIRAPATKAN */
 .approval-table th:nth-child(4),
 .approval-table td:nth-child(4) {
-    width: auto;
+    width: 260px;          /* ⬅️ KUNCI UTAMA */
     white-space: normal;
     line-height: 1.4;
 }
 
+/* STATUS → LEBIH KECIL */
 .approval-table th:nth-child(5),
 .approval-table td:nth-child(5) {
-    width: 140px;
+    width: 120px;
     text-align: center;
 }
 
+/* AKSI → TETAP */
 .approval-table th:nth-child(6),
 .approval-table td:nth-child(6) {
-    width: 90px;
+    width: 70px;           /* ⬅️ biar langsung kelihatan */
     text-align: center;
 }
+
 
 /* =========================
    STATUS BADGE
@@ -778,9 +783,9 @@ html, body {
 
 .badge-status {
     display: inline-block;
-    padding: 6px 16px;
+    padding: 6px 18px;   /* lebih besar */
     border-radius: 999px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
 }
 
@@ -809,31 +814,74 @@ html, body {
    ========================= */
 
 .btn-edit {
-    background: #2563eb;
+    background: #15468A;     /* biru tua */
     border: none;
     border-radius: 6px;
-    padding: 6px 10px;
+    width: 34px;             /* ⬅️ kotak kecil */
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: #fff;
     cursor: pointer;
+    padding: 0;
 }
 
+/* ICON DI TENGAH */
+.btn-edit i {
+    font-size: 14px;
+}
+
+/* NON AKTIF */
 .btn-edit.disabled {
     background: #9ca3af;
     cursor: not-allowed;
 }
-
 /* =========================
    ROW HOVER (OPSIONAL PRO)
    ========================= */
 
 .approval-table tbody tr:hover {
-    background: #f8fafc;
+    background: #f8fbff;
 }
+
+/* =========================
+   FIX TOMBOL AKSI (KECIL & RAPI)
+   KHUSUS TABEL PERSETUJUAN
+   ========================= */
+
+.approval-table .btn-edit {
+    width: 34px;              /* ⬅️ kecil */
+    height: 34px;
+    padding: 0 !important;    /* ⬅️ MATIKAN padding lama */
+    min-width: unset !important;
+    
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 6px;
+    background: #2b5dad;
+}
+
+/* ICON PENSIL */
+.approval-table .btn-edit i {
+    font-size: 14px;
+    color: #fff;
+}
+
+/* NON AKTIF */
+.approval-table .btn-edit.disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
 
 
 /* TABEL RIWAYAT PEMINJAMAN */
 /* =========================
    STATUS PEMINJAMAN
+  
 ========================= */
 
 /* Wrapper */
@@ -847,9 +895,30 @@ html, body {
 /* TABLE */
 .status-table {
     width: 100%;
+    min-width: 1600px !important;
     border-collapse: collapse;
     table-layout: fixed; /* KUNCI UTAMA anti rongga */
     background: #fff;
+}
+
+.dash-slider {
+    width: 100%;
+    overflow-x: auto !important;   
+    overflow-y: hidden;
+    background: rgba(255,0,0,0.05);
+}
+
+.dash-slider::-webkit-scrollbar {
+    height: 8px;
+}
+
+.dash-slider::-webkit-scrollbar-thumb {
+    background: #b5c7f3;
+    border-radius: 8px;
+}
+
+.dash-slider::-webkit-scrollbar-track {
+    background: #f1f4ff;
 }
 
 /* HEADER */
@@ -879,37 +948,61 @@ html, body {
 .status-table th:nth-child(1),
 .status-table td:nth-child(1) {
     width: 60px; /* No */
+    white-space: nowrap;
 }
 
 .status-table th:nth-child(2),
 .status-table td:nth-child(2) {
     width: 180px; /* Nama Ruangan */
+    white-space: nowrap;
 }
 
 .status-table th:nth-child(3),
 .status-table td:nth-child(3) {
     width: 200px; /* Acara */
+    white-space: nowrap;
 }
 
 .status-table th:nth-child(4),
 .status-table td:nth-child(4) {
     width: 220px; /* Bidang */
+    white-space: nowrap;
 }
+
+/* 🔥 PAKSA KOLOM BIDANG TURUN BARIS */
+.approval-table td:nth-child(4),
+.approval-table th:nth-child(4) {
+    white-space: normal !important;
+    word-break: break-word;
+    line-height: 1.4;
+}
+
 
 .status-table th:nth-child(5),
 .status-table td:nth-child(5) {
     width: 170px; /* Waktu */
+    white-space: nowrap;
 }
 
 .status-table th:nth-child(6),
 .status-table td:nth-child(6) {
     width: 150px; /* No Whatsapp */
+    white-space: nowrap;
+}
+
+.approval-table th:nth-child(5),
+.approval-table th:nth-child(6),
+.approval-table td:nth-child(5),
+.approval-table td:nth-child(6) {
+    padding-left: 6px;
+    padding-right: 6px;
 }
 
 .status-table th:nth-child(7),
 .status-table td:nth-child(7) {
     width: 140px; /* Status */
     text-align: center;
+    white-space: nowrap;
 }
 
 /* =========================
@@ -1000,9 +1093,8 @@ html, body {
     }
 }
 
-/* ====MODAL POP UP DETAIL PENGAJUAN PEMINJAMAN  == */
+/* ================= MODAL DETAIL PEMINJAMAN ================= */
 
-/* ================= MODAL OVERLAY ================= */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -1013,101 +1105,100 @@ html, body {
     z-index: 9999;
 }
 
-/* ================= MODAL CARD ================= */
 .modal-card {
     width: 520px;
     max-width: 95%;
     background: #eef2f7;
-    border-radius: 10px;
-    padding: 24px 28px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-    animation: modalFade 0.25s ease;
+    border-radius: 14px;
+    overflow: hidden;     /* ⬅️ KUNCI HEADER FULL */
+    padding: 0;           /* ⬅️ HILANGKAN PADDING */
 }
 
-@keyframes modalFade {
-    from {
-        transform: scale(0.95);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
 
-/* ================= HEADER ================= */
+/* HEADER */
 .modal-header {
+    position: relative;
+    background: #15468A;
+    padding: 16px 24px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 18px;
+    justify-content: center;
 }
+
 
 .modal-header h4 {
-    margin: 0;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
+    color: #fff;
+    margin: 0;
 }
 
 .modal-close {
+    position: absolute;   /* ⬅️ KUNCI */
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+
     background: none;
     border: none;
-    font-size: 22px;
+    font-size: 24px;
+    color: #fff;
     cursor: pointer;
-    color: #555;
 }
 
-/* ================= BODY ================= */
+
+/* BODY */
 .modal-body {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 22px;
+    padding-top: 20px;
+    padding: 24px 26px;
 }
 
-/* ROW FORM */
-.form-row {
+.modal-row {
     display: grid;
-    grid-template-columns: 140px 10px 1fr;
+    grid-template-columns: 170px 14px 1fr; /* ⬅️ LEBIH LEBAR */
     align-items: center;
-    gap: 8px;
+    column-gap: 12px;                      /* ⬅️ JARAK HORIZONTAL */
 }
 
-.form-row label {
+
+.modal-row label {
     font-size: 13px;
     font-weight: 600;
-    color: #111;
 }
 
-.form-row::before {
-    content: ":";
-    grid-column: 2;
+.modal-row span {
     text-align: center;
     font-weight: 600;
 }
 
-/* INPUT & TEXTAREA */
-.form-row input,
-.form-row textarea {
-    grid-column: 3;
-    background: #ffffff;
+.modal-row input,
+.modal-row textarea {
+    background: #fff;
     border: 1px solid #d1d5db;
     border-radius: 4px;
     padding: 8px 10px;
     font-size: 13px;
+    height: 38px;
+    
+}
+
+.modal-row textarea {
+    min-height: 80px;   /* ⬅️ catatan lebih lega */
     resize: none;
 }
 
-.form-row textarea {
-    min-height: 60px;
-}
-
-/* ================= FOOTER ================= */
+/* FOOTER */
 .modal-footer {
     display: flex;
-    justify-content: center;
-    gap: 14px;
-    margin-top: 22px;
+    justify-content: center;   /* ⬅️ tombol ke tengah */
+    gap: 16px;
+    padding: 20px 26px 24px;   /* ⬅️ jarak seimbang kiri-kanan-bawah */
+    background: #eef2f7;       /* ⬅️ nyatu sama body */
 }
+
 
 .btn-approve {
     background: #22c55e;
@@ -1116,7 +1207,6 @@ html, body {
     padding: 8px 26px;
     border-radius: 6px;
     font-weight: 600;
-    cursor: pointer;
 }
 
 .btn-reject {
@@ -1126,48 +1216,74 @@ html, body {
     padding: 8px 26px;
     border-radius: 6px;
     font-weight: 600;
-    cursor: pointer;
 }
 
-.btn-approve:hover {
-    background: #16a34a;
+.btn-approve,
+.btn-reject {
+    min-width: 120px;
+    padding: 10px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
 }
 
-.btn-reject:hover {
-    background: #dc2626;
+/* ================= MODAL KONFIRMASI ================= */
+
+.modal-confirm {
+    width: 420px;
+    max-width: 90%;
+    padding: 0;
 }
 
-.form-row {
-    display: grid;
-    grid-template-columns: 140px 10px 1fr;
-    align-items: center;
+/* HEADER */
+.confirm-header {
+    background: #15468A;
+    color: #fff;
+    text-align: center;
+    padding: 14px;
+    border-radius: 12px 12px 0 0;
 }
 
-
-@media (max-width: 600px) {
-    .modal-card {
-        width: 95%;
-        padding: 20px;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 6px;
-    }
-
-    .form-row label {
-        font-size: 13px;
-    }
-
-    .form-row::before {
-        display: none;
-    }
-
-    .form-row input,
-    .form-row textarea {
-        width: 100%;
-    }
+/* BODY */
+.confirm-body {
+    padding: 24px 20px;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
 }
+
+.confirm-body p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* FOOTER */
+.confirm-footer {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px;
+}
+
+/* BUTTON */
+.btn-confirm-yes {
+    background: #22c55e;
+    color: #fff;
+    border: none;
+    padding: 10px 26px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.btn-confirm-no {
+    background: #ef4444;
+    color: #fff;
+    border: none;
+    padding: 10px 26px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
 
 /* ===============================
    RESPONSIF FILTER-ITEM DAN SEARCH 

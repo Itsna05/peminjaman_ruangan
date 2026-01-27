@@ -131,7 +131,7 @@
             </div>
 
             {{-- TABLE --}}
-            <div class="table-responsive search-item">
+            <div class="search-item dash-slider">
                 <table class="status-table">
                     <thead>
                         <tr>
