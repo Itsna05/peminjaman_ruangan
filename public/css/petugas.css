@@ -639,7 +639,6 @@ body {
     font-weight: 600;
 }
 
-
 /* ICON SEARCH */
 .search-box i {
     position: absolute;
@@ -772,25 +771,6 @@ body {
     overflow-x: auto;
 }
 
-/* Table
-.status-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-.status-table th {
-    text-align: left;
-    padding: 12px;
-    border-bottom: 2px solid #1e4fa1;
-    font-weight: 700;
-}
-
-.status-table td {
-    padding: 12px;
-    border-bottom: 1px solid #e0e0e0;
-} */
-
 /* Badge status */
 .badge-status {
     padding: 6px 16px;
@@ -885,31 +865,39 @@ body {
    MODAL EDIT PEMINJAMAN
 ========================= */
 
+/* =========================
+   MODAL EDIT PEMINJAMAN
+========================= */
+
+/* CONTAINER MODAL */
 .modal-custom {
     background: #eef3f8;
     border-radius: 18px;
-    padding: 10px;
+    padding: 0;
+    overflow: hidden; /* penting */
 }
 
-/* X PUTIH PEKAT & TAJAM */
-.btn-close-custom {
-    opacity: 1 !important;
-    filter: none !important;
-    background: none;
-}
-
+/* HEADER */
 .modal-header {
+    background: #174a8b;
+    color: #fff;
+    border-bottom: none;
     position: relative;
-    display: flex;
-    align-items: center; /* 🔥 ini yang bikin center tombol X */
+    padding: 14px 20px;
 }
 
+/* JUDUL */
+.modal-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* TOMBOL CLOSE */
 .btn-close-custom {
     position: absolute;
     right: 20px;
     top: 50%;
-    transform: translateY(-50%); /* 🔥 bikin PAS TENGAH */
-
+    transform: translateY(-50%);
     opacity: 1 !important;
     filter: none !important;
     background: none;
@@ -917,7 +905,6 @@ body {
     padding: 0;
 }
 
-/* Ganti icon X jadi SVG putih solid */
 .btn-close-custom::before {
     content: "✕";
     font-size: 22px;
@@ -926,18 +913,92 @@ body {
 }
 
 .btn-close-custom:hover::before {
-    color: #ffd54f; /* kuning lembut */
+    color: #ffd54f;
 }
 
-.modal-title {
-    font-size: 1.2rem;
-}
-
+/* BODY → INI KUNCI UTAMA */
 .modal-body {
     padding: 20px 30px;
+    max-height: 70vh; /* 🔥 BIAR TIDAK KEPOTONG */
+    overflow-y: auto; /* 🔥 SCROLL MUNCUL */
 }
 
+/* FOOTER */
+.modal-footer {
+    border-top: none;
+    padding: 15px 20px;
+    background: #eef3f8;
+}
+
+/* BUTTON */
 .modal-footer button {
     border-radius: 10px;
     font-weight: 600;
+    padding: 8px 20px;
+}
+
+/* INPUT & SELECT */
+.modal-body .form-control,
+.modal-body .form-select {
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+}
+
+/* LABEL */
+.modal-body .form-label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+/* WAKTU WRAPPER */
+.waktu-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.waktu-wrapper .separator {
+    font-weight: 600;
+    margin: 0 5px;
+}
+
+/* SCROLL BAR (OPSIONAL, BIAR HALUS) */
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: #c2d1e0;
+    border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* =========================
+   FIX MODAL EDIT PEMINJAMAN
+========================= */
+
+#modalEditPeminjaman .modal-dialog {
+    max-height: 90vh;
+}
+
+#modalEditPeminjaman .modal-content {
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#modalEditPeminjaman .modal-body {
+    overflow-y: auto;
+}
+
+/* VIEW MODE (READONLY VISUAL) */
+/* VIEW MODE - TAMPIL DATA TANPA BISA EDIT */
+.readonly-view {
+    pointer-events: none;
+    background-color: #e9ecef;
+    color: #495057;
 }

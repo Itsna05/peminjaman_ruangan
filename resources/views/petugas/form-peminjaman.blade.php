@@ -44,17 +44,18 @@
                 Form Peminjaman Ruangan
             </h4>
 
-            <form>
+            <form method="POST" action="{{ route('petugas.peminjaman.store') }}">
+                @csrf
                 <div class="row g-4">
 
                     <div class="col-md-6">
-                        <label class="form-label">Nama Acara</label>
-                        <input type="text" class="form-control" placeholder="Masukkan Nama Acara">
+                        <label class="form-label">Nama Acara</label required>
+                        <input type="text" name="acara" class="form-control" placeholder="Masukkan Nama Acara" required>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Jumlah Peserta</label>
-                        <input type="number" class="form-control" placeholder="Masukkan Jumlah Peserta">
+                        <input type="number" name="jumlah_peserta" class="form-control" placeholder="Masukkan Jumlah Peserta" required>
                     </div>
 
                     <div class="col-12">
@@ -64,146 +65,70 @@
                             <input
                                 type="date"
                                 id="tgl_mulai"
-                                class="form-control"
-                                onchange="aturJamMulai(); gabungWaktu()">
-
-                            <input
-                                type="time"
-                                id="jam_mulai"
-                                class="form-control waktu-jam"
-                                onchange="aturJamSelesai(); gabungWaktu()">
-
-                            <span class="separator">~</span>
-
-                            <input
-                                type="date"
-                                id="tgl_selesai"
+                                required
                                 class="form-control"
                                 onchange="gabungWaktu()">
 
                             <input
                                 type="time"
+                                required
+                                id="jam_mulai"
+                                class="form-control waktu-jam"
+                                onchange="gabungWaktu()">
+
+                            <span class="separator">~</span>
+
+                            <input
+                                type="date"
+                                required
+                                id="tgl_selesai"
+                                class="form-control"
+                                onchange="gabungWaktu()" >
+
+                            <input
+                                type="time"
+                                required
                                 id="jam_selesai"
                                 class="form-control waktu-jam"
                                 onchange="gabungWaktu()">
                         </div>
                     </div>
 
-                    <input type="hidden" name="waktu_mulai" id="waktu_mulai">
-                    <input type="hidden" name="waktu_selesai" id="waktu_selesai">
+                    <input type="hidden" name="waktu_mulai" id="waktu_mulai" required>
+                    <input type="hidden" name="waktu_selesai" id="waktu_selesai" required>
 
-                    <script>
-                    document.addEventListener('DOMContentLoaded', () => {
-                        const today = new Date().toISOString().split('T')[0];
-
-                        document.getElementById('tgl_mulai').min = today;
-                        document.getElementById('tgl_selesai').min = today;
-                    });
-
-                    /* ===== BATASI JAM MULAI JIKA HARI INI ===== */
-                    function aturJamMulai() {
-                        const tglMulai = document.getElementById('tgl_mulai').value;
-                        const jamMulai = document.getElementById('jam_mulai');
-
-                        const today = new Date().toISOString().split('T')[0];
-
-                        if (tglMulai === today) {
-                            const now = new Date();
-                            const jam = String(now.getHours()).padStart(2, '0');
-                            const menit = String(now.getMinutes()).padStart(2, '0');
-
-                            jamMulai.min = `${jam}:${menit}`;
-                        } else {
-                            jamMulai.removeAttribute('min');
-                        }
-                    }
-
-                    /* ===== JAM SELESAI ≥ JAM MULAI ===== */
-                    function aturJamSelesai() {
-                        const jamMulai = document.getElementById('jam_mulai').value;
-                        const jamSelesai = document.getElementById('jam_selesai');
-
-                        if (jamMulai) {
-                            jamSelesai.min = jamMulai;
-                        }
-                    }
-
-                    /* ===== GABUNG KE HIDDEN INPUT ===== */
-                    function gabungWaktu() {
-                        const tglMulai = document.getElementById('tgl_mulai').value;
-                        const jamMulai = document.getElementById('jam_mulai').value;
-                        const tglSelesai = document.getElementById('tgl_selesai').value;
-                        const jamSelesai = document.getElementById('jam_selesai').value;
-
-                        if (tglMulai && jamMulai) {
-                            document.getElementById('waktu_mulai').value =
-                                `${tglMulai} ${jamMulai}:00`;
-                        }
-
-                        if (tglSelesai && jamSelesai) {
-                            document.getElementById('waktu_selesai').value =
-                                `${tglSelesai} ${jamSelesai}:00`;
-                        }
-                    }
-                    </script>
-
-                    @php
-                        $bidang = \Illuminate\Support\Facades\DB::table('bidang_pegawai')
-                                    ->select('bidang')
-                                    ->distinct()
-                                    ->get();
-                    @endphp
 
                     <div class="col-md-6">
-                        <label class="form-label">Pilih Bidang</label>
-                        <select name="bidang" id="bidang" class="form-select">
-                            <option value="">Please Select</option>
+                        <label class="form-label">Bidang</label>
+                        <select name="bidang" id="bidang" class="form-select" required>
+                            <option value="" disabled selected hidden>Pilih Bidang</option disabled>
                             @foreach ($bidang as $b)
-                                <option value="{{ $b->bidang }}">{{ $b->bidang }}</option>
-                                <script>
-                                document.getElementById('bidang').addEventListener('change', function () {
-                                    let bidang = this.value;
-
-                                    if (bidang === '') {
-                                        document.getElementById('sub_bidang').innerHTML =
-                                            "<option value=''>Please Select</option>";
-                                        return;
-                                    }
-
-                                    fetch('/petugas/get-sub-bidang?bidang=' + encodeURIComponent(bidang))
-                                        .then(res => res.text())
-                                        .then(data => {
-                                            document.getElementById('sub_bidang').innerHTML = data;
-                                        })
-                                        .catch(err => {
-                                            console.error(err);
-                                        });
-                                });
-                                </script>
-
+                                <option value="{{ $b->bidang }}">
+                                    {{ $b->bidang }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
 
 
                     <div class="col-md-6">
-                        <label class="form-label">Pilih Sub Bidang</label>
-                        <select name="id_bidang" id="sub_bidang" class="form-select">
-                            <option value="">Please Select</option>
+                        <label class="form-label">Sub Bidang</label>
+                        <select name="sub_bidang" id="sub_bidang" class="form-select" required>
+                            <option value="" disabled selected hidden>Pilih Sub Bidang</option>
+                            <option value="">Pilih Sub Bidang</option disabled>
                         </select>
                     </div>
 
 
                     @php
                         $ruangan = \Illuminate\Support\Facades\DB::table('ruangan')
-                                    ->where('ketersediaan', 'Tersedia')
                                     ->get();
                     @endphp
 
                     <div class="col-md-6">
-                        <label class="form-label">Pilih Ruangan</label>
-                        <select name="id_ruangan" class="form-select">
-                            <option value="">Please Select</option>
+                        <label class="form-label">Ruangan</label >
+                        <select name="id_ruangan" class="form-select" required>
+                            <option value="" disabled selected hidden>Pilih Ruangan</option>
                             @foreach ($ruangan as $r)
                                 <option value="{{ $r->id_ruangan }}">
                                     {{ $r->nama_ruangan }}
@@ -215,13 +140,13 @@
 
                     <div class="col-md-6">
                         <label class="form-label">Nomor WhatsApp</label>
-                        <input type="text" class="form-control" placeholder="Masukkan Nomor WhatsApp">
+                        <input type="text" name="no_wa" class="form-control" placeholder="Masukkan Nomor WhatsApp" required>
                     </div>
 
                     <div class="col-12">
                         <label class="form-label">Catatan</label>
                         <textarea class="form-control textarea-catatan" rows="3"
-                            placeholder="Tambahkan Catatan Internal Jika diperlukan"></textarea>
+                            placeholder="Tambahkan Catatan Internal Jika diperlukan" name="catatan"></textarea>
                     </div>
 
                     <div class="col-12 text-end">
@@ -329,7 +254,7 @@
 
                                     <td class="text-center">
                                         @if ($item->status_peminjaman === 'Menunggu')
-                                            <button class="btn-aksi"
+                                            <button class="btn-aksi btn-edit"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modalEditPeminjaman"
                                                 data-id="{{ $item->id_peminjaman }}">
@@ -367,355 +292,105 @@
             </div>
         </div>
     </div> 
-        {{-- =======================
-    MODAL EDIT PEMINJAMAN
-    ======================= --}}
-    <div class="modal fade" id="modalEditPeminjaman" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content modal-custom">
 
-                {{-- HEADER --}}
-                <div class="modal-header modal-header-blue">
-                    <h5 class="modal-title mx-auto text-white fw-bold">
-                        Form Peminjaman Ruangan
-                    </h5>
+{{-- MODAL EDIT PEMINJAMAN --}}
+<div class="modal fade" id="modalEditPeminjaman" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content modal-custom">
 
-                    <button type="button"
-                            class="btn-close btn-close-custom"
-                            data-bs-dismiss="modal">
-                    </button>
-                </div>
+            {{-- HEADER --}}
+            <div class="modal-header">
+                <h5 class="modal-title mx-auto text-white fw-bold">
+                    Form Peminjaman Ruangan
+                </h5>
+                <button type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal"></button>
+            </div>
 
-                <div class="modal-body">
-                <form>
+            {{-- BODY --}}
+            <div class="modal-body">
+                <form id="formEditPeminjaman">
+                    @csrf
+                    <input type="hidden" id="edit_id">
+
                     <div class="row g-3">
 
                         <div class="col-md-6">
                             <label class="form-label">Nama Acara</label>
-                            <input type="text" class="form-control edit-field"
-                                value="Hari Amal Bakti DPU" readonly>
+                            <input type="text" name="acara" class="form-control edit-field">
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label">Jumlah Peserta</label>
-                            <input type="number" class="form-control edit-field"
-                                value="300" readonly>
+                            <input type="number" name="jumlah_peserta" class="form-control edit-field">
                         </div>
 
-                        {{-- WAKTU PEMINJAMAN --}}
                         <div class="col-12">
                             <label class="form-label">Waktu Peminjaman</label>
-
-                            <div class="d-flex gap-2">
-                                <input type="date" id="tgl_mulai"
-                                    class="form-control edit-field"
-                                    value="{{ $tglMulai ?? '' }}" readonly>
-
-                                <input type="time" id="jam_mulai"
-                                    class="form-control edit-field"
-                                    value="{{ $jamMulai ?? '' }}"
-                                    style="max-width:140px" readonly>
-
-                                <span class="align-self-center">~</span>
-
-                                <input type="date" id="tgl_selesai"
-                                    class="form-control edit-field"
-                                    value="{{ $tglSelesai ?? '' }}" readonly>
-
-                                <input type="time" id="jam_selesai"
-                                    class="form-control edit-field"
-                                    value="{{ $jamSelesai ?? '' }}"
-                                    style="max-width:140px" readonly>
+                            <div class="waktu-wrapper">
+                                <input type="date" id="edit_tgl_mulai" class="form-control edit-field">
+                                <input type="time" id="edit_jam_mulai" class="form-control edit-field">
+                                <span class="separator">~</span>
+                                <input type="date" id="edit_tgl_selesai" class="form-control edit-field">
+                                <input type="time" id="edit_jam_selesai" class="form-control edit-field">
                             </div>
                         </div>
 
-                        {{-- HIDDEN DATETIME --}}
-                        <input type="hidden" name="waktu_mulai" id="waktu_mulai">
-                        <input type="hidden" name="waktu_selesai" id="waktu_selesai">
+                        <input type="hidden" name="waktu_mulai" id="edit_waktu_mulai">
+                        <input type="hidden" name="waktu_selesai" id="edit_waktu_selesai">
 
                         <div class="col-md-6">
-                            <label class="form-label">Pilih Bidang</label>
-                            <select class="form-select edit-field" readonly>
-                                <option>Bidang Rancang Bangun dan Pengawasan</option>
+                            <label class="form-label">Bidang</label>
+                            <select name="bidang" id="edit_bidang" class="form-select edit-field">
+                                @foreach($bidang as $b)
+                                    <option value="{{ $b->bidang }}">{{ $b->bidang }}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label">Pilih Sub Bidang</label>
-                            <select class="form-select edit-field" readonly>
-                                <option>Kasi Perancang Bangunan</option>
+                            <label class="form-label">Sub Bidang</label>
+                            <select name="sub_bidang" id="edit_sub_bidang" class="form-select edit-field">
                             </select>
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label">Pilih Ruangan</label>
-                            <select class="form-select edit-field" readonly>
-                                <option>Ruang Studio</option>
+                            <label class="form-label">Ruangan</label>
+                            <select name="id_ruangan" id="edit_ruangan" class="form-select edit-field">
+                                @foreach($ruangan as $r)
+                                    <option value="{{ $r->id_ruangan }}">{{ $r->nama_ruangan }}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label">Nomor WhatsApp</label>
-                            <input type="text" class="form-control edit-field"
-                                value="083239242938" readonly>
+                            <input type="text" name="no_wa" class="form-control edit-field">
                         </div>
 
                         <div class="col-12">
                             <label class="form-label">Catatan</label>
-                            <textarea class="form-control edit-field" readonly>
-                                Butuh sound
-                            </textarea>
+                            <textarea name="catatan" class="form-control edit-field"></textarea>
                         </div>
 
                     </div>
                 </form>
             </div>
 
-
-
-                <!-- {{-- BODY --}}
-                <div class="modal-body">
-                    <form>
-                        <div class="row g-3">
-
-                            <div class="col-md-6">
-                                <label class="form-label">Nama Acara</label>
-                                <input type="text" class="form-control edit-field" value="Hari Amal Bakti DPU" disabled>
-
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Jumlah Peserta</label>
-                                <input type="number" class="form-control edit-field" value="300" disabled>
-
-                            </div>
-
-                            <div class="col-12">
-                                <label class="form-label">Waktu Peminjaman</label>
-
-                                <div class="d-flex gap-2">
-                                    <input type="date" id="tgl_mulai" class="form-control"
-                                        value="{{ $tglMulai ?? '' }}" readonly>
-
-                                    <input type="time" id="jam_mulai" class="form-control"
-                                        value="{{ $jamMulai ?? '' }}" style="max-width:140px" readonly>
-
-                                    <span class="align-self-center">~</span>
-
-                                    <input type="date" id="tgl_selesai" class="form-control"
-                                        value="{{ $tglSelesai ?? '' }}" readonly>
-
-                                    <input type="time" id="jam_selesai" class="form-control"
-                                        value="{{ $jamSelesai ?? '' }}" style="max-width:140px" readonly>
-                                </div>
-                            </div>
-
-                            <input type="hidden" name="waktu_mulai" id="waktu_mulai">
-                            <input type="hidden" name="waktu_selesai" id="waktu_selesai">
-
-                            <script>
-                            function gabungWaktu() {
-                                const tglMulai = document.getElementById('tgl_mulai').value;
-                                const jamMulai = document.getElementById('jam_mulai').value;
-                                const tglSelesai = document.getElementById('tgl_selesai').value;
-                                const jamSelesai = document.getElementById('jam_selesai').value;
-
-                                if (tglMulai && jamMulai) {
-                                    document.getElementById('waktu_mulai').value =
-                                        tglMulai + ' ' + jamMulai + ':00';
-                                }
-
-                                if (tglSelesai && jamSelesai) {
-                                    document.getElementById('waktu_selesai').value =
-                                        tglSelesai + ' ' + jamSelesai + ':00';
-                                }
-                            }
-                            </script>
-
-
-
-                            <div class="col-md-6">
-                                <label class="form-label">Waktu Mulai</label>
-                                <select class="form-select edit-field" disabled>
-
-                                    <option>08.00 WIB</option>
-                                    <option>09.00 WIB</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Waktu Selesai</label>
-                                <select class="form-select edit-field" disabled>
-
-                                    <option>14.00 WIB</option>
-                                    <option>15.00 WIB</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Pilih Bidang</label>
-                                <select class="form-select edit-field" disabled>
-
-                                    <option>Bidang Rancang Bangun dan Pengawasan</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Pilih Sub Bidang</label>
-                                <select class="form-select edit-field" disabled>
-
-                                    <option>Kasi Perancang Bangunan</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Pilih Ruangan</label>
-                                <select class="form-select edit-field" disabled>
-
-                                    <option>Ruang Studio</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Nomor WhatsApp</label>
-                                <input type="text" class="form-control edit-field" value="083239242938" disabled>
-
-                            </div>
-
-                            <div class="col-12">
-                                <label class="form-label">Catatan</label>
-                                <textarea class="form-control edit-field" disabled>Butuh sound</textarea>
-
-                            </div>
-
-                        </div>
-                    </form>
-                </div> -->
-
-                {{-- FOOTER --}}
-                <div class="modal-footer border-0 modal-footer-custom">
-
-                    {{-- MODE AWAL --}}
-                    <div id="footerView" class="footer-actions">
-                        <button class="btn btn-primary px-4" id="btnEdit">
-                            Edit
-                        </button>
-
-                        <button class="btn btn-danger px-4" id="btnBatalkanPeminjaman">
-                            Batalkan Peminjaman
-                        </button>
-
-                    </div>
-
-                    {{-- MODE EDIT --}}
-                    <div id="footerEdit" class="footer-actions d-none">
-                        <button class="btn btn-success px-4" id="btnSimpan" onclick="gabungWaktu()">
-                            Simpan
-                        </button>
-
-                        <button class="btn btn-danger px-4" id="btnBatal">
-                            Batal
-                        </button>
-                    </div>
-
-                    {{-- MODE DIBATALKAN --}}
-                    <div id="footerCanceled" class="footer-canceled d-none">
-                        Acara dibatalkan oleh pihak terkait
-                    </div>
-
-
+            {{-- FOOTER --}}
+            <div class="modal-footer modal-footer-custom">
+                <div id="footerView" class="footer-actions">
+                    <button class="btn btn-primary" id="btnEdit">Edit</button>
+                    <button class="btn btn-danger" id="btnBatalkanPeminjaman">Batalkan Peminjaman</button>
                 </div>
 
-
-
-
+                <div id="footerEdit" class="footer-actions d-none">
+                    <button class="btn btn-success" id="btnSimpan">Simpan</button>
+                    <button class="btn btn-secondary" id="btnBatal">Batal</button>
+                </div>
             </div>
+
         </div>
     </div>
-
+</div>
 </section>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    const btnEdit   = document.getElementById('btnEdit');
-    const btnBatal  = document.getElementById('btnBatal');
-    const btnBatalkan = document.getElementById('btnBatalkanPeminjaman'); // ⬅️ BARU
-
-    const footerView = document.getElementById('footerView');
-    const footerEdit = document.getElementById('footerEdit');
-    const footerCanceled = document.getElementById('footerCanceled'); // ⬅️ BARU
-
-    const fields = document.querySelectorAll('.edit-field');
-
-    // KLIK EDIT
-    btnEdit.addEventListener('click', function () {
-
-        // Aktifkan semua input
-        fields.forEach(field => {
-            field.disabled = false;
-        });
-
-        // Ganti footer
-        footerView.classList.add('d-none');
-        footerEdit.classList.remove('d-none');
-    });
-
-    // KLIK BATAL (MODE EDIT)
-    btnBatal.addEventListener('click', function () {
-        location.reload();
-    });
-
-    // KLIK BATALKAN PEMINJAMAN (MODE AWAL)
-    btnBatalkan.addEventListener('click', function () {
-
-        // Pastikan semua field terkunci
-        fields.forEach(field => {
-            field.disabled = true;
-        });
-
-        // Sembunyikan semua footer tombol
-        footerView.classList.add('d-none');
-        footerEdit.classList.add('d-none');
-
-        // Tampilkan pesan dibatalkan
-        footerCanceled.classList.remove('d-none');
-    });
-
-
-});
-</script>
-{{-- SCRIPT GABUNG WAKTU --}}
-<script>
-function gabungWaktu() {
-    document.getElementById('waktu_mulai').value =
-        document.getElementById('tgl_mulai').value + ' ' +
-        document.getElementById('jam_mulai').value + ':00';
-
-    document.getElementById('waktu_selesai').value =
-        document.getElementById('tgl_selesai').value + ' ' +
-        document.getElementById('jam_selesai').value + ':00';
-}
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    const searchInput = document.getElementById('searchInput');
-    const tableBody   = document.getElementById('tableBody');
-    const rows        = tableBody.getElementsByTagName('tr');
-
-    searchInput.addEventListener('keyup', function () {
-        const keyword = this.value.toLowerCase();
-
-        Array.from(rows).forEach(row => {
-            const text = row.innerText.toLowerCase();
-            row.style.display = text.includes(keyword) ? '' : 'none';
-        });
-    });
-
-});
-</script>
-
-
-
 @endsection

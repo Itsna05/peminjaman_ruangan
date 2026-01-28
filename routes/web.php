@@ -38,28 +38,39 @@ Route::middleware(['CekLogin:petugas'])
         Route::get('/denah-ruangan', [DenahRuanganController::class, 'index'])
             ->name('denah');
 
+       // ==========================
         // PEMINJAMAN RUANGAN
+        // ==========================
 
         Route::get(
             '/peminjaman-ruangan',
             [PeminjamanRuanganController::class, 'index']
         )->name('peminjaman');
 
-        Route::get('/get-sub-bidang', function () {
-            $bidang = request('bidang');
+        // 🔽 TAMBAHAN (WAJIB UNTUK MODAL)
+        Route::get(
+            '/peminjaman-ruangan/{id}',
+            [PeminjamanRuanganController::class, 'show']
+        );
 
-            $data = DB::table('bidang_pegawai')
-                ->where('bidang', $bidang)
-                ->get();
+        Route::put(
+            '/peminjaman-ruangan/{id}',
+            [PeminjamanRuanganController::class, 'update']
+        );
+        
+        Route::post(
+            '/peminjaman-ruangan',
+            [PeminjamanRuanganController::class, 'store']
+        )->name('peminjaman.store');
 
-            $html = "<option value=''>Please Select</option>";
-            foreach ($data as $d) {
-                $html .= "<option value='{$d->id_bidang}'>{$d->sub_bidang}</option>";
-            }
-
-            return $html;
-        });
-
+        Route::get(
+            '/get-sub-bidang',
+            [PeminjamanRuanganController::class, 'getSubBidang']
+        );
+        Route::put(
+            '/peminjaman-ruangan/{id}/batalkan',
+            [PeminjamanRuanganController::class, 'batalkan']
+        );
 
 
     });

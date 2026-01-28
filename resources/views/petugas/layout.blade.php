@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
 
     {{-- Bootstrap --}}
@@ -24,7 +25,10 @@
     <script src="{{ asset('js/filter-item.js') }}"></script>
     <script src="{{ asset('js/pagination.js') }}"></script>
     <script src="{{ asset('js/card-denah.js') }}"></script>
-
+    <script src="{{ asset('js/peminjaman-waktu.js') }}"></script>
+    <script src="{{ asset('js/peminjaman-waktu.js') }}"></script>
+    <script src="{{ asset('js/peminjaman-form-tambah.js') }}"></script>
+    <script src="{{ asset('js/edit_peminjaman.js') }}"></script>
 
 </head>
 <body>
