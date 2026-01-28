@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Transaksi;
 
 class SuperAdminController extends Controller
 {
@@ -80,5 +81,14 @@ class SuperAdminController extends Controller
         $admin->delete();
 
         return redirect('/superadmin')->with('success', 'Super Admin berhasil dihapus');
+    }
+
+    public function manajemenPeminjaman()
+    {
+        $transaksi = Transaksi::with(['ruangan','bidang'])
+            ->orderBy('id_peminjaman','desc')
+            ->get();
+
+        return view('superadmin.manajemen-peminjaman', compact('transaksi'));
     }
 }

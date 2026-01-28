@@ -149,3 +149,8 @@ Route::middleware(['CekLogin:superadmin'])
             return view('superadmin.manajemen-ruangan');
         })->name('manajemen-ruangan');
     });
+
+Route::get('/superadmin/manajemen-peminjaman',
+    [SuperAdminController::class, 'manajemenPeminjaman']
+)->name('superadmin.manajemen-peminjaman');
+

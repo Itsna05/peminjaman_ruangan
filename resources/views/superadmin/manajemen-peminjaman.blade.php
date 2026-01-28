@@ -114,156 +114,46 @@
                     </thead>
 
                     <tbody id="tableBody">
-                        <tr>
-                            <td>1</td>
-                            <td>Ruang Studio</td>
-                            <td>Kasubag</td>
-                            <td>Teknologi Informasi</td>
-                            <td class="text-center">
-                                <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit btn-open-modal">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        @forelse ($transaksi as $t)
+                        <tr data-status="{{ strtolower($t->status_peminjaman) }}">
 
-                        <tr>
-                            <td>2</td>
-                            <td>Ruang Bond</td>
-                            <td>Kasubag</td>
-                            <td>Bidang Rancang Bangun dan Pengawasan</td>
-                            <td class="text-center">
-                                <span class="badge-status disetujui" data-value="disetujui">Disetujui</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Ruang Studio</td>
-                            <td>Kasubag</td>
-                            <td>Teknologi Informasi</td>
-                            <td class="text-center">
-                                <span class="badge-status ditolak" data-value="ditolak">Ditolak</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
+                            <td>{{ $loop->iteration }}</td>
 
-                        <tr>
-                            <td>4</td>
-                            <td>Ruang Bond</td>
-                            <td>Kasubag</td>
-                            <td>Bidang Rancang Bangun dan Pengawasan</td>
+                            <td>{{ $t->ruangan->nama_ruangan ?? '-' }}</td>
+
+                            <td>{{ $t->bidang->sub_bidang ?? '-' }}</td>
+
+                            <td>{{ $t->bidang->bidang ?? '-' }}</td>
+
                             <td class="text-center">
-                                <span class="badge-status dibatalkan" data-value="dibatalkan">Dibatalkan</span>
+                                <span class="badge-status {{ strtolower($t->status_peminjaman) }}">
+                                    {{ $t->status_peminjaman }}
+                                </span>
                             </td>
+
                             <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Ruang Studio</td>
-                            <td>Kasubag</td>
-                            <td>Teknologi Informasi</td>
-                            <td class="text-center">
-                                <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit btn-open-modal">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
+                                @if ($t->status_peminjaman === 'Menunggu')
+                                    <button class="btn-edit btn-open-modal"
+                                            data-id="{{ $t->id_peminjaman }}">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                @else
+                                    <button class="btn-edit disabled" disabled>
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                @endif
                             </td>
 
                         </tr>
-
+                        @empty
                         <tr>
-                            <td>6</td>
-                            <td>Ruang Bond</td>
-                            <td>Kasubag</td>
-                            <td>Bidang Rancang Bangun dan Pengawasan</td>
-                            <td class="text-center">
-                                <span class="badge-status disetujui" data-value="disetujui">Disetujui</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
+                            <td colspan="6" class="text-center text-muted">
+                                Belum ada pengajuan peminjaman
                             </td>
                         </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Ruang Studio</td>
-                            <td>Kasubag</td>
-                            <td>Teknologi Informasi</td>
-                            <td class="text-center">
-                                <span class="badge-status ditolak" data-value="ditolak">Ditolak</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-
-                        </tr>
-
-                        <tr>
-                            <td>8</td>
-                            <td>Ruang Bond</td>
-                            <td>Kasubag</td>
-                            <td>Bidang Rancang Bangun dan Pengawasan</td>
-                            <td class="text-center">
-                                <span class="badge-status disetujui" data-value="disetujui">Disetujui</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>Ruang Studio</td>
-                            <td>Kasubag</td>
-                            <td>Teknologi Informasi</td>
-                            <td class="text-center">
-                                <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit btn-open-modal">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-
-                        </tr>
-
-                        <tr>
-                            <td>10</td>
-                            <td>Ruang Bond</td>
-                            <td>Kasubag</td>
-                            <td>Bidang Rancang Bangun dan Pengawasan</td>
-                            <td class="text-center">
-                                <span class="badge-status dibatalkan" data-value="dibatalkan">Dibatalkan</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
-                                           
+                        @endforelse
                     </tbody>
+
                 </table>
                             
             </div>
@@ -485,5 +375,25 @@
 
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const searchInput = document.getElementById('searchInput');
+    const tableBody  = document.getElementById('tableBody');
+    const rows       = tableBody.getElementsByTagName('tr');
+
+    searchInput.addEventListener('keyup', function () {
+        const keyword = this.value.toLowerCase();
+
+        Array.from(rows).forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(keyword) ? '' : 'none';
+        });
+    });
+
+});
+</script>
+
 
 @endsection
