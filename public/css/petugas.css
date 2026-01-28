@@ -466,15 +466,17 @@ body {
 
 .ruangan-slider {
     overflow-x: auto;
+    scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    /* biar gesernya halus */
     padding: 20px 0;
+    display: flex;
 }
 
 .ruangan-track {
     display: flex;
     gap: 30px;
     width: max-content;
+    padding-inline: calc(50% - 160px)
 }
 
 /* =================================
