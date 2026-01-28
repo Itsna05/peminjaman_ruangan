@@ -165,7 +165,7 @@ class PeminjamanRuanganController extends Controller
         'waktu_selesai'     => $request->waktu_selesai,
         'id_bidang'         => $idBidang, 
         'id_ruangan'        => $request->id_ruangan,
-        'id_user'           => auth()->id(),
+        'id_user' => session('user_id'),
         'no_wa'             => $request->no_wa,
         'catatan'           => $request->catatan ?? '',
         'status_peminjaman' => 'Menunggu',
