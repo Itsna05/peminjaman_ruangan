@@ -40,188 +40,6 @@
 
         <div class="ruangan-slider">
             <div class="ruangan-track">
-
-            <!-- {{-- ================= CARD 1 ================= --}}
-            <div class="detail-card">
-
-                <div class="detail-card-header">DETAIL RUANGAN</div>
-
-                <div class="detail-card-image">
-                    <div id="foto-skpd-timur"
-                         class="carousel slide foto-carousel"
-                         data-bs-touch="false"
-                         data-bs-interval="false">
-
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{{ asset('img/ruang_SKPD_TP1.png') }}">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/ruang_SKPD_TP2.png') }}">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/ruang_SKPD_TP3.png') }}">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/ruang_SKPD_TP4.png') }}">
-                            </div>
-                        </div>
-
-                        <button class="carousel-control-prev"
-                                type="button"
-                                data-bs-target="#foto-skpd-timur"
-                                data-bs-slide="prev"></button>
-
-                        <button class="carousel-control-next"
-                                type="button"
-                                data-bs-target="#foto-skpd-timur"
-                                data-bs-slide="next"></button>
-                    </div>
-                </div>
-
-                <div class="detail-card-body">
-                    <h5 class="detail-card-title">Ruang SKPD Timur</h5>
-
-                    <div class="detail-card-info">
-                        <div class="info-label">
-                            <h6>Elektronik</h6>
-                            <ul>
-                                <li>AC : 2</li>
-                                <li>Sound System : 1</li>
-                                <li>Layar LED : 1</li>
-                            </ul>
-                        </div>
-                        <div class="info-label">
-                            <h6>Non Elektronik</h6>
-                            <ul>
-                                <li>Kursi : 20</li>
-                                <li>Meja : 5</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- ================= CARD 2 ================= --}}
-            <div class="detail-card">
-
-                <div class="detail-card-header">DETAIL RUANGAN</div>
-
-                <div class="detail-card-image">
-                    <div id="foto-rapat-a"
-                         class="carousel slide foto-carousel"
-                         data-bs-touch="false"
-                         data-bs-interval="false">
-
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{{ asset('img/ruang_SKPD_TP3.png') }}">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/ruang_SKPD_TP2.png') }}">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/ruang_SKPD_TP1.png') }}">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/ruang_SKPD_TP4.png') }}">
-                            </div>
-                        </div>
-
-                        <button class="carousel-control-prev"
-                                type="button"
-                                data-bs-target="#foto-rapat-a"
-                                data-bs-slide="prev"></button>
-
-                        <button class="carousel-control-next"
-                                type="button"
-                                data-bs-target="#foto-rapat-a"
-                                data-bs-slide="next"></button>
-                    </div>
-                </div>
-
-                <div class="detail-card-body">
-                    <h5 class="detail-card-title">Ruang Rapat A</h5>
-
-                    <div class="detail-card-info">
-                        <div class="info-label">
-                            <h6>Elektronik</h6>
-                            <ul>
-                                <li>AC : 4</li>
-                                <li>Sound System : 2</li>
-                            </ul>
-                        </div>
-                        <div class="info-label">
-                            <h6>Non Elektronik</h6>
-                            <ul>
-                                <li>Kursi : 40</li>
-                                <li>Meja : 10</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- ================= CARD 3 ================= --}}
-            <div class="detail-card">
-
-                <div class="detail-card-header">DETAIL RUANGAN</div>
-
-                <div class="detail-card-image">
-                    <div id="foto-aula-utama"
-                         class="carousel slide foto-carousel"
-                         data-bs-touch="false"
-                         data-bs-interval="false">
-
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{{ asset('img/ruang_SKPD_TP4.png') }}">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/ruang_SKPD_TP3.png') }}">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/ruang_SKPD_TP2.png') }}">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/ruang_SKPD_TP1.png') }}">
-                            </div>
-                        </div>
-
-                        <button class="carousel-control-prev"
-                                type="button"
-                                data-bs-target="#foto-aula-utama"
-                                data-bs-slide="prev"></button>
-
-                        <button class="carousel-control-next"
-                                type="button"
-                                data-bs-target="#foto-aula-utama"
-                                data-bs-slide="next"></button>
-                    </div>
-                </div>
-
-                <div class="detail-card-body">
-                    <h5 class="detail-card-title">Aula Utama</h5>
-
-                    <div class="detail-card-info">
-                        <div class="info-label">
-                            <h6>Elektronik</h6>
-                            <ul>
-                                <li>AC : 10</li>
-                                <li>Sound System : 4</li>
-                            </ul>
-                        </div>
-                        <div class="info-label">
-                            <h6>Non Elektronik</h6>
-                            <ul>
-                                <li>Kursi : 120</li>
-                                <li>Meja : 20</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="ruangan-track">
 
         @foreach ($ruangan as $r)
@@ -229,11 +47,44 @@
 
             <div class="detail-card-header">DETAIL RUANGAN</div>
 
-            {{-- FOTO --}}
+            {{-- IMAGE --}}
             <div class="detail-card-image">
-                <img src="{{ asset('img/default_ruangan.png') }}" class="img-fluid">
-                {{-- nanti bisa di-upgrade ke carousel --}}
+                @if ($r->gambar->count())
+
+                    <div id="foto-ruangan-{{ $r->id_ruangan }}"
+                        class="carousel slide foto-carousel"
+                        data-bs-touch="false"
+                        data-bs-interval="false">
+
+                        <div class="carousel-inner">
+                            @foreach ($r->gambar as $index => $g)
+                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                    <img src="{{ asset('img/ruangan/'.$g->nama_file) }}">
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <button class="carousel-control-prev"
+                                type="button"
+                                data-bs-target="#foto-ruangan-{{ $r->id_ruangan }}"
+                                data-bs-slide="prev">
+                        </button>
+
+                        <button class="carousel-control-next"
+                                type="button"
+                                data-bs-target="#foto-ruangan-{{ $r->id_ruangan }}"
+                                data-bs-slide="next">
+                        </button>
+
+                    </div>
+
+                @else
+                    <img src="{{ asset('img/default_ruangan.png') }}" class="img-fluid">
+                @endif
             </div>
+
+
+
 
             {{-- BODY --}}
             <div class="detail-card-body">
