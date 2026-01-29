@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Transaksi;
+use Illuminate\Support\Facades\DB;
 
 class SuperAdminController extends Controller
 {
@@ -19,7 +20,23 @@ class SuperAdminController extends Controller
     public function manajemenuser()
     {
         $users = User::all();
-        return view('superadmin.manajemen-user', compact('users'));
+        $bidangPegawai = DB::table('bidang_pegawai')->get();
+        return view('superadmin.manajemen-user', compact('users', 'bidangPegawai'));
+    }
+
+    public function storeBidang(Request $request)
+    {
+        $request->validate([
+            'bidang' => 'required',
+            'sub_bidang' => 'required',
+        ]);
+
+        DB::table('bidang_pegawai')->insert([
+            'bidang' => $request->bidang,
+            'sub_bidang' => $request->sub_bidang,
+        ]);
+
+        return back()->with('success', 'Bidang pegawai berhasil ditambahkan');
     }
 
 
