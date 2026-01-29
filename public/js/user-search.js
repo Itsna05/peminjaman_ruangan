@@ -34,4 +34,27 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // =========================
+    // EDIT BIDANG
+    // =========================
+    document.querySelectorAll('.btn-edit-bidang').forEach(btn => {
+        btn.addEventListener('click', function () {
+            document.getElementById('editIdBidang').value = this.dataset.id;
+            document.getElementById('editBidang').value = this.dataset.bidang;
+            document.getElementById('editSubBidang').value = this.dataset.sub;
+        });
+    });
+
+    // =========================
+    // EDIT USER  🔥 INI YANG PENTING
+    // =========================
+    document.querySelectorAll('.btn-edit-user').forEach(btn => {
+        btn.addEventListener('click', function () {
+            document.getElementById('editUserId').value = this.dataset.id;
+            document.getElementById('editUserNama').value = this.dataset.nama;
+            document.getElementById('editUserUsername').value = this.dataset.username;
+            document.getElementById('editUserRole').value = this.dataset.role;
+        });
+    });
+
 });

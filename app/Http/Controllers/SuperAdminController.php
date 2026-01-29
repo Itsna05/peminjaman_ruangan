@@ -39,6 +39,66 @@ class SuperAdminController extends Controller
         return back()->with('success', 'Bidang pegawai berhasil ditambahkan');
     }
 
+    public function updateBidang(Request $request)
+    {
+        $request->validate([
+            'id_bidang' => 'required',
+            'bidang' => 'required',
+            'sub_bidang' => 'required',
+        ]);
+
+        DB::table('bidang_pegawai')
+            ->where('id_bidang', $request->id_bidang)
+            ->update([
+                'bidang' => $request->bidang,
+                'sub_bidang' => $request->sub_bidang,
+            ]);
+
+        return back()->with('success', 'Bidang berhasil diupdate');
+    }
+
+    // public function storeUser(Request $request)
+    // {
+    //     $request->validate([
+    //         'nama' => 'required',
+    //         'username' => 'required|unique:users,username',
+    //         'password' => 'required|min:6',
+    //         'role' => 'required|in:superadmin,petugas',
+    //     ]);
+
+    //     DB::table('users')->insert([
+    //         'nama' => $request->nama,
+    //         'username' => $request->username,
+    //         'password' => Hash::make($request->password),
+    //         'role' => $request->role,
+    //         'created_at' => now(),
+    //         'updated_at' => now(),
+    //     ]);
+
+    //     return back()->with('success', 'User berhasil ditambahkan');
+    // }
+
+    public function updateUser(Request $request)
+    {
+        $request->validate([
+            'id_user' => 'required',
+            'nama' => 'required',
+            'username' => 'required|unique:user,username,' . $request->id_user . ',id_user',
+            'role' => 'required|in:superadmin,petugas',
+        ]);
+
+        DB::table('user')
+            ->where('id_user', $request->id_user)
+            ->update([
+                'nama' => $request->nama,
+                'username' => $request->username,
+                'role' => $request->role,
+            ]);
+
+        return back()->with('success', 'User berhasil diupdate');
+    }
+
+
 
     public function create()
     {
