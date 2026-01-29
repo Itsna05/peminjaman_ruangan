@@ -20,6 +20,7 @@
     {{-- JAVASCRIPT --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/dashboard-calendar.js') }}"></script>
+    <script src="{{ asset('js/dashboard-petugas.js') }}"></script>
     <script src="{{ asset('js/search.js') }}"></script>
     <script src="{{ asset('js/item.js') }}"></script>
     <script src="{{ asset('js/filter-item.js') }}"></script>
@@ -29,6 +30,7 @@
     <script src="{{ asset('js/peminjaman-waktu.js') }}"></script>
     <script src="{{ asset('js/peminjaman-form-tambah.js') }}"></script>
     <script src="{{ asset('js/edit_peminjaman.js') }}"></script>
+
 
 </head>
 <body>

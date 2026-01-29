@@ -35,6 +35,9 @@ Route::middleware(['CekLogin:petugas'])
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
 
+        Route::get('/peminjaman/{id}', [DashboardController::class, 'detail'])
+            ->name('petugas.peminjaman.detail');
+
         Route::get('/denah-ruangan', [DenahRuanganController::class, 'index'])
             ->name('denah');
 

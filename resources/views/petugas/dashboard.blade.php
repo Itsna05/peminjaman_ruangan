@@ -204,6 +204,22 @@
         </div>
     </div>
 </section>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    document.querySelectorAll('.event-clickable').forEach(item => {
+        item.addEventListener('click', function () {
+
+            const modal = new bootstrap.Modal(
+                document.getElementById('modalDetailPeminjaman')
+            );
+
+            modal.show();
+        });
+    });
+
+});
+</script>
 
 @include('petugas.partials.modal-detail-peminjaman')
 
