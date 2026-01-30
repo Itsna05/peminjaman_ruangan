@@ -120,11 +120,10 @@
 
                             <td>{{ $loop->iteration }}</td>
 
-                            <td>{{ $t->ruangan->nama_ruangan ?? '-' }}</td>
+                            <td>{{ $t->nama_ruangan ?? '-' }}</td>
+                            <td>{{ $t->sub_bidang ?? '-' }}</td>
+                            <td>{{ $t->bidang ?? '-' }}</td>
 
-                            <td>{{ $t->bidang->sub_bidang ?? '-' }}</td>
-
-                            <td>{{ $t->bidang->bidang ?? '-' }}</td>
 
                             <td class="text-center">
                                 <span class="badge-status {{ strtolower($t->status_peminjaman) }}">
@@ -180,99 +179,13 @@
 @endif
 
 @if ($tab == 'form')
-{{-- FORM PEMINJAMAN --}}
-<div class="form-wrapper">
-    <h4 class="form-title text-center">
-        Form Peminjaman Ruangan
-    </h4>
+    @php
+        $formAction = route('peminjaman.store');
+    @endphp
 
-    <form>
-        <div class="row g-4">
-
-            <div class="col-md-6">
-                <label class="form-label">Nama Acara</label>
-                <input type="text" class="form-control" placeholder="Masukkan Nama Acara">
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label">Jumlah Peserta</label>
-                <input type="number" class="form-control" placeholder="Masukkan Jumlah Peserta">
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Waktu Peminjaman</label>
-
-                <div class="waktu-wrapper">
-                    <input type="date" class="form-control">
-                    <input type="time" class="form-control waktu-jam">
-
-                    <span class="separator">~</span>
-
-                    <input type="date" class="form-control">
-                    <input type="time" class="form-control waktu-jam">
-                </div>
-            </div>
-
-
-            <div class="col-md-6">
-                <label class="form-label">Pilih Bidang</label>
-                <select class="form-select">
-                    <option>Please Select</option>
-                    <option value="">Please Select</option>
-                    <option value="kasubag">Kepala Sub Bagian</option>
-                    <option value="kasi">Kepala Seksi</option>
-                    <option value="staff">Staff</option>
-                    <option value="perencana">Perencana</option>
-                    <option value="pengawas">Pengawas</option>
-                    <option value="teknis">Teknis Lapangan</option>
-
-                </select>
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label">Pilih Sub Bidang</label>
-                <select class="form-select">
-                    <option>Please Select</option>
-                    <option value="">Please Select</option>
-                    <option value="kasubag">Kepala Sub Bagian</option>
-                    <option value="kasi">Kepala Seksi</option>
-                    <option value="staff">Staff</option>
-                    <option value="perencana">Perencana</option>
-                    <option value="pengawas">Pengawas</option>
-                    <option value="teknis">Teknis Lapangan</option>
-
-                </select>
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label">Pilih Ruangan</label>
-                <select class="form-select">
-                    <option>Please Select</option>
-                </select>
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label">Nomor WhatsApp</label>
-                <input type="text" class="form-control" placeholder="Masukkan Nomor WhatsApp">
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Catatan</label>
-                <textarea class="form-control textarea-catatan"
-                    placeholder="Tambahkan Catatan Internal Jika diperlukan"></textarea>
-            </div>
-
-            <div class="col-12 text-end">
-                <button type="submit" class="btn-ajukan">
-                    Ajukan Peminjaman
-                </button>
-            </div>
-
-        </div>
-    </form>
-</div>
-
+    @include('partials.form-peminjaman')
 @endif
+
 
 <!-- ================= MODAL DETAIL PEMINJAMAN ================= -->
 <div class="modal-overlay" id="detailModal">
@@ -286,62 +199,8 @@
         </div>
 
         <!-- BODY -->
-        <div class="modal-body">
-
-            <div class="modal-row">
-                <label>Nama Acara</label>
-                <span>:</span>
-                <input type="text" value="Rapat Koordinasi Pembangunan Jalan Tol" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>Jumlah Peserta</label>
-                <span>:</span>
-                <input type="text" value="60 Orang" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>Waktu Mulai</label>
-                <span>:</span>
-                <input type="text" value="07.00" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>Waktu Selesai</label>
-                <span>:</span>
-                <input type="text" value="13.00" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>Bidang</label>
-                <span>:</span>
-                <input type="text" value="Teknologi Informasi" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>Sub Bidang</label>
-                <span>:</span>
-                <input type="text" value="Kabid" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>Ruangan</label>
-                <span>:</span>
-                <input type="text" value="Ruang Rapat" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>No Whatsapp</label>
-                <span>:</span>
-                <input type="text" value="08 berapa ka??" readonly>
-            </div>
-
-            <div class="modal-row textarea">
-                <label>Catatan</label>
-                <span>:</span>
-                <textarea readonly>Tambahkan Mic 2 pcs</textarea>
-            </div>
-
+         <div class="modal-body" id="modalDetailContent">
+            Loading...
         </div>
 
         <!-- FOOTER -->
@@ -376,25 +235,4 @@
 
     </div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    const searchInput = document.getElementById('searchInput');
-    const tableBody  = document.getElementById('tableBody');
-    const rows       = tableBody.getElementsByTagName('tr');
-
-    searchInput.addEventListener('keyup', function () {
-        const keyword = this.value.toLowerCase();
-
-        Array.from(rows).forEach(row => {
-            const text = row.innerText.toLowerCase();
-            row.style.display = text.includes(keyword) ? '' : 'none';
-        });
-    });
-
-});
-</script>
-
-
 @endsection

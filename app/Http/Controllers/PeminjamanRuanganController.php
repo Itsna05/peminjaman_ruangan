@@ -107,7 +107,7 @@ class PeminjamanRuanganController extends Controller
                 'waktu_mulai'    => $request->waktu_mulai,
                 'waktu_selesai'  => $request->waktu_selesai,
                 'no_wa'          => $request->no_wa,
-                'catatan'        => $request->catatan,
+                'catatan'        => $request->catatan ?? '',
                 'id_bidang'      => $idBidang,
                 'id_ruangan'     => $request->id_ruangan,
             ]);

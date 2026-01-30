@@ -6,6 +6,7 @@ use App\Http\Controllers\Petugas\DashboardController;
 use App\Http\Controllers\Petugas\DenahRuanganController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\PeminjamanRuanganController;
+use App\Http\Controllers\ManajemenPeminjamanController;
 use App\Http\Controllers\ManajemenRuanganController;
 use Illuminate\Support\Facades\DB;
 
@@ -49,32 +50,7 @@ Route::middleware(['CekLogin:petugas'])
             '/peminjaman-ruangan',
             [PeminjamanRuanganController::class, 'index']
         )->name('peminjaman');
-
-        // 🔽 TAMBAHAN (WAJIB UNTUK MODAL)
-        Route::get(
-            '/peminjaman-ruangan/{id}',
-            [PeminjamanRuanganController::class, 'show']
-        );
-
-        Route::put(
-            '/peminjaman-ruangan/{id}',
-            [PeminjamanRuanganController::class, 'update']
-        );
-        
-        Route::post(
-            '/peminjaman-ruangan',
-            [PeminjamanRuanganController::class, 'store']
-        )->name('peminjaman.store');
-
-        Route::get(
-            '/get-sub-bidang',
-            [PeminjamanRuanganController::class, 'getSubBidang']
-        );
-        Route::put(
-            '/peminjaman-ruangan/{id}/batalkan',
-            [PeminjamanRuanganController::class, 'batalkan']
-        );
-
+    
 
     });
 
@@ -89,9 +65,19 @@ Route::middleware(['CekLogin:superadmin'])
     ->name('superadmin.')
     ->group(function () {
 
+        /*
+        |------------------------------------------
+        | DASHBOARD
+        |------------------------------------------
+        */
         Route::get('/dashboard', [SuperAdminController::class, 'index'])
             ->name('dashboard');
 
+        /*
+        |------------------------------------------
+        | MANAJEMEN USER
+        |------------------------------------------
+        */
         Route::get('/manajemen-user', [SuperAdminController::class, 'manajemenuser'])
             ->name('manajemenuser');
 
@@ -118,6 +104,42 @@ Route::middleware(['CekLogin:superadmin'])
 
         Route::get('/delete/{id}', [SuperAdminController::class, 'destroy'])
             ->name('delete');
+
+        /*
+        |------------------------------------------
+        | MANAJEMEN PEMINJAMAN
+        |------------------------------------------
+        */
+        Route::get(
+            '/manajemen-peminjaman',
+            [ManajemenPeminjamanController::class, 'index']
+        )->name('manajemen-peminjaman');
+
+        Route::get(
+            '/peminjaman/{id}',
+            [ManajemenPeminjamanController::class, 'detail']
+        )->name('peminjaman.detail');
+
+        Route::post(
+            '/peminjaman/{id}/approve',
+            [ManajemenPeminjamanController::class, 'approve']
+        )->name('peminjaman.approve');
+
+        Route::post(
+            '/peminjaman/{id}/reject',
+            [ManajemenPeminjamanController::class, 'reject']
+        )->name('peminjaman.reject');
+
+
+        /*
+        |------------------------------------------
+        | MANAJEMEN RUANGAN
+        |------------------------------------------
+        */
+        Route::get(
+            '/manajemen-ruangan',
+            [ManajemenRuanganController::class, 'index']
+        )->name('manajemen-ruangan');
 
         Route::get('/dashboard', [SuperAdminController::class, 'index'])
             ->name('dashboard');
@@ -164,52 +186,45 @@ Route::middleware(['CekLogin:petugas,superadmin'])
     })
     ->name('shared.kontak');
 
-
-/*
+    /*
 |--------------------------------------------------------------------------
-| MANAJEMEN PEMINJAMAN (SUPERADMIN)
-|--------------------------------------------------------------------------
-*/
-// Route::middleware(['CekLogin:superadmin'])
-//     ->prefix('superadmin')
-//     ->name('superadmin.')
-//     ->group(function () {
-
-//     Route::get(
-//         '/superadmin/manajemen-peminjaman',
-//         [SuperAdminController::class, 'manajemenPeminjaman']
-//     )->name('superadmin.manajemen-peminjaman');
-
-//     Route::post(
-//         '/bidang-pegawai/store',
-//         [SuperAdminController::class, 'storeBidang']
-//     )->name('bidang.store');
-
-
-//         // Route::get('/manajemen-peminjaman', function () {
-//         //     return view('superadmin.manajemen-peminjaman');
-//         // })->name('manajemen-peminjaman');
-
-//     });
-
-/*
-|--------------------------------------------------------------------------
-| MANAJEMEN PEMINJAMAN (SUPERADMIN)
+| SHARED API (PETUGAS + SUPERADMIN)
 |--------------------------------------------------------------------------
 */
-// Route::middleware(['CekLogin:superadmin'])
-//     ->prefix('superadmin')
-//     ->name('superadmin.')
-//     ->group(function () {
+Route::middleware(['CekLogin:petugas,superadmin'])->group(function () {
+     Route::post(
+        '/peminjaman-ruangan',
+        [PeminjamanRuanganController::class, 'store']
+    )->name('peminjaman.store');
+    
 
-//         Route::get('/manajemen-ruangan', function () {
-//             return view('superadmin.manajemen-ruangan');
-//         })->name('manajemen-ruangan');
-//     });
+    // GET PEMINJAMAN (MODAL EDIT)
+    Route::get(
+        '/peminjaman-ruangan/{id}',
+        [PeminjamanRuanganController::class, 'show']
+    );
 
-// Route::get('/superadmin/manajemen-peminjaman',
-//     [SuperAdminController::class, 'manajemenPeminjaman']
-// )->name('superadmin.manajemen-peminjaman');
+    // UPDATE PEMINJAMAN
+    Route::put(
+        '/peminjaman-ruangan/{id}',
+        [PeminjamanRuanganController::class, 'update']
+    );
+
+    // BATALKAN PEMINJAMAN
+    Route::put(
+        '/peminjaman-ruangan/{id}/batalkan',
+        [PeminjamanRuanganController::class, 'batalkan']
+    );
+
+    // GET SUB BIDANG
+    Route::get(
+        '/get-sub-bidang',
+        [PeminjamanRuanganController::class, 'getSubBidang']
+    );
+
+});
+
+
 
 // Route::middleware(['CekLogin:superadmin'])
 //     ->prefix('superadmin')

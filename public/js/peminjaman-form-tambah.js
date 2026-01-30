@@ -12,10 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!selectedBidang) return;
 
-        fetch(
-            "/petugas/get-sub-bidang?bidang=" +
-                encodeURIComponent(selectedBidang),
-        )
+        fetch(`/get-sub-bidang?bidang=` + encodeURIComponent(selectedBidang))
             .then((res) => res.json())
             .then((data) => {
                 data.forEach((item) => {

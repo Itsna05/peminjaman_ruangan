@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // LOAD SUB BIDANG
     // ======================
     function loadSubBidang(bidang, selected = null) {
-        fetch(`/petugas/get-sub-bidang?bidang=${encodeURIComponent(bidang)}`)
+        fetch(`/get-sub-bidang?bidang=${encodeURIComponent(bidang)}`)
             .then((res) => res.json())
             .then((data) => {
                 editSubBidang.innerHTML = "";
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const id = this.dataset.id;
             document.getElementById("edit_id").value = id;
 
-            fetch(`/petugas/peminjaman-ruangan/${id}`)
+            fetch(`/peminjaman-ruangan/${id}`)
                 .then((res) => res.json())
                 .then((data) => {
                     originalData = JSON.parse(JSON.stringify(data));
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!confirmCancel) return;
 
         // 🔥 LANJUTKAN PEMBATALAN
-        fetch(`/petugas/peminjaman-ruangan/${id}/batalkan`, {
+        fetch(`/peminjaman-ruangan/${id}/batalkan`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -176,6 +176,8 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     btnSimpan.onclick = function (e) {
+        console.log("BTN SIMPAN:", btnSimpan);
+
         e.preventDefault();
 
         edit_waktu_mulai.value =
@@ -186,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const id = edit_id.value;
 
-        fetch(`/petugas/peminjaman-ruangan/${id}`, {
+        fetch(`/peminjaman-ruangan/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -206,9 +208,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 catatan: form.catatan.value,
             }),
         })
-            .then((res) => res.json())
+            .then(async (res) => {
+                const contentType = res.headers.get("content-type");
+
+                if (contentType && contentType.includes("application/json")) {
+                    return res.json();
+                }
+
+                // kalau bukan JSON → reload saja
+                location.reload();
+            })
             .then((res) => {
-                if (res.success) location.reload();
-            });
+                if (res?.success) location.reload();
+            })
+            .catch((err) => console.error("Update error:", err));
     };
 });
