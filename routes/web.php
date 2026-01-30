@@ -101,6 +101,9 @@ Route::middleware(['CekLogin:superadmin'])
         Route::post('/bidang-pegawai/store', [SuperAdminController::class, 'storeBidang'])
             ->name('bidang.store');
 
+        Route::get('/peminjaman-ruangan',[PeminjamanRuanganController::class, 'index'])
+            ->name('peminjaman');
+
         Route::get('/create', [SuperAdminController::class, 'create'])
             ->name('create');
 

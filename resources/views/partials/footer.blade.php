@@ -42,11 +42,45 @@
             <div class="col-md-3">
                 <h6 class="fw-semibold mb-3">LAYANAN</h6>
                 <ul class="list-unstyled small footer-link">
-                    <li><a href="{{ route('petugas.peminjaman') }}">Peminjaman Ruangan</a></li>
-                    <li><a href="{{ route('petugas.dashboard') }}">Jadwal Rapat</a></li>
-                    <li><a href="{{ route('petugas.denah') }}">Fasilitas</a></li>
+
+                    @if (session()->has('role') && session('role') === 'petugas')
+                        <li>
+                            <a href="{{ route('petugas.peminjaman') }}">
+                                Peminjaman Ruangan
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('petugas.dashboard') }}">
+                                Jadwal Rapat
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('petugas.denah') }}">
+                                Fasilitas
+                            </a>
+                        </li>
+
+                    @elseif (session()->has('role') && session('role') === 'superadmin')
+                        <li>
+                            <a href="{{ route('superadmin.manajemen-peminjaman') }}">
+                                Manajemen Peminjaman
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('superadmin.dashboard') }}">
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('superadmin.manajemen-ruangan') }}">
+                                Manajemen Ruangan
+                            </a>
+                        </li>
+                    @endif
+
                 </ul>
             </div>
+
 
             {{-- Bantuan --}}
             <div class="col-md-3">
