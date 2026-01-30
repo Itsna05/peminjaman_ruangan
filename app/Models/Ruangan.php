@@ -11,9 +11,7 @@ class Ruangan extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'nama_ruangan',
-        'gambar_ruangan',
-        'ketersediaan'
+        'nama_ruangan'
     ];
 
     // ✅ RELASI KE data_sarana
@@ -21,4 +19,10 @@ class Ruangan extends Model
     {
         return $this->hasMany(DataSarana::class, 'id_ruangan');
     }
+
+    public function gambar()
+{
+    return $this->hasMany(GambarRuangan::class, 'id_ruangan');
+}
+
 }

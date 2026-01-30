@@ -1,3 +1,4 @@
+
 @extends('superadmin.layout')
 
 @section('title', 'Manajemen Peminjaman')
@@ -114,156 +115,46 @@
                     </thead>
 
                     <tbody id="tableBody">
-                        <tr>
-                            <td>1</td>
-                            <td>Ruang Studio</td>
-                            <td>Kasubag</td>
-                            <td>Teknologi Informasi</td>
-                            <td class="text-center">
-                                <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit btn-open-modal">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        @forelse ($transaksi as $t)
+                        <tr data-status="{{ strtolower($t->status_peminjaman) }}">
 
-                        <tr>
-                            <td>2</td>
-                            <td>Ruang Bond</td>
-                            <td>Kasubag</td>
-                            <td>Bidang Rancang Bangun dan Pengawasan</td>
-                            <td class="text-center">
-                                <span class="badge-status disetujui" data-value="disetujui">Disetujui</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Ruang Studio</td>
-                            <td>Kasubag</td>
-                            <td>Teknologi Informasi</td>
-                            <td class="text-center">
-                                <span class="badge-status ditolak" data-value="ditolak">Ditolak</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
+                            <td>{{ $loop->iteration }}</td>
 
-                        <tr>
-                            <td>4</td>
-                            <td>Ruang Bond</td>
-                            <td>Kasubag</td>
-                            <td>Bidang Rancang Bangun dan Pengawasan</td>
+                            <td>{{ $t->ruangan->nama_ruangan ?? '-' }}</td>
+                            <td>{{ $t->bidang->sub_bidang ?? '-' }}</td>
+                            <td>{{ $t->bidang->bidang ?? '-' }}</td>
+
+
+
                             <td class="text-center">
-                                <span class="badge-status dibatalkan" data-value="dibatalkan">Dibatalkan</span>
+                                <span class="badge-status {{ strtolower($t->status_peminjaman) }}">
+                                    {{ $t->status_peminjaman }}
+                                </span>
                             </td>
+
                             <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Ruang Studio</td>
-                            <td>Kasubag</td>
-                            <td>Teknologi Informasi</td>
-                            <td class="text-center">
-                                <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit btn-open-modal">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
+                                @if ($t->status_peminjaman === 'Menunggu')
+                                    <button class="btn-edit btn-open-modal"
+                                            data-id="{{ $t->id_peminjaman }}">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                @else
+                                    <button class="btn-edit disabled" disabled>
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                @endif
                             </td>
 
                         </tr>
-
+                        @empty
                         <tr>
-                            <td>6</td>
-                            <td>Ruang Bond</td>
-                            <td>Kasubag</td>
-                            <td>Bidang Rancang Bangun dan Pengawasan</td>
-                            <td class="text-center">
-                                <span class="badge-status disetujui" data-value="disetujui">Disetujui</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
+                            <td colspan="6" class="text-center text-muted">
+                                Belum ada pengajuan peminjaman
                             </td>
                         </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Ruang Studio</td>
-                            <td>Kasubag</td>
-                            <td>Teknologi Informasi</td>
-                            <td class="text-center">
-                                <span class="badge-status ditolak" data-value="ditolak">Ditolak</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-
-                        </tr>
-
-                        <tr>
-                            <td>8</td>
-                            <td>Ruang Bond</td>
-                            <td>Kasubag</td>
-                            <td>Bidang Rancang Bangun dan Pengawasan</td>
-                            <td class="text-center">
-                                <span class="badge-status disetujui" data-value="disetujui">Disetujui</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>Ruang Studio</td>
-                            <td>Kasubag</td>
-                            <td>Teknologi Informasi</td>
-                            <td class="text-center">
-                                <span class="badge-status menunggu" data-value="menunggu">Menunggu</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit btn-open-modal">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-
-                        </tr>
-
-                        <tr>
-                            <td>10</td>
-                            <td>Ruang Bond</td>
-                            <td>Kasubag</td>
-                            <td>Bidang Rancang Bangun dan Pengawasan</td>
-                            <td class="text-center">
-                                <span class="badge-status dibatalkan" data-value="dibatalkan">Dibatalkan</span>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-edit disabled" disabled>
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
-                                           
+                        @endforelse
                     </tbody>
+
                 </table>
                             
             </div>
@@ -289,99 +180,17 @@
 @endif
 
 @if ($tab == 'form')
-{{-- FORM PEMINJAMAN --}}
-<div class="form-wrapper">
-    <h4 class="form-title text-center">
-        Form Peminjaman Ruangan
-    </h4>
+    @php
+        $formAction = route('peminjaman.store');
+    @endphp
 
-    <form>
-        <div class="row g-4">
-
-            <div class="col-md-6">
-                <label class="form-label">Nama Acara</label>
-                <input type="text" class="form-control" placeholder="Masukkan Nama Acara">
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label">Jumlah Peserta</label>
-                <input type="number" class="form-control" placeholder="Masukkan Jumlah Peserta">
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Waktu Peminjaman</label>
-
-                <div class="waktu-wrapper">
-                    <input type="date" class="form-control">
-                    <input type="time" class="form-control waktu-jam">
-
-                    <span class="separator">~</span>
-
-                    <input type="date" class="form-control">
-                    <input type="time" class="form-control waktu-jam">
-                </div>
-            </div>
-
-
-            <div class="col-md-6">
-                <label class="form-label">Pilih Bidang</label>
-                <select class="form-select">
-                    <option>Please Select</option>
-                    <option value="">Please Select</option>
-                    <option value="kasubag">Kepala Sub Bagian</option>
-                    <option value="kasi">Kepala Seksi</option>
-                    <option value="staff">Staff</option>
-                    <option value="perencana">Perencana</option>
-                    <option value="pengawas">Pengawas</option>
-                    <option value="teknis">Teknis Lapangan</option>
-
-                </select>
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label">Pilih Sub Bidang</label>
-                <select class="form-select">
-                    <option>Please Select</option>
-                    <option value="">Please Select</option>
-                    <option value="kasubag">Kepala Sub Bagian</option>
-                    <option value="kasi">Kepala Seksi</option>
-                    <option value="staff">Staff</option>
-                    <option value="perencana">Perencana</option>
-                    <option value="pengawas">Pengawas</option>
-                    <option value="teknis">Teknis Lapangan</option>
-
-                </select>
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label">Pilih Ruangan</label>
-                <select class="form-select">
-                    <option>Please Select</option>
-                </select>
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label">Nomor WhatsApp</label>
-                <input type="text" class="form-control" placeholder="Masukkan Nomor WhatsApp">
-            </div>
-
-            <div class="col-12">
-                <label class="form-label">Catatan</label>
-                <textarea class="form-control textarea-catatan"
-                    placeholder="Tambahkan Catatan Internal Jika diperlukan"></textarea>
-            </div>
-
-            <div class="col-12 text-end">
-                <button type="submit" class="btn-ajukan">
-                    Ajukan Peminjaman
-                </button>
-            </div>
-
-        </div>
-    </form>
-</div>
-
+    @include('partials.form-peminjaman', [
+        'bidang' => $bidang,
+        'ruangan' => $ruangan,
+        'transaksi' => $transaksi
+    ])
 @endif
+
 
 <!-- ================= MODAL DETAIL PEMINJAMAN ================= -->
 <div class="modal-overlay" id="detailModal">
@@ -395,62 +204,8 @@
         </div>
 
         <!-- BODY -->
-        <div class="modal-body">
-
-            <div class="modal-row">
-                <label>Nama Acara</label>
-                <span>:</span>
-                <input type="text" value="Rapat Koordinasi Pembangunan Jalan Tol" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>Jumlah Peserta</label>
-                <span>:</span>
-                <input type="text" value="60 Orang" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>Waktu Mulai</label>
-                <span>:</span>
-                <input type="text" value="07.00" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>Waktu Selesai</label>
-                <span>:</span>
-                <input type="text" value="13.00" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>Bidang</label>
-                <span>:</span>
-                <input type="text" value="Teknologi Informasi" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>Sub Bidang</label>
-                <span>:</span>
-                <input type="text" value="Kabid" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>Ruangan</label>
-                <span>:</span>
-                <input type="text" value="Ruang Rapat" readonly>
-            </div>
-
-            <div class="modal-row">
-                <label>No Whatsapp</label>
-                <span>:</span>
-                <input type="text" value="08 berapa ka??" readonly>
-            </div>
-
-            <div class="modal-row textarea">
-                <label>Catatan</label>
-                <span>:</span>
-                <textarea readonly>Tambahkan Mic 2 pcs</textarea>
-            </div>
-
+         <div class="modal-body" id="modalDetailContent">
+            Loading...
         </div>
 
         <!-- FOOTER -->
@@ -485,5 +240,4 @@
 
     </div>
 </div>
-
 @endsection

@@ -12,7 +12,7 @@ class DenahRuanganController extends Controller
   public function index()
   {
     // Ambil semua ruangan + sarana
-    $ruangan = Ruangan::with('sarana')->get();
+    $ruangan = Ruangan::with('sarana',  'gambar')->get();
 
     return view('petugas.denah_ruangan', compact('ruangan'));
   }

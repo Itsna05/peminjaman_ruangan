@@ -39,7 +39,7 @@
                 <button type="button" class="search-btn">
                     <i class="bi bi-search"></i>
                 </button>
-                <input type="text" placeholder="Pencarian" id="searchInput">
+                <input type="text" placeholder="Pencarian" id="searchBidang">
             </div>
 
             <button class="btn btn-outline-primary user-btn-add"
@@ -61,37 +61,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>Sekretariat</td>
-                            <td>Sekretaris</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-primary">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td>Sekretariat</td>
-                            <td>Kasubbag Umpeg</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-primary">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">3</td>
-                            <td>Sekretariat</td>
-                            <td>Kasubbag Keuangan</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-primary">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        @forelse ($bidangPegawai as $index => $bidang)
+                            <tr>
+                                <td class="text-center">{{ $index + 1 }}</td>
+                                <td>{{ $bidang->bidang }}</td>
+                                <td>{{ $bidang->sub_bidang }}</td>
+                                <td class="text-center">
+                                    <button
+                                        class="btn btn-sm btn-primary btn-edit-bidang"
+                                        data-id="{{ $bidang->id_bidang }}"
+                                        data-bidang="{{ $bidang->bidang }}"
+                                        data-sub="{{ $bidang->sub_bidang }}"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalEditBidang"
+                                    >
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">
+                                    Data bidang pegawai belum tersedia
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
+
                 </table>
             </div>
 
@@ -130,7 +127,7 @@
                     <button type="button" class="search-btn">
                         <i class="bi bi-search"></i>
                     </button>
-                    <input type="text" placeholder="Pencarian" id="searchInput">
+                    <input type="text" placeholder="Pencarian" id="searchUser">
                 </div>
 
                 <div class="d-flex gap-2">
@@ -182,7 +179,15 @@
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <button class="btn btn-sm btn-primary">
+                                        <button
+                                            class="btn btn-sm btn-primary btn-edit-user"
+                                            data-id="{{ $user->id_user }}"
+                                            data-nama="{{ $user->nama }}"
+                                            data-username="{{ $user->username }}"
+                                            data-role="{{ $user->role }}"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#modalEditUser"
+                                        >
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </td>
@@ -216,64 +221,71 @@
             </div>
 
             {{-- FORM --}}
-            <form action="{{ route('superadmin.store') }}" method="POST">
-                @csrf
+            <form action="{{ route('superadmin.bidang.store') }}" method="POST">
+            @csrf
 
-                <div class="modal-body">
+            <div class="modal-body">
 
-                    {{-- NAMA --}}
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Nama Lengkap</label>
-                        <input type="text"
-                               name="nama"
-                               class="form-control user-search-input"
-                               placeholder="Masukkan nama lengkap"
-                               id="searchInput"
-                               required>
-                    </div>
-                    
-                    {{-- BIDANG --}}
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Bidang</label>
-                        <select name="bidang_id" class="form-select" required>
-                            <option value="">Pilih bidang</option>
-                            <option value="1">Sekretariat</option>
-                            <option value="2">Bina Marga</option>
-                            <option value="3">Cipta Karya</option>
-                        </select>
-                    </div>
-
-                    {{-- SUB BIDANG --}}
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Sub Bidang</label>
-                        <select name="sub_bidang_id" class="form-select" required>
-                            <option value="">Pilih sub bidang</option>
-                            <option value="1">Sekretaris</option>
-                            <option value="2">Kasubbag Umpeg</option>
-                            <option value="3">Kasubbag Keuangan</option>
-                        </select>
-                    </div>
-
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Bidang</label>
+                    <input type="text" name="bidang" class="form-control" required>
                 </div>
 
-                {{-- FOOTER --}}
-                <div class="modal-footer d-flex justify-content-end gap-2">
-                    <button type="button"
-                            class="btn btn-danger"
-                            data-bs-dismiss="modal">
-                        Batal
-                    </button>
-
-                    <button type="submit" class="btn btn-success">
-                        Simpan
-                    </button>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Sub Bidang</label>
+                    <input type="text" name="sub_bidang" class="form-control" required>
                 </div>
 
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                <button class="btn btn-success">Simpan</button>
+            </div>
             </form>
+
 
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalEditBidang" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Edit Bidang</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form method="POST" action="{{ route('superadmin.bidang.update') }}">
+                @csrf
+                @method('PUT')
+
+                <input type="hidden" name="id_bidang" id="editIdBidang">
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Bidang</label>
+                        <input type="text" name="bidang" id="editBidang" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Sub Bidang</label>
+                        <input type="text" name="sub_bidang" id="editSubBidang" class="form-control">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                    <button class="btn btn-success">Update</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
 
 {{-- =======================
    MODAL TAMBAH USER
@@ -357,5 +369,55 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalEditUser" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Edit User</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form method="POST" action="{{ route('superadmin.user.update') }}">
+                @csrf
+                @method('PUT')
+
+                <input type="hidden" name="id_user" id="editUserId">
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Nama Lengkap</label>
+                        <input type="text" name="nama" id="editUserNama" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Username</label>
+                        <input type="text" name="username" id="editUserUsername" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Peran</label>
+                        <select name="role" id="editUserRole" class="form-select">
+                            <option value="superadmin">Super Admin</option>
+                            <option value="petugas">Petugas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                    <button class="btn btn-success">Update</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@push('scripts')
+<script src="{{ asset('js/user-search.js') }}"></script>
+@endpush
 
 @endsection

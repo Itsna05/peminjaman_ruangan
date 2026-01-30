@@ -7,6 +7,7 @@ use App\Http\Controllers\Petugas\DashboardController;
 use App\Http\Controllers\Petugas\DenahRuanganController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\PeminjamanRuanganController;
+use App\Http\Controllers\ManajemenPeminjamanController;
 use App\Http\Controllers\ManajemenRuanganController;
 use Illuminate\Support\Facades\DB;
 
@@ -36,8 +37,15 @@ Route::middleware(['CekLogin:petugas'])
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
 
+        Route::get('/peminjaman/{id}', [DashboardController::class, 'detail'])
+            ->name('petugas.peminjaman.detail');
+
         Route::get('/denah-ruangan', [DenahRuanganController::class, 'index'])
             ->name('denah');
+
+       // ==========================
+        // PEMINJAMAN RUANGAN
+        // ==========================
 
         Route::get(
             '/peminjaman-ruangan',
@@ -70,6 +78,11 @@ Route::middleware(['CekLogin:superadmin'])
     ->name('superadmin.')
     ->group(function () {
 
+        /*
+        |------------------------------------------
+        | DASHBOARD
+        |------------------------------------------
+        */
         Route::get('/dashboard', [SuperAdminController::class, 'index'])
             ->name('dashboard');
 
@@ -92,6 +105,15 @@ Route::middleware(['CekLogin:superadmin'])
         Route::get('/manajemen-user', [SuperAdminController::class, 'manajemenuser'])
             ->name('manajemenuser');
 
+        Route::get('/bidang-pegawai', [SuperAdminController::class, 'manajemenuser'])
+            ->name('bidang-pegawai');
+
+        Route::post('/bidang-pegawai/store', [SuperAdminController::class, 'storeBidang'])
+            ->name('bidang.store');
+
+        Route::get('/peminjaman-ruangan',[PeminjamanRuanganController::class, 'index'])
+            ->name('peminjaman');
+
         Route::get('/create', [SuperAdminController::class, 'create'])
             ->name('create');
 
@@ -107,6 +129,7 @@ Route::middleware(['CekLogin:superadmin'])
         Route::get('/delete/{id}', [SuperAdminController::class, 'destroy'])
             ->name('delete');
     });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -128,9 +151,10 @@ Route::middleware(['CekLogin:petugas,superadmin'])
     })
     ->name('shared.kontak');
 
+
 /*
 |--------------------------------------------------------------------------
-| MANAJEMEN PEMINJAMAN (SUPERADMIN)
+| SHARED API (PETUGAS + SUPERADMIN)
 |--------------------------------------------------------------------------
 */
 Route::middleware(['CekLogin:superadmin'])

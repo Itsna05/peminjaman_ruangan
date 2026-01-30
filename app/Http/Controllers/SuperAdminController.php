@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Transaksi;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Transaksi;
 use Illuminate\Support\Facades\DB;
 
 class SuperAdminController extends Controller
@@ -84,8 +85,10 @@ class SuperAdminController extends Controller
     public function manajemenuser()
     {
         $users = User::all();
-        return view('superadmin.manajemen-user', compact('users'));
+        $bidangPegawai = DB::table('bidang_pegawai')->get();
+        return view('superadmin.manajemen-user', compact('users', 'bidangPegawai'));
     }
+
 
     public function create()
     {
@@ -148,5 +151,23 @@ class SuperAdminController extends Controller
 
         return redirect('/superadmin')
             ->with('success', 'Super Admin berhasil dihapus');
+    }
+
+    public function manajemenPeminjaman()
+    {
+        $transaksi = Transaksi::with(['ruangan','bidang'])
+            ->orderBy('id_peminjaman','desc')
+            ->get();
+
+        return view('superadmin.manajemen-peminjaman', compact('transaksi'));
+    }
+
+    public function manajemenPeminjaman()
+    {
+        $transaksi = Transaksi::with(['ruangan','bidang'])
+            ->orderBy('id_peminjaman','desc')
+            ->get();
+
+        return view('superadmin.manajemen-peminjaman', compact('transaksi'));
     }
 }
