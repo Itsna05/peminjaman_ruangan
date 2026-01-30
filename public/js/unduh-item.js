@@ -1,13 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const toggle = document.querySelector('.unduh-btn');
-    const dropdown = document.querySelector('.unduh-dropdown');
+    const unduhStack = document.getElementById('unduhToggle');
 
-    toggle.addEventListener('click', (e) => {
+    if (!unduhStack) {
+        console.error('Unduh stack tidak ditemukan');
+        return;
+    }
+
+    unduhStack.addEventListener('click', function (e) {
         e.stopPropagation();
-        dropdown.classList.toggle('show');
+        unduhStack.classList.toggle('active');
     });
 
-    document.addEventListener('click', () => {
-        dropdown.classList.remove('show');
+    document.addEventListener('click', function () {
+        unduhStack.classList.remove('active');
     });
 });

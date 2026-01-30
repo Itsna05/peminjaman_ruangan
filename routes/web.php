@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExportPeminjamanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Petugas\DashboardController;
@@ -38,8 +39,6 @@ Route::middleware(['CekLogin:petugas'])
         Route::get('/denah-ruangan', [DenahRuanganController::class, 'index'])
             ->name('denah');
 
-        // PEMINJAMAN RUANGAN
-
         Route::get(
             '/peminjaman-ruangan',
             [PeminjamanRuanganController::class, 'index']
@@ -59,15 +58,11 @@ Route::middleware(['CekLogin:petugas'])
 
             return $html;
         });
-
-
-
     });
-
 
 /*
 |--------------------------------------------------------------------------
-| SUPER ADMIN
+| SUPER ADMIN (DASHBOARD + EXPORT)
 |--------------------------------------------------------------------------
 */
 Route::middleware(['CekLogin:superadmin'])
@@ -78,6 +73,22 @@ Route::middleware(['CekLogin:superadmin'])
         Route::get('/dashboard', [SuperAdminController::class, 'index'])
             ->name('dashboard');
 
+        // =============================
+        // EXPORT PEMINJAMAN
+        // =============================
+        Route::get(
+            '/peminjaman/export/pdf',
+            [ExportPeminjamanController::class, 'exportPdf']
+        )->name('peminjaman.export.pdf');
+
+        Route::get(
+            '/peminjaman/export/excel',
+            [ExportPeminjamanController::class, 'exportExcel']
+        )->name('peminjaman.export.excel');
+
+        // =============================
+        // MANAJEMEN USER
+        // =============================
         Route::get('/manajemen-user', [SuperAdminController::class, 'manajemenuser'])
             ->name('manajemenuser');
 
@@ -96,7 +107,6 @@ Route::middleware(['CekLogin:superadmin'])
         Route::get('/delete/{id}', [SuperAdminController::class, 'destroy'])
             ->name('delete');
     });
-
 
 /*
 |--------------------------------------------------------------------------
@@ -118,7 +128,6 @@ Route::middleware(['CekLogin:petugas,superadmin'])
     })
     ->name('shared.kontak');
 
-
 /*
 |--------------------------------------------------------------------------
 | MANAJEMEN PEMINJAMAN (SUPERADMIN)
@@ -132,18 +141,6 @@ Route::middleware(['CekLogin:superadmin'])
         Route::get('/manajemen-peminjaman', function () {
             return view('superadmin.manajemen-peminjaman');
         })->name('manajemen-peminjaman');
-
-    });
-
-/*
-|--------------------------------------------------------------------------
-| MANAJEMEN PEMINJAMAN (SUPERADMIN)
-|--------------------------------------------------------------------------
-*/
-Route::middleware(['CekLogin:superadmin'])
-    ->prefix('superadmin')
-    ->name('superadmin.')
-    ->group(function () {
 
         Route::get('/manajemen-ruangan', function () {
             return view('superadmin.manajemen-ruangan');

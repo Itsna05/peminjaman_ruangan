@@ -155,12 +155,11 @@ html, body {
 ========================= */
 
 .status-wrapper {
-    width: 100%;
+    max-width: 1200px;       
+    margin: 40px auto;       
     background: #eef3f8;
-    padding: 40px 20px;
+    padding: 20px 16px;
     border-radius: 16px;
-    margin-top: 40px;
-    margin-bottom: 40px;
 }
 
 .status-title {
@@ -170,9 +169,11 @@ html, body {
 
 .status-card {
     background: #ffffff;
-    border-radius: 20px;               /* lebih bulat (gambar 1) */
-    padding: 24px 26px;                /* lebih lega */
+    border-radius: 20px;               
+    padding: 24px 26px;                
     box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 
@@ -247,148 +248,201 @@ html, body {
     }
 }
 
-/* filter */
-/* WRAPPER */
-.filter-box {
+/* ===== STATUS FILTER ===== */
+
+.status-filter-wrap {
     position: relative;
+    overflow: visible;
 }
 
-/* BUTTON FILTER */
-.filter-btn {
-    background: #fff;
-    border: 1.5px solid #0d47a1;
-    color: #000;
-    padding: 10px 16px;
-    border-radius: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.status-filter__btn {
+    all: unset;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font: inherit;
 }
 
-/* ARROW */
-.filter-btn .arrow {
+.status-filter__menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+
+    background: #fff;
+    border: 2px solid #2563eb;
+    border-radius: 16px;
+
+    min-width: 220px;
+    padding: 8px 0;
+
+    display: none;
+    flex-direction: column;
+
+    z-index: 99999;
+}
+
+.status-filter__menu.is-open {
+    display: flex;
+}
+
+.status-filter__item {
+    padding: 12px 20px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
     font-size: 14px;
 }
 
-/* DROPDOWN */
-.filter-dropdown {
+.status-filter__item:hover {
+    background: #f1f5ff;
+}
+
+
+/* =====================
+   FILTER DROPDOWN
+===================== */
+
+.time-filter-wrap,
+.status-filter-wrap {
+    position: relative;
+    overflow: visible;
+}
+
+/* BUTTON */
+.time-filter__btn,
+.status-filter__btn {
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font: inherit;
+}
+
+/* MENU */
+.time-filter__menu,
+.status-filter__menu {
     position: absolute;
     top: calc(100% + 8px);
-    left: 0;
-    width: 180px;
     background: #fff;
+    border: 2px solid #2563eb;
     border-radius: 16px;
-    border: 1px solid #15468A;
-    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    min-width: 220px;
     display: none;
-    flex-direction: column;
-    padding: 8px;
-    z-index: 1000;
+    z-index: 99999;
 }
+
+/* POSISI */
+.time-filter__menu {
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px;
+}
+
+.status-filter__menu {
+    right: 0;
+    padding: 8px 0;
+}
+
+/* AKTIF */
+.time-filter__menu.is-open,
+.status-filter__menu.is-open {
+    display: block;
+}
+
+.time-filter__menu select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1.5px solid #2563eb;
+    font-size: 14px;
+    margin-bottom: 10px;
+    background: #fff;
+}
+
+.time-filter__clear {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #f1f5ff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
 
 /* =========================
    UNDUH DROPDOWN
    ========================= */
 
+
 .unduh-box {
     position: relative;
-    display: inline-block;
 }
 
-/* Tombol utama */
-.unduh-btn {
-    background-color: #15468A;
+/* HEADER CARD */
+.unduh-stack {
+    position: relative;          /* ⬅️ sama seperti status filter */
+    width: 160px;
+    background: #15468A;
+    border-radius: 22px;
     color: #fff;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 10px;
-    font-size: 14px;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
     cursor: pointer;
-    min-width: 110px;
 }
 
-.unduh-btn:hover {
-    background-color: #15468A;
+/* HEADER */
+.unduh-header {
+    height: 48px;
+    padding: 0 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Panah */
-.unduh-btn .arrow {
-    font-size: 12px;
+/* ARROW */
+.unduh-header .arrow {
+    transition: transform 0.25s ease;
 }
 
-/* Dropdown */
+/* DROPDOWN (FLOATING SEPERTI STATUS) */
 .unduh-dropdown {
-    position: absolute;
-    top: calc(100% + 6px);
+    position: absolute;          /* ⬅️ KUNCI */
+    top: calc(100% + 6px);       /* jarak kecil dari header */
     left: 0;
     width: 100%;
-    background-color: #15468A;
-    border-radius: 10px;
+    background: #15468A;
+    border-radius: 22px;
     overflow: hidden;
+
     display: none;
-    z-index: 20;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-/* Item dropdown */
-.unduh-item {
-    width: 100%;
-    background: none;
-    border: none;
-    color: #fff;
-    padding: 10px 0;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.unduh-item:not(:last-child) {
-    border-bottom: 1px solid rgba(255,255,255,0.3);
-}
-
-.unduh-item:hover {
-    background-color: rgba(255,255,255,0.15);
-}
-
-/* Aktif */
-.unduh-dropdown.show {
-    display: block;
-}
-
-/* ITEM */
-.filter-item {
-    background: transparent;
-    border: none;
-    padding: 10px 12px;
-    text-align: left;
-    border-radius: 10px;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.filter-item:hover {
-    background: #e3f2fd;
+    z-index: 2000;
 }
 
 /* AKTIF */
-.filter-dropdown.show {
-    display: flex;
+.unduh-stack.active .unduh-dropdown {
+    display: block;
 }
 
-/* MOBILE */
-@media (max-width: 576px) {
-    .filter-dropdown {
-        width: 100%;
-    }
+/* ARROW MUTER */
+.unduh-stack.active .arrow {
+    transform: rotate(180deg);
 }
 
+/* ITEM */
+.unduh-item {
+    display: block;
+    padding: 14px 18px;
+    color: #fff;
+    text-decoration: none;
+    border-top: 1px solid rgba(255,255,255,0.35);
+}
 
+.unduh-item:hover {
+    background: rgba(255,255,255,0.15);
+}
 
 
 /* Badge status */
@@ -851,9 +905,9 @@ html, body {
    ========================= */
 
 .approval-table .btn-edit {
-    width: 34px;              /* ⬅️ kecil */
+    width: 34px;            
     height: 34px;
-    padding: 0 !important;    /* ⬅️ MATIKAN padding lama */
+    padding: 0 !important;   
     min-width: unset !important;
     
     display: inline-flex;
@@ -887,25 +941,27 @@ html, body {
 /* Wrapper */
 .table-responsive {
     width: 100%;
-    overflow-x: auto;
-    overflow-x: auto; 
+    overflow-x: visible !important;
+    overflow-x: visible !important; 
     -webkit-overflow-scrolling: touch;
 }
 
 /* TABLE */
 .status-table {
     width: 100%;
-    min-width: 1600px !important;
+    min-width: 1000px !important;
     border-collapse: collapse;
-    table-layout: fixed; /* KUNCI UTAMA anti rongga */
+    table-layout: fixed;
     background: #fff;
 }
 
+/* =========================
+   WRAPPER SCROLL HORIZONTAL
+   ========================= */
 .dash-slider {
     width: 100%;
-    overflow-x: auto !important;   
+    overflow-x: auto;
     overflow-y: hidden;
-    background: rgba(255,0,0,0.05);
 }
 
 .dash-slider::-webkit-scrollbar {
@@ -923,7 +979,7 @@ html, body {
 
 /* HEADER */
 .status-table thead th {
-    padding: 12px 10px;
+    padding: 8px 6px;
     font-size: 14px;
     font-weight: 700;
     text-align: left;
@@ -936,74 +992,61 @@ html, body {
     padding: 12px 10px;
     font-size: 14px;
     border-bottom: 1px solid #e5e7eb;
-    vertical-align: middle;
-    word-wrap: break-word;
-    word-break: break-word;
+    vertical-align: top;
 }
 
-/* =========================
-   COLUMN WIDTH (SEIMBANG)
+/* /* =========================
+   COLUMN WIDTH
    ========================= */
 
+/* No */
 .status-table th:nth-child(1),
 .status-table td:nth-child(1) {
-    width: 60px; /* No */
-    white-space: nowrap;
+    width: 60px;
 }
 
+/* Nama Ruangan */
 .status-table th:nth-child(2),
 .status-table td:nth-child(2) {
-    width: 180px; /* Nama Ruangan */
-    white-space: nowrap;
+    width: 170px;
 }
 
+/* Acara */
 .status-table th:nth-child(3),
 .status-table td:nth-child(3) {
-    width: 200px; /* Acara */
-    white-space: nowrap;
+    width: 200px;
 }
 
+/* Bidang (boleh multi-line) */
 .status-table th:nth-child(4),
 .status-table td:nth-child(4) {
-    width: 220px; /* Bidang */
-    white-space: nowrap;
-}
-
-/* 🔥 PAKSA KOLOM BIDANG TURUN BARIS */
-.approval-table td:nth-child(4),
-.approval-table th:nth-child(4) {
-    white-space: normal !important;
-    word-break: break-word;
+    width: 220px;
+    white-space: normal;
     line-height: 1.4;
 }
 
-
+/* Waktu */
 .status-table th:nth-child(5),
 .status-table td:nth-child(5) {
-    width: 170px; /* Waktu */
+    width: 160px;
     white-space: nowrap;
 }
 
+/* No Whatsapp */
 .status-table th:nth-child(6),
 .status-table td:nth-child(6) {
-    width: 150px; /* No Whatsapp */
+    width: 130px;
     white-space: nowrap;
 }
 
-.approval-table th:nth-child(5),
-.approval-table th:nth-child(6),
-.approval-table td:nth-child(5),
-.approval-table td:nth-child(6) {
-    padding-left: 6px;
-    padding-right: 6px;
-}
-
+/* Status */
 .status-table th:nth-child(7),
 .status-table td:nth-child(7) {
-    width: 140px; /* Status */
+    width: 120px;
     text-align: center;
     white-space: nowrap;
-}
+} */
+
 
 /* =========================
    TEXT RAPI (MULTI LINE)
@@ -1057,6 +1100,49 @@ html, body {
 .status-table tbody tr:hover {
     background: #f8fafc;
 }
+
+
+/* WAJIB: tabel jangan clip dropdown */
+.table-responsive {
+    overflow: visible !important;
+}
+
+/* wrapper */
+.status-filter-wrap {
+    position: relative;
+    overflow: visible;
+}
+
+/* button */
+.status-filter__btn {
+    all: unset;                 /* ⬅️ RESET TOTAL */
+    cursor: pointer;
+
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+
+
+/* tampil */
+.status-filter__menu.is-open {
+    display: flex;
+}
+
+/* item */
+
+
+.status-filter__item:hover {
+    background-color: #f3f4f6 !important;
+}
+
 
 /* =========================
    RESPONSIVE MOBILE
