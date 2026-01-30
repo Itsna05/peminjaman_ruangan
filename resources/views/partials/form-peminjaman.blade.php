@@ -85,12 +85,6 @@
                         </select>
                     </div>
 
-
-                    @php
-                        $ruangan = \Illuminate\Support\Facades\DB::table('ruangan')
-                                    ->get();
-                    @endphp
-
                     <div class="col-md-6">
                         <label class="form-label">Ruangan</label >
                         <select name="id_ruangan" class="form-select" required>
@@ -188,7 +182,7 @@
                             @forelse ($transaksi as $item)
                                 <tr data-status="{{ strtolower($item->status_peminjaman) }}">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->nama_ruangan }}</td>
+                                    <td>{{ $item->ruangan?->nama_ruangan ?? '-' }}</td>
                                     <td>{{ $item->acara }}</td>
                                     <td>
                                         <div class="tanggal">
@@ -203,12 +197,13 @@
 
                                     <td>
                                         <div class="bidang-nama">
-                                            {{ $item->bidang }}
+                                            {{ $item->bidang?->bidang ?? '-' }}
                                         </div>
                                         <div class="sub-bidang">
-                                            {{ $item->sub_bidang ?? '-' }}
+                                            {{ $item->bidang?->sub_bidang ?? '-' }}
                                         </div>
                                     </td>
+
                                     
                                     <td>{{ $item->no_wa }}</td>
 

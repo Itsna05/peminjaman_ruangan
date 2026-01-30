@@ -120,9 +120,10 @@
 
                             <td>{{ $loop->iteration }}</td>
 
-                            <td>{{ $t->nama_ruangan ?? '-' }}</td>
-                            <td>{{ $t->sub_bidang ?? '-' }}</td>
-                            <td>{{ $t->bidang ?? '-' }}</td>
+                            <td>{{ $t->ruangan->nama_ruangan ?? '-' }}</td>
+                            <td>{{ $t->bidang->sub_bidang ?? '-' }}</td>
+                            <td>{{ $t->bidang->bidang ?? '-' }}</td>
+
 
 
                             <td class="text-center">
@@ -183,7 +184,11 @@
         $formAction = route('peminjaman.store');
     @endphp
 
-    @include('partials.form-peminjaman')
+    @include('partials.form-peminjaman', [
+        'bidang' => $bidang,
+        'ruangan' => $ruangan,
+        'transaksi' => $transaksi
+    ])
 @endif
 
 

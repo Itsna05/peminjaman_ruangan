@@ -147,9 +147,6 @@ Route::middleware(['CekLogin:superadmin'])
         Route::get('/manajemen-user', [SuperAdminController::class, 'manajemenuser'])
             ->name('manajemenuser');
 
-        Route::get('/manajemen-peminjaman', [SuperAdminController::class, 'manajemenPeminjaman'])
-            ->name('manajemen-peminjaman');
-
         Route::get('/manajemen-ruangan', function () {
             return view('superadmin.manajemen-ruangan');
         })->name('manajemen-ruangan');
@@ -223,29 +220,3 @@ Route::middleware(['CekLogin:petugas,superadmin'])->group(function () {
     );
 
 });
-
-
-
-// Route::middleware(['CekLogin:superadmin'])
-//     ->prefix('superadmin')
-//     ->name('superadmin.')
-//     ->group(function () {
-
-//         Route::get('/dashboard', [SuperAdminController::class, 'index'])
-//             ->name('dashboard');
-
-//         Route::get('/manajemen-user', [SuperAdminController::class, 'manajemenuser'])
-//             ->name('manajemenuser');
-
-//         Route::get('/manajemen-peminjaman', [SuperAdminController::class, 'manajemenPeminjaman'])
-//             ->name('manajemen-peminjaman');
-
-//         Route::get('/manajemen-ruangan', function () {
-//             return view('superadmin.manajemen-ruangan');
-//         })->name('manajemen-ruangan');
-
-//         Route::post(
-//             '/bidang-pegawai/store',
-//             [SuperAdminController::class, 'storeBidang']
-//         )->name('bidang.store');
-//     });

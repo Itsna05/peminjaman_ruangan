@@ -12,21 +12,8 @@ class ManajemenPeminjamanController extends Controller
 
 public function index()
 {
-    $transaksi = DB::table('transaksi')
-        ->join('ruangan', 'transaksi.id_ruangan', '=', 'ruangan.id_ruangan')
-        ->leftJoin('bidang_pegawai', 'transaksi.id_bidang', '=', 'bidang_pegawai.id_bidang')
-        ->select(
-            'transaksi.id_peminjaman',
-            'transaksi.acara',
-            'transaksi.waktu_mulai',
-            'transaksi.waktu_selesai',
-            'transaksi.no_wa',
-            'transaksi.status_peminjaman',
-            'ruangan.nama_ruangan',
-            'bidang_pegawai.bidang',
-            'bidang_pegawai.sub_bidang'
-        )
-        ->orderByDesc('transaksi.id_peminjaman')
+    $transaksi = Transaksi::with(['ruangan', 'bidang'])
+        ->orderByDesc('id_peminjaman')
         ->get();
 
     $bidang = DB::table('bidang_pegawai')
@@ -45,6 +32,8 @@ public function index()
         'ruangan'
     ));
 }
+
+
 
 public function detail($id)
 {
