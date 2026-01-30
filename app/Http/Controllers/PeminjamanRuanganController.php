@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Transaksi;
 
 class PeminjamanRuanganController extends Controller
 {
@@ -15,23 +16,10 @@ class PeminjamanRuanganController extends Controller
         // ======================
         // DATA TRANSAKSI (TABEL)
         // ======================
-        $transaksi = DB::table('transaksi')
-            ->join('ruangan', 'transaksi.id_ruangan', '=', 'ruangan.id_ruangan')
-            ->leftJoin('bidang_pegawai', 'transaksi.id_bidang', '=', 'bidang_pegawai.id_bidang')
-            ->select(
-                'transaksi.id_peminjaman',
-                'transaksi.acara',
-                'transaksi.waktu_mulai',
-                'transaksi.waktu_selesai',
-                'transaksi.no_wa',
-                'transaksi.status_peminjaman',
-                'ruangan.nama_ruangan',
-                'bidang_pegawai.id_bidang',
-                'bidang_pegawai.bidang',
-                'bidang_pegawai.sub_bidang'
-            )
-            ->orderByDesc('transaksi.id_peminjaman')
-            ->get();
+
+        $transaksi = Transaksi::with(['ruangan','bidang'])
+        ->orderByDesc('id_peminjaman')
+        ->get();
 
         // ======================
         // MASTER BIDANG (UNIK)
@@ -41,7 +29,6 @@ class PeminjamanRuanganController extends Controller
             ->distinct()
             ->orderBy('bidang')
             ->get();
-
 
         // ======================
         // MASTER RUANGAN
