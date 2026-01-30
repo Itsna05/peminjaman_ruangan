@@ -85,9 +85,9 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('petugas.denah') ? 'active' : '' }}"
-                    href="{{ route('petugas.denah') }}">
-                     Manajemen Ruangan
+                <a class="nav-link {{ request()->routeIs('superadmin.manajemen-ruangan') ? 'active' : '' }}"
+                    href="{{ route('superadmin.manajemen-ruangan') }}">
+                        Manajemen Ruangan
                 </a>
             </li>
             <li class="nav-item">
@@ -111,7 +111,7 @@
             </li>
 
             <li class="nav-item">
-                <form action="{{ route('login') }}" method="POST">
+                <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="nav-link btn btn-link text-start">
                         Logout

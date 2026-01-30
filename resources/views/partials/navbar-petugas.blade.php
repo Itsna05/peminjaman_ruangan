@@ -100,11 +100,11 @@
             </li>
 
             <li class="nav-item">
-                <form action="{{ route('login') }}" method="POST">
+                <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="nav-link btn btn-link text-start">
                         Logout
-                        </button>
+                    </button>
                 </form>
             </li>
 
